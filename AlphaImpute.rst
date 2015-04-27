@@ -5,53 +5,53 @@ AlphaImpute
 Introduction
 ============
 
-AlphaImpute is a software package for imputing and phasing genotype data in populations with pedigree information available. The program uses segregation analysis and haplotype library imputation (SAHLI) to impute alleles and genotypes. A complete description of the methods is given in Hickey et al. (2011b). AlphaImpute consists of a single program however it calls both AlphaPhase1.1 (Hickey et al., 2011a) and GeneProbForAlphaImpute (Kerr and Kinghorn, 1996). All information on the model of analysis, input files and their layout, is specified in a single parameter file. 
+AlphaImpute is a software package for imputing and phasing genotype data in populations with pedigree information available. The program uses segregation analysis and haplotype library imputation (**SAHLI**) to impute alleles and genotypes. A complete description of the methods is given in Hickey et al., 2012 [1]_. AlphaImpute consists of a single program however it calls both AlphaPhase1.1 (Hickey et al., 2011 [2]_) and GeneProbForAlphaImpute (Kerr and Kinghorn, 1996 [3]_). All information on the model of analysis, input files and their layout, is specified in a single parameter file.
 
-Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to `John.Hickey@une.edu.au <John.Hickey@une.edu.au>`_.
-
+Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to `John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_ or `Roberto.Antolin@roslin.ed.ac.uk <roberto.antolin@roslin.ed.ac.uk>`_.
 
 Availability
-============
+------------
 
-AlphaImpute is available from:
-
-http://sites.google.com/site/hickeyjohn/alphaimpute 
+AlphaImpute is available from `AlphaGenes website <http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphaimpute/>`_.
 
 Material available comprises the compiled programs for 64 bit Linux and Mac OSX machines, together with a User Manual and a suite of worked examples.
 
 Conditions of use
-=================
+-----------------
 
 AlphaImpute is available to the scientific community free of charge. Users are required, however, to credit its use in any publications. Commercial users should contact John Hickey. 
 
 Suggested Citation: 
 
-Hickey et al. (2011). Segregation analysis and haplotype library imputation to impute SNP alleles in pedigreed populations. Genetics Selection Evolution.
+  Hickey, J. M., Kinghorn, B. P., Tier, B., van der Werf, J. H. J. and Cleveland, M. A., (2012). *A phasing and imputation method for pedigreed populations that results in a single-stage genomic evaluation*. Genetics Selection Evolution **44:9**
 
 Disclaimer
-==========
+----------
 
 While every effort has been made to ensure that AlphaImpute does what it claims to do, there is absolutely no guarantee that the results provided are correct. Use of AlphaImpute is entirely at your own risk!
 
 Advertisement
-=============
-Your welcome to check out our Gibbs sampler (AlphaBayes) specifically designed for GWAS and Genomic Selection. http://sites.google.com/site/hickeyjohn/alphabayes.
+-------------
+
+Your welcome to check out our Gibbs sampler (AlphaBayes) specifically designed for GWAS and Genomic Selection. http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphabayes/.
 
 Description of methods
-======================
+----------------------
+
 The method implemented in AlphaImpute is described in detail in Hickey et al. (2011).
 
 Using AlphaImpute
 =================
 
-.. warning:: AlphaImpute works for single chromosomes at a time only.
+.. note:: AlphaImpute works for single chromosomes at a time only.
 
 Input files
 -----------
 
 AlphaImputeSpec.txt
-...................
-An example of AlphaImputeSpec.txt is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma.::
+^^^^^^^^^^^^^^^^^^^
+
+An example of ``AlphaImputeSpec.txt`` is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
 
   PedigreeFile                      ,MyPedrigree.txt
   GenotypeFile                      ,NyGenos.txt
@@ -67,19 +67,28 @@ An example of AlphaImputeSpec.txt is shown in Figure 1. Everything to the left o
   PrepocessDataOnly                 ,No
   TrueGenotypeFile                  ,MyTrueGenos.txt
   
-Below is a description of what each line is does. It is important to note that AlphaImputeSpec.txt is case sensitive. Before proceeding, it is worth pointing out that internally AlphaImpute divides all the animals in the pedigree into to groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have are genotyped for enough SNP that they can have their haplotypes resolved by AlphaPhase1.1. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the use can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into AlphaPhase1.1 can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing.
+Below is a description of what each line does. It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Before proceeding, it is worth pointing out that internally AlphaImpute divides all the animals in the pedigree into two groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have been genotyped for enough SNP that they can have their haplotypes resolved by AlphaPhase1.1. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the user can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into AlphaPhase1.1 can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing (see AlphaPhase1.1 user manual for more information).
 
+PedigreeFile
+""""""""""""
 
+Gives the name of the file containing the pedigree information. Details on the format are below.
 
-**PedigreeFile** gives the name of the file containing the pedigree information. Details on the format are below.
+GenotypeFile
+""""""""""""
+Gives the name of the file containing the genotypes. Details on the format are below.
 
-**GenotypeFile** gives the name of the file containing the genotypes. Details on the format are below.
+NumberOfSnp
+"""""""""""
+Gives the number of SNP in the genotype file.
 
-**NumberOfSnp** gives the number of SNP in the genotype file.
+InternalEdit
+""""""""""""
+Specifies whether the program should edit the data internally or not. The two options are ``Yes`` or ``No`` (note these are case sensitive). Editing the data allows the program to remove SNP that are missing in too many animals / remove animals from the high-density group that have too many SNP that are missing. Editing the data may increase the speed and accuracy of the imputation. It is particularly important not to allow too many missing genotypes to enter the phasing step in AlphaPhase1.1 as this can dramatically increase the time required to complete the phasing and reduce the phasing accuracy.
 
-**InternalEdit** specifies whether the program should edit the data internally or not. The two options are Yes or No (note these are case sensitive). Editing the data allows the program to remove SNP that are missing in too many animals / remove animals from the high-density group that have too many SNP that are missing. Editing the data may increase the speed and accuracy of the imputation. It is particularly important not to allow too many missing genotypes to enter the phasing step in AlphaPhase1.1 as this can dramatically increase the time required to complete the phasing and reduce the phasing accuracy. 
-
-**EditingParameters** controls the internal editing that is invoked the InternalEdit option described above. The three numerical parameters control the internal editing while the case sensitive qualifier that controls the final output of the results with regard to the editing. The internal editing involves three steps run in sequence (Step 1, Step 2, and Step 3).
+EditingParameters
+"""""""""""""""""
+Controls the internal editing that is invoked the ``InternalEdit`` option described above. The three numerical parameters control the internal editing while the case sensitive qualifier controls the final output of the results with regard to the editing. The internal editing involves three steps run in sequence (Step 1, Step 2, and Step 3).
 
 The first numerical parameter controls Step 1, which divides the animals in the data into two initial groups, the high-density group, and the low-density group. Animals in the data set that are genotyped for more than XX.X% (In figure 1 this figure is 95.0%) of the SNP enter the high‐density group, with the remainder entering the low-density group. 
 
@@ -87,9 +96,11 @@ The second numerical parameter controls Step 2, which removes some SNP from the 
 
 The third numerical parameter controls Step 3, which finalises the animals in the high-density group. It is similar to that of the first numerical parameter in that it divides the data into two groups, the finalised high-density group and low-density group. The animals in the data set that are genotyped for more than XX.X% (In figure 1 this figure is 98.0) of the SNP that remain after Step 2 has removed some SNP enter the finalised high-density set. The remaining animals enter the finalised low density set. The final high-density group is passed to AlphaPhase1.1 to be phased. 
 
-The case sensitive qualifier controls the SNP for which results are outputted and it has two options AllSnpOut or EditedSnpOut (not that these are case sensitive). AllSnpOut produces output for all the SNP that are inputted. EditedSnpOut produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file **EditingSnpSummary.txt** which is described below.
+The case sensitive qualifier controls the SNP for which results are outputted and it has two options ``AllSnpOut`` or ``EditedSnpOut`` (note that these are case sensitive). ``AllSnpOut`` produces output for all the SNP that are inputted. ``EditedSnpOut`` produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file *EditingSnpSummary.txt* which is described below.
 
-**NumberOfPairsOfPhasingRounds** has two alternatives.
+NumberOfPairsOfPhasingRounds
+""""""""""""""""""""""""""""
+Has two alternatives.
 
 *Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high‐density group. The minimum for this number is 2 while the maximum is 30::
 
@@ -108,7 +119,7 @@ The case sensitive qualifier controls the SNP for which results are outputted an
   TrueGenotypeFile                  ,MyTrueGenos.txt
 
 
-It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in  ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and Offset/NotOffset modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (an their tails) is outlined in Hickey et al. (2011). *Offset/NotOffset* mode is described below. 
+It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (an their tails) is outlined in Hickey et al. (2011) [2]_. *Offset/NotOffset* mode is described below. 
 
 *Alternative 2* can be used to read in data sets that have been previously phased by AlphaPhase1.1::
 
@@ -129,13 +140,13 @@ It is worth pointing out that a pair of rounds comprises one round with AlphaPha
 
 This allows users to read in results of previous phasing work. Three parameters are required here. 
 
-The first is the case sensitive qualifier PhaseDone. This specifies that the phasing rounds that have been done previously. 
+The first is the case sensitive qualifier ``PhaseDone``. This specifies that the phasing rounds that have been done previously. 
 
-The second is the complete path to where these phasing rounds are stored. This path must be surrounded by quotations (e.g. “/here/is/the/full/path/”). 
+The second is the complete path to where these phasing rounds are stored. This path must be surrounded by quotations (e.g. ``“/here/is/the/full/path/”``). 
 
-The third is the number of phasing jobs that are to be read from the folder. The folders containing each of the phasing rounds must be labelled Phase1, Phase2, ..., PhaseN, where N is the number of phasing rounds. It is important to realise that Alternative 1 (described above) for NumberOfPhasingRounds sets a number that is half the actual number of phasing rounds carried out (because of it specifes the number of pairs of rounds rather than rounds). Therefore it is good to check how many phasing rounds are actually in the folder you are reading in. 
+The third is the number of phasing jobs that are to be read from the folder. The folders containing each of the phasing rounds must be labelled Phase1, Phase2, ..., PhaseN, where N is the number of phasing rounds. It is important to realise that *Alternative 1* (described above) for ``NumberOfPhasingRounds`` sets a number that is half the actual number of phasing rounds carried out (because of it specifes the number of pairs of rounds rather than rounds). Therefore it is good to check how many phasing rounds are actually in the folder you are reading in. 
 
-The second alternative can be used in conjunction with **PreProcessDataOnly** (descried below) to give greater control on the computational time required to perform the phasing. An example of how this would work is given in detail in the Example section (PreProcessDataExample).
+The second alternative can be used in conjunction with **PreProcessDataOnly** (descried below) to give greater control on the computational time required to perform the phasing. An example of how this would work is given in detail in the `Examples`_ section (PreProcessDataExample).
 
 **CoreAndTailLengths** gives the overall length in terms of numbers of SNP of the core and its adjacent tails for each of the phasing runs. The concept of cores and tails is outlined in Hickey et al. (2011). For example if the CoreLengths (described below) value is 100 and the CoreAndTailLengths is 300 this means that the core is 100 SNP long and the tails are the 100 SNP adjacent to each end of the core, thus the length of the core and tail is 300 SNP. At the end of a chromosome, the tail can only extend in one direction. Thus in this case the core and tail length would only be 200 SNP, the 100 SNP in the core, and the 100 SNP adjacent to the one end of the core. The total number of CoreAndTailLengths specified must equal the number specified for NumberOfPairsOfPhasingRounds (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreAndTailLengths specified).
 
@@ -185,11 +196,13 @@ Data format
 The program generally requires two input files, a pedigree file and a genotype file.
 
 Pedigree file
-.............
+^^^^^^^^^^^^^
+
 The pedigree file should have three columns, individual, father, and mother. It should be space or comma separated with for missing parents coded as 0. No header line should be included in the pedigree file both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this.
 
 Genotype file
-.............
+^^^^^^^^^^^^^
+
 The genotype information should be contained in a single file containing 1 line for each individual. The first column of this file should contain the individual’s identifier with numeric and alphanumeric formats being acceptable. The next columns should contain the SNP information with a single column for each SNP where the genotypes are coded as 0’s, 1’s, and 2’s and missing genotypes are coded as another integer between 3 and 9 (e.g. 3), with 0 being homozygous aa, 1 being heterozygous aA or Aa, and 2 being homozygous AA. The genotype file should not have a header line.
 
 Output
@@ -197,27 +210,32 @@ Output
 The output of AlphaImpute is organised into a number sub directories (**Results and Miscellaneous**, and in the case of when a true genotype data file is supplied **TestAlphaImpute**). A description of what is contained within these folders is given below.
 
 Results
-.......
+^^^^^^^
+
 The folder **Results** contains four files.
 
 Genotype data
-,,,,,,,,,,,,,
+"""""""""""""
+
 ImputeGenotypeProbabilities.txt is the primary genotype output file. It contains, for each SNP and each animal in the pedigree, a real number, the genotype probability, which is the sum of the two allele probabilities (i.e. the genotype) at that locus. Therefore genotypes are coded as real numbers between 0 and 2. The first column is the Animal Id, with the subsequent columns being for each SNP. 
 
 ImputeGenotypes.txt is the secondary genotype output file. It contains a genotype for each SNP and each animal in the pedigree where it was possible to match it to a haplotype or was already genotyped. SNP that could not be matched or were not genotyped are denoted as being missing by a 9 (in the previous file these missing values were replaced with genotype probabilities). The first column is the Animal Id, with the subsequent columns being for each SNP.
 
 Phased data
-,,,,,,,,,,,
+"""""""""""
+
 ImputePhaseProbabilities.txt is the primary output file containing phased data. It contains an allele probability for each of the two alleles of each SNP and each animal in the pedigree. The first column is the Animal Id, with the subsequent columns being for each SNP. Each animal has two rows, with the first of these being for the paternal gamete and the second being for the maternal gamete. Alleles are coded as real numbers between 0 and 1 (i.e. probability of allele being a 1).
 
 ImputePhase.txt is the secondary output file containing phased data. It contains an allele for each of the two alleles of each SNP and each animal in the pedigree where it was possible to match it to a haplotype. Alleles that could not be matched these are denoted by a 9 as being missing. The first column is the Animal Id, with the subsequent columns being for each SNP. Each animal has two rows, with the first of these being for the paternal gamete and the second being for the maternal gamete. Alleles are coded as integers either 0 or 1 with missing alleles set to 9 (in the previous file these missing values were replaced with allele probabilities).
 
 Miscellaneous
-,,,,,,,,,,,,,
+"""""""""""""
+
 **Miscellaneous** contains files that summarise the editing of the data. EditingSnpSummary.txt contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-­‐density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). Timer.txt contains the time takes to complete the task.
 
 TestAlphaImpute
-,,,,,,,,,,,,,,,
+"""""""""""""""
+
 **TestAlphaImpute** is only invoked if a TrueGenotypeFile is supplied. The resulting folder contains four files. 
 
 IndividualAnimalAccuracy.txt contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had (1 being both parents genotyped, 2 being sire and maternal grandsire genotyped, 3 being dam and paternal grandsire genotyped, 4 being sire genotyped, 5 being dam genotyped, and 6 being any other scenario; An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP), and the next columns are for each of the SNP, with the coding 1 being for SNP correctly imputed, 2 being for SNP incorrectly imputed, 3 being for SNP not imputed, and 4 being for SNP that were already genotyped. 
@@ -228,10 +246,12 @@ IndividualSummaryYield.txt summarises the yield in terms of the percentage of pa
 
 Offset/NotOffset mode
 =====================
+
 AlphaPhase1.1 can be run in an Offset mode or a NotOffset mode. The NotOffset mode means that the cores start at the first SNP. The Offset mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length along (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in NotOffset phases several cores, then running the program in Offset mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the NotOffset mode and the Offset mode.
 
 Examples
 --------
+
 In the download there is a directory called Examples. In Examples the example outlined here is contained. 
 
 The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file RecodedPicPedigree.txt. The genotypes are in the file PicGenotypeFile.txt and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as 0,1,2 and the missing SNP as 9. PicTrueGenotypeFile.txt is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the TrueGenotypeFile in the examples that test the program.
@@ -245,7 +265,8 @@ Three example scenarios are given.
 .. warning:: Beginners should focus on Example 2
 
 Example 1. How to run the program to impute genotypes
-.....................................................
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 We call this Example 1 and it is store in the directory Example/Example1 of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains AlphaImputeSpec.txt which has suitable parameters set to achieve the goal.
 
 The parameters of interest are described below.
@@ -264,8 +285,9 @@ The number of internal iterations has been set to 3.
 
 No true genotype is supplied hence this parameter is set to None.
 
-Example 2. How to run the program to first pre-­‐process the data and then run it by reading in previously phased data
-......................................................................................................................
+Example 2. How to run the program to first pre-process the data and then run it by reading in previously phased data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 There are two reasons as to why a user might want to run the program using this strategy. Firstly the pre-processing steps can be used to observe how different InternalEdit settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run AlphaImpute with the PreprocessDataOnly set to Yes, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run AlphaImpute with the PreprocessDataOnly set to No and the NumberOfPairsOfPhasingRounds set to PhaseDone.
 
 A full worked example of this is given in the directory Examples/Example2 of the download. The folder contains AlphaImputeSpec.txt which is completely empty but will be filled appropriately as we proceed. 
@@ -277,7 +299,7 @@ The next thing that must be done is that the directory “Phasing” should be r
 Once the phasing rounds have been finished AlphaImpute can be re-run. The parameters to do this are in Run2AlphaImputeSpec.txt and these can now be copied into AlphaImputeSpec.txt in place of the previously copied parameters.
 
 Example 3. How to run the program to impute genotypes and test the imputation accuracy
-......................................................................................
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Run the program in pre-­‐processing mode with parameters as set in figure 4.
 
@@ -295,9 +317,20 @@ Background reading
 ==================
 The following papers are available at http://sites.google.com/site/hickeyjohn/publications.
 
-#. Long range phasing and haplotype imputation for improved genomic selection calibrations. 2009. Hickey, J.M., B. P. Kinghorn and J.H.J. van der Werf. Statistical Genetics of Livestock for thePost-­‐Genomic Era. University of Wisconsin -­‐ Madison, USA May 4-­‐6, 2009 
-#. Phasing of SNP data by combined recursive long range phasing and long range haplotype imputation. 2009. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. Proceedings of AAABG. Pages 72 – 75. 
-#. A recursive algorithm for long range phasing of SNP genotypes. 2009. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. Proceedings of AAABG. Pages 76 – 79. 
-#. Recursive Long Range Phasing And Long Haplotype Library Imputation: Application to Building A Global Haplotype Library for Holstein cattle. 2010. Hickey, J.M., Kinghorn, B.P., Cleveland, M., Tier, B. and van der Werf, J.H.J. (Accepted at 9 th WCGALP). 
-#. Reciprocal recurrent genomic selection (RRGS) for total genetic merit in crossbred individuals. 2010. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. (Accepted at 9 th WCGALP). 
-#. Determining phase of genotype data by combined recursive long range phasing and long range haplotype imputation. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. (To be submitted)
+.. [1] Hickey, J. M., Kinghorn, B. P., Tier, B., van der Werf, J. HJ. and Cleveland, M. A. (2012) `A phasing and imputation method for pedigreed populations that results in a single-stage genomic evaluation <http://www.gsejournal.org/content/44/1/9>`_. Genetics Selection Evolution 44:9
+
+.. [2] Hickey, J. M., Kinghorn, B. P., Tier, B., Wilson, J. F., Dunstan, N. and van der Werf, J. HJ. (2011) `A combined long-range phasing and long haplotype imputation method to impute phase for SNP genotypes <http://www.gsejournal.org/content/43/1/12>`_. Genetics Selection Evolution 43:12
+
+.. [3] Kerr, R. J. and Kinghorn, B. P., 1996. `An efficient algorithm for segregation analysis in large populations <http://onlinelibrary.wiley.com/doi/10.1111/j.1439-0388.1996.tb00636.x/abstract>`_. Journal of Animal Breeding and Genetics 113: 457-469
+
+#. Hickey, J.M., Kinghorn, B. P. and van der Werf, J.H.J. Long range phasing and haplotype imputation for improved genomic selection calibrations. Statistical Genetics of Livestock for thePost-­‐Genomic Era. University of Wisconsin -­‐ Madison, USA May 4-­‐6, 2009
+
+#. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. (2009) Phasing of SNP data by combined recursive long range phasing and long range haplotype imputation. Proceedings of AAABG. Pages 72 – 75.
+
+#. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. (2009) A recursive algorithm for long range phasing of SNP genotypes. Proceedings of AAABG. Pages 76 – 79.
+
+#. Hickey, J.M., Kinghorn, B.P., Cleveland, M., Tier, B. and van der Werf, J.H.J. (2010) Recursive Long Range Phasing And Long Haplotype Library Imputation: Application to Building A Global Haplotype Library for Holstein cattle. (Accepted at 9 th WCGALP).
+
+#. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. Reciprocal recurrent genomic selection (RRGS) for total genetic merit in crossbred individuals. 2010. (Accepted at 9 th WCGALP).
+
+#. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. Determining phase of genotype data by combined recursive long range phasing and long range haplotype imputation. (To be submitted)
