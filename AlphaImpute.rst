@@ -48,6 +48,9 @@ Using AlphaImpute
 
 .. note:: AlphaImpute works for single chromosomes at a time only.
 
+.. note:: AlphaImpute seeks to maximise the correlation between true and imputed markers while minimising the percentage of markers imputed incorrectly. It does not seek to maximise the percentage of markers correctly imputed as this would involve “cheating” and “guessing”, therefore it is not advisable to evaluate the performance of the program based on the percentage of alleles correctly imputed. For a discussion on this topic please consult (Hickey et al., 2012 -­‐ Factors affecting the accuracy of genotype imputation in populations from several maize breeding programs. Crop Science 52 (2) 654-­‐663)).
+
+
 Input files
 -----------
 
@@ -68,6 +71,7 @@ An example of ``AlphaImputeSpec.txt`` is shown in Figure 1. Everything to the le
   NumberOfProcessorsAvailable       ,20
   InternalIterations                ,3
   PrepocessDataOnly                 ,No
+  RestartOption                     ,3
   TrueGenotypeFile                  ,MyTrueGenos.txt
   
 Below is a description of what each line does. It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Before proceeding, it is worth pointing out that internally AlphaImpute divides all the animals in the pedigree into two groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have been genotyped for enough SNP that they can have their haplotypes resolved by AlphaPhase1.1. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the user can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into AlphaPhase1.1 can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing (see AlphaPhase1.1 user manual for more information).
@@ -103,7 +107,7 @@ The case sensitive qualifier controls the SNP for which results are outputted an
 
 NumberOfPairsOfPhasingRounds
 """"""""""""""""""""""""""""
-Has two alternatives.
+This parameter admits two alternatives.
 
 *Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high‐density group. The minimum for this number is 2 while the maximum is 30::
 
@@ -119,6 +123,7 @@ Has two alternatives.
   NumberOfProcessorsAvailable       ,20
   InternalIterations                ,3
   PrepocessDataOnly                 ,No
+  RestartOption                     ,3
   TrueGenotypeFile                  ,MyTrueGenos.txt
 
 
@@ -138,6 +143,7 @@ It is worth pointing out that a pair of rounds comprises one round with AlphaPha
   NumberOfProcessorsAvailable       ,20
   InternalIterations                ,3
   PrepocessDataOnly                 ,No
+  RestartOption                     ,3
   TrueGenotypeFile                  ,MyTrueGenos.txt
  
 
@@ -156,6 +162,8 @@ The second alternative can be used in conjunction with **PreProcessDataOnly** (d
 **CoreLengths** gives the overall length in terms of numbers of SNPs of each core. The CoreLengths can never be longer than its corresponding CoreAndTailLengths. The total number of CoreLengths specified must equal the number specified for NumberOfPairsOfPhasingRounds (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreLengths specified).
 
 The order of the CoreAndTailLengths must correspond to the order of the CoreLengths (i.e. in figure 2 the CoreAndTailLenghts 200 is for the first pair of phasing runs and corresponds to the CoreLenths 100.
+ 
+**PedigreeFreePhasing** tells the program to perform the long-range phasing step of AlphaPhase1.1 without using pedigree information. In some cases this may be quicker and more accurate, but it is not likely to be commonly applicable (the command options to the right of the comma are a case sensitive ``No`` or ``Yes``.
 
 **GenotypeErrorPercentage** gives the percentage of SNP that are allowed to be missing or in conflict across the entire core and tail length during the surrogate definition in AlphaPhase1.1. A value of 1.00 (i.e. 1%) means that across a CoreAndTailLengths of 300 SNPs, 3 of these SNP are allowed to be missing or in disagreement between two otherwise compatible surrogate parents. Thus these two individuals are allowed to be surrogate parents of each other in spite of the fact that 1% of their genotypes are missing or are in conflict (i.e. opposing homozygotes). Small values are better (e.g. <1.0%). See the manual for AlphaPhase1.1 for more details.
 
@@ -171,7 +179,22 @@ No sets the program do a complete imputation run.
 
 The *Yes* option is useful for getting to know your data set. The different data **EditingParameters** alter the number of SNP to be included in the analysis, and alter the numbers of animals that are included in the high-density group that is passed to AlphaPhase1.1. These numbers are printed to the screen. It is best to try different editing options to tune to each data set. Pre-­‐processing the data creates the files for the phasing rounds. The phasing rounds can then be run external to AlphaImpute to see if the phasing parameters (CoreLengths, CoreAndTailLengths, GenotypeErrorPercentage) are appropriate in terms of speed and phasing yield for the EditingParameters used on the data set.
 
-The phasing rounds can be then run directly by the user by first running the program with PreProcessDataOnly set to Yes, then Renaming the folder Phase to something else (e.g. PhasePreProcess because the folder Phase gets deleted each time you run the program) and then the program can be rerun with PreProcessDataOnly set to No and having the NumberOfPhasingRuns altered so that it reads the Phasing rounds in the PhasePreProcess folder (N.B. Check the number of folders in this folder, you don’t want to leave phase rounds behind!!!!!). This option allows the user to tweak the phasing parameters.
+The phasing rounds can be then run directly by the user by first running the program with PreProcessDataOnly set to Yes, then Renaming the folder Phase to something else (e.g. PhasePreProcess because the folder Phase gets deleted each time you run the program) and then the program can be rerun with PreProcessDataOnly set to No and having the NumberOfPhasingRuns altered so that it reads the Phasing rounds in the PhasePreProcess folder (N.B. Check the number of folders in this folder, you don’t want to leave phase rounds behind!). This option allows the user to tweak the phasing parameters.
+
+
+**UserDefinedAlphaPhaseAnimalsFile** gives the user an option to read in a list of individuals that are phased using long-range phasing in AlphaPhase1.1. Specify ``None`` to the right of the comma if no file is to be read in, specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a single column of the ID’s of the individuals to be sent to AlphaPhase1.1. This option is useful for routine runs involving large data sets.
+
+
+
+
+
+
+**PrePhasedFile** gives the option to read in pre-­‐phased data (e.g. phased by a previous roung of AlphaImpute or by another program such as a half-­‐sib haplotyping program. Specify ``None`` to the right of the comma if no file is to be read in, specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a two lines for each individual, the first line being its phased paternal gamete (alleles coded as 0 or 1 or another integer (e.g. 3) for missing alleles) and the second line being the phased maternal gamete. The first column should be a the ID’s of the individuals. The file takes the same format as ``ImputePhase.txt`` in the Results section of AlphaImpute. Care must be taken here to ensure that only reliable phased individuals are included when using this option.
+
+
+
+
+**RestartOption** controls AlphaImpute admits four different integer values: ``0, 1, 2, 3``.
 
 **TrueGenotypeFile** gives the name of the file containing the true genotypes if you want to test the program. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to None (e.g. figure 3.) Testing the program can be useful when applying the program to a new population, perhaps you should mask some SNP in a small percentage of your animals and see how it performs imputing them!!!
 
@@ -187,6 +210,7 @@ The phasing rounds can be then run directly by the user by first running the pro
   NumberOfProcessorsAvailable       ,20
   InternalIterations                ,3
   PrepocessDataOnly                 ,No
+  RestartOption                     ,3
   TrueGenotypeFile                  ,None
 
 Advice on values for parameters
@@ -259,11 +283,12 @@ In the download there is a directory called Examples. In Examples the example ou
 
 The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file RecodedPicPedigree.txt. The genotypes are in the file PicGenotypeFile.txt and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as 0,1,2 and the missing SNP as 9. PicTrueGenotypeFile.txt is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the TrueGenotypeFile in the examples that test the program.
 
-Three example scenarios are given.
+Four example scenarios are given.
 
 #. Run the program to impute genotype.
 #. Run the program to first pre-process the data and the run it by reading in previously phased data.
 #. Run the program to imput genotypes and test the imputation accuracy.
+#. Run the program to impute genotypes and test the imputation accuracy on a sex chromosome.
 
 .. warning:: Beginners should focus on Example 2
 
@@ -308,7 +333,12 @@ Run the program in pre-­‐processing mode with parameters as set in figure 4.
 
 Rename the Phase folder to PhaseOld and then re-run the program with the pre-processing turned off as shown in figure 5. Note that NumberOfPhasingRuns has now got the full path and that the number of phasing rounds is 20 instead of the 10 (to account for the Offset/NotOffest). 
 
-For this data set 10 Phasing rounds were done (effectively 20 as each of the 10 is in fact a pair of 2). The CoreLengths ranged from 100 SNP to 700 SNP in length while the CoreAndTailLengths ranged from 200 to 800 SNP in length. Shorter cores and tails would have increased the computational time considerably as would have increasing the GenotypeErrorPercenatage above the value of 0.05% used. The EditingParameters ensured that the final high-density data set was genotyped for more than 98% of the SNP and that all SNP were outputted. 
+For this data set 10 Phasing rounds were done (effectively 20 as each of the 10 is in fact a pair of 2). The CoreLengths ranged from 100 SNP to 700 SNP in length while the CoreAndTailLengths ranged from 200 to 800 SNP in length. Shorter cores and tails would have increased the computational time considerably as would have increasing the GenotypeErrorPercenatage above the value of 0.05% used. The EditingParameters ensured that the final high-density data set was genotyped for more than 98% of the SNP and that all SNP were outputted.
+
+
+Example 4. How to run the program to impute genotypes and test the imputation accuracy on a sex chromosome
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Contact John Hickey
 
 An extensive example file is downloadable from:
 
