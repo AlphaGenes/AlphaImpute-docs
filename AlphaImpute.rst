@@ -354,7 +354,9 @@ The following papers are available at http://sites.google.com/site/hickeyjohn/pu
 
 .. [2] Hickey, J. M., Kinghorn, B. P., Tier, B., Wilson, J. F., Dunstan, N. and van der Werf, J. HJ. (2011) `A combined long-range phasing and long haplotype imputation method to impute phase for SNP genotypes <http://www.gsejournal.org/content/43/1/12>`_. Genetics Selection Evolution 43:12
 
-.. [3] Kerr, R. J. and Kinghorn, B. P., 1996. `An efficient algorithm for segregation analysis in large populations <http://onlinelibrary.wiley.com/doi/10.1111/j.1439-0388.1996.tb00636.x/abstract>`_. Journal of Animal Breeding and Genetics 113: 457-469
+.. [3] Kerr, R. J. and Kinghorn, B. P., (1996). `An efficient algorithm for segregation analysis in large populations <http://onlinelibrary.wiley.com/doi/10.1111/j.1439-0388.1996.tb00636.x/abstract>`_. Journal of Animal Breeding and Genetics 113: 457-469
+
+.. [4] Li, Y., Willer, C.J., Ding, J., Scheet, P., Abecasis, G.R. (2010). `MaCH: using sequence and genotype data to estimate haplotypes and unobserved genotypes <http://onlinelibrary.wiley.com/doi/10.1002/gepi.20533/full>`_. Genetic Epidemiology 34(8): 816-834.
 
 #. Hickey, J.M., Kinghorn, B. P. and van der Werf, J.H.J. Long range phasing and haplotype imputation for improved genomic selection calibrations. Statistical Genetics of Livestock for thePost-­‐Genomic Era. University of Wisconsin -­‐ Madison, USA May 4-­‐6, 2009
 
