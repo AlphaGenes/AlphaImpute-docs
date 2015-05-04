@@ -157,46 +157,115 @@ The third is the number of phasing jobs that are to be read from the folder. The
 
 The second alternative can be used in conjunction with **PreProcessDataOnly** (descried below) to give greater control on the computational time required to perform the phasing. An example of how this would work is given in detail in the `Examples`_ section (PreProcessDataExample).
 
-**CoreAndTailLengths** gives the overall length in terms of numbers of SNP of the core and its adjacent tails for each of the phasing runs. The concept of cores and tails is outlined in Hickey et al. (2011). For example if the CoreLengths (described below) value is 100 and the CoreAndTailLengths is 300 this means that the core is 100 SNP long and the tails are the 100 SNP adjacent to each end of the core, thus the length of the core and tail is 300 SNP. At the end of a chromosome, the tail can only extend in one direction. Thus in this case the core and tail length would only be 200 SNP, the 100 SNP in the core, and the 100 SNP adjacent to the one end of the core. The total number of CoreAndTailLengths specified must equal the number specified for NumberOfPairsOfPhasingRounds (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreAndTailLengths specified).
 
-**CoreLengths** gives the overall length in terms of numbers of SNPs of each core. The CoreLengths can never be longer than its corresponding CoreAndTailLengths. The total number of CoreLengths specified must equal the number specified for NumberOfPairsOfPhasingRounds (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreLengths specified).
+CoreAndTailLengths
+""""""""""""""""""
+Gives the overall length in terms of numbers of SNP of the core and its adjacent tails for each of the phasing runs. The concept of cores and tails is outlined in Hickey et al. (2011). For example if the CoreLengths (described below) value is 100 and the CoreAndTailLengths is 300 this means that the core is 100 SNP long and the tails are the 100 SNP adjacent to each end of the core, thus the length of the core and tail is 300 SNP. At the end of a chromosome, the tail can only extend in one direction. Thus in this case the core and tail length would only be 200 SNP, the 100 SNP in the core, and the 100 SNP adjacent to the one end of the core. The total number of CoreAndTailLengths specified must equal the number specified for NumberOfPairsOfPhasingRounds (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreAndTailLengths specified).
+
+
+CoreLengths
+"""""""""""
+Gives the overall length in terms of numbers of SNPs of each core. The CoreLengths can never be longer than its corresponding CoreAndTailLengths. The total number of CoreLengths specified must equal the number specified for NumberOfPairsOfPhasingRounds (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreLengths specified).
 
 The order of the CoreAndTailLengths must correspond to the order of the CoreLengths (i.e. in figure 2 the CoreAndTailLenghts 200 is for the first pair of phasing runs and corresponds to the CoreLenths 100.
- 
-**PedigreeFreePhasing** tells the program to perform the long-range phasing step of AlphaPhase1.1 without using pedigree information. In some cases this may be quicker and more accurate, but it is not likely to be commonly applicable (the command options to the right of the comma are a case sensitive ``No`` or ``Yes``.
 
-**GenotypeErrorPercentage** gives the percentage of SNP that are allowed to be missing or in conflict across the entire core and tail length during the surrogate definition in AlphaPhase1.1. A value of 1.00 (i.e. 1%) means that across a CoreAndTailLengths of 300 SNPs, 3 of these SNP are allowed to be missing or in disagreement between two otherwise compatible surrogate parents. Thus these two individuals are allowed to be surrogate parents of each other in spite of the fact that 1% of their genotypes are missing or are in conflict (i.e. opposing homozygotes). Small values are better (e.g. <1.0%). See the manual for AlphaPhase1.1 for more details.
 
-**NumberOfProcessorsAvailable** sets the number of processors you want to use to complete the tasks. Setting more processors will reduce the computational time because the program will parallelise the calculation of the genotype probabilities and the phasing rounds.
+PedigreeFreePhasing
+"""""""""""""""""""
+Tells the program to perform the long-range phasing step of AlphaPhase1.1 without using pedigree information. In some cases this may be quicker and more accurate, but it is not likely to be commonly applicable (the command options to the right of the comma are a case sensitive ``No`` or ``Yes``.
 
-**InternalIterations** controls the number of iterations of the internal haplotype matching and imputation steps. A good number for this parameter is 3.
+
+GenotypeErrorPercentage
+"""""""""""""""""""""""
+Gives the percentage of SNP that are allowed to be missing or in conflict across the entire core and tail length during the surrogate definition in AlphaPhase1.1. A value of 1.00 (i.e. 1%) means that across a CoreAndTailLengths of 300 SNPs, 3 of these SNP are allowed to be missing or in disagreement between two otherwise compatible surrogate parents. Thus these two individuals are allowed to be surrogate parents of each other in spite of the fact that 1% of their genotypes are missing or are in conflict (i.e. opposing homozygotes). Small values are better (e.g. <1.0%). See the manual for AlphaPhase1.1 for more details.
+
+
+NumberOfProcessorsAvailable
+"""""""""""""""""""""""""""
+Sets the number of processors you want to use to complete the tasks. Setting more processors will reduce the computational time because the program will parallelise the calculation of the genotype probabilities and the phasing rounds.
+
+
+InternalIterations
+""""""""""""""""""
+Controls the number of iterations of the internal haplotype matching and imputation steps. A good number for this parameter is 3.
+
+
+PrepocessDataOnly
+"""""""""""""""""
+Has two options ``Yes`` or ``No``.
+
+``Yes`` sets the program so that it stops after it has pre-processed the data and set up the files for the analysis.
   
-**PreProcessDataOnly** has two options *Yes* or *No*.
+``No`` sets the program do a complete imputation run.
 
-Yes sets the program so that it stops after it has pre-processed the data and set up the files for the analysis.
-  
-No sets the program do a complete imputation run.
-
-The *Yes* option is useful for getting to know your data set. The different data **EditingParameters** alter the number of SNP to be included in the analysis, and alter the numbers of animals that are included in the high-density group that is passed to AlphaPhase1.1. These numbers are printed to the screen. It is best to try different editing options to tune to each data set. Pre-­‐processing the data creates the files for the phasing rounds. The phasing rounds can then be run external to AlphaImpute to see if the phasing parameters (CoreLengths, CoreAndTailLengths, GenotypeErrorPercentage) are appropriate in terms of speed and phasing yield for the EditingParameters used on the data set.
+The ``Yes`` option is useful for getting to know your data set. The different data **EditingParameters** alter the number of SNP to be included in the analysis, and alter the numbers of animals that are included in the high-density group that is passed to AlphaPhase1.1. These numbers are printed to the screen. It is best to try different editing options to tune to each data set. Pre-­‐processing the data creates the files for the phasing rounds. The phasing rounds can then be run external to AlphaImpute to see if the phasing parameters (CoreLengths, CoreAndTailLengths, GenotypeErrorPercentage) are appropriate in terms of speed and phasing yield for the EditingParameters used on the data set.
 
 The phasing rounds can be then run directly by the user by first running the program with PreProcessDataOnly set to Yes, then Renaming the folder Phase to something else (e.g. PhasePreProcess because the folder Phase gets deleted each time you run the program) and then the program can be rerun with PreProcessDataOnly set to No and having the NumberOfPhasingRuns altered so that it reads the Phasing rounds in the PhasePreProcess folder (N.B. Check the number of folders in this folder, you don’t want to leave phase rounds behind!). This option allows the user to tweak the phasing parameters.
 
 
-**UserDefinedAlphaPhaseAnimalsFile** gives the user an option to read in a list of individuals that are phased using long-range phasing in AlphaPhase1.1. Specify ``None`` to the right of the comma if no file is to be read in, specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a single column of the ID’s of the individuals to be sent to AlphaPhase1.1. This option is useful for routine runs involving large data sets.
+UserDefinedAlphaPhaseAnimalsFile
+""""""""""""""""""""""""""""""""
+Gives the user an option to read in a list of individuals that are phased using long-range phasing in AlphaPhase1.1. Specify ``None`` to the right of the comma if no file is to be read in, specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a single column of the ID’s of the individuals to be sent to AlphaPhase1.1. This option is useful for routine runs involving large data sets.
 
 
+PrePhasedFile
+"""""""""""""
+Gives the option to read in pre-phased data (e.g. phased by a previous roung of AlphaImpute or by another program such as a half-sib haplotyping program. Specify ``None`` to the right of the comma if no file is to be read in, specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a two lines for each individual, the first line being its phased paternal gamete (alleles coded as 0 or 1 or another integer (e.g. 3) for missing alleles) and the second line being the phased maternal gamete. The first column should be a the ID’s of the individuals. The file takes the same format as ``ImputePhase.txt`` in the Results section of AlphaImpute. Care must be taken here to ensure that only reliable phased individuals are included when using this option.
+
+PhaseOnly
+"""""""""
+
+ConservativeHaplotypeLibraryUse
+"""""""""""""""""""""""""""""""
+
+WellPhasedThreshold
+"""""""""""""""""""
+
+BypassGenProb
+"""""""""""""
+
+RestartOption
+"""""""""""""
+Controls AlphaImpute admits four different integer values: ``0, 1, 2, 3``.
+
+HMMOptions
+""""""""""
+AlphaImpute allows to carry out a hidden Markov model (HMM) in order to impute missing genotypes. HMM algorithms are very flexible performing well in unrelated samples and being applicable in most genome regions computing genotype dosages, where heuristic methods fail if rules are not met.
+
+HMM imputation methods try to explain the genotype of a particular locus as generated by a hidden state known the previous state. The number of states determines the computational complexity of HMM algorithms. Commonly HMM methods are defined by the transition probabilities between states and the emission probabilities, or the probability of observe a genotype given a particular state.
+
+The HMM implemented in Alphaimpute is fully describe in Li et al., 2009 [4]_. It is defined by three different parameters: the number of states, :math:`H^2`, the crossovers parameters, :math:`\theta_i, i \in {1,\ldots,H}`, and the error parameters, :math:`\varepsion_j, j \in {1,\ldots,M}`; where :math:`H` is the number of haplotypes in the haplotype template (HT), and :math:`M` is the number of SNPs.
+
+The number of states is specified by the user (see [HMMParameters]_). The crossovers define the transition probabilities from one state to the next and thus, give an estimation about the recombination rates across haplotypes. The errors define the emission probabilities, giving an estimation about gene conversion events and recurrent mutation.
+
+In order to determine the model that better fits the data, crossovers and error parameters have to be estimated. For this purpose, these parameters are updated based on recombination rates and allele frequencies in consecutive runs of the HMM model. The initial values of the model parameters are set to :math:`\theta_i=0.01; \varepsion_j=0.00000001`.
+
+**HMMOptions** admits four options: ``No``, ``Yes``, ``Prephase`` and ``Only``.
+
+``No`` disables the HMM, thus AlphaImpute will perform the Long-range phase imputation (LRPI) method explained in Hickey et al., 2012 [1]_.
+
+``Yes`` performs imputation first by means of the LRPI method. This method guarantees very accurate genotype imputation and haplotype phasing, which will be used to feed the HT in the HMM step. During the HMM step haplotypes are chosen at random from the previous step, and possible missing heterozygous loci are phase arbitrarily. This is the most accurate approach but also the most computational expensive in of time.
+
+``Prephase`` performs only the long-range phasing (LRP) algorithm (Hickey et al., 2012 [2]_) before computing imputation with the HMM method. As before, haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phase arbitrarily.
+
+``Only`` runs HMM only, which means that no phase information is available. In this case, genotype data from random chromosomes will be used to create haplotypes. From those chromosomes, unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily.
 
 
+HMMParameters
+"""""""""""""
+Control the hidden Markov model parameters explained above.
 
+The first numerical parameter is the number of gametes used to create the HT. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger HT are considered. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved increasing the number of parallel processes, which is controlled by the last parameter in this section.
 
-**PrePhasedFile** gives the option to read in pre-­‐phased data (e.g. phased by a previous roung of AlphaImpute or by another program such as a half-­‐sib haplotyping program. Specify ``None`` to the right of the comma if no file is to be read in, specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a two lines for each individual, the first line being its phased paternal gamete (alleles coded as 0 or 1 or another integer (e.g. 3) for missing alleles) and the second line being the phased maternal gamete. The first column should be a the ID’s of the individuals. The file takes the same format as ``ImputePhase.txt`` in the Results section of AlphaImpute. Care must be taken here to ensure that only reliable phased individuals are included when using this option.
+The second numerical parameter sets the number of burnt rounds before the HMM is considered to be warmed up. Our empirical results have shown that 10 is a good value for this parameter.
 
+The third numerical parameter is the total number of rounds that the HMM will be performed. Larger values of this parameter leads to better results. However, user is discouraged to use more than 50 rounds, as imputation accuracy using 50 rounds tends to be slightly better than when HMM has been run only 20 rounds.
 
+The last numerical parameter controls the number of processors used to complete the genotype imputation with the HMM model. Each processor computes the HMM model for a single chromosome. The more processors used, the more chromosomes imputed simultaneously, and the less the computational time. However, this is not a linear relationship as using more processors increases the memory accesses and thus increases the number of idle processors.
 
-
-**RestartOption** controls AlphaImpute admits four different integer values: ``0, 1, 2, 3``.
-
-**TrueGenotypeFile** gives the name of the file containing the true genotypes if you want to test the program. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to None (e.g. figure 3.) Testing the program can be useful when applying the program to a new population, perhaps you should mask some SNP in a small percentage of your animals and see how it performs imputing them!!!
+TrueGenotypeFile
+""""""""""""""""
+Gives the name of the file containing the true genotypes if you want to test the program. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to None (e.g. figure 3.) Testing the program can be useful when applying the program to a new population, perhaps you should mask some SNP in a small percentage of your animals and see how it performs imputing them!!!
 
   PedigreeFile                      ,MyPedrigree.txt
   GenotypeFile                      ,NyGenos.txt
