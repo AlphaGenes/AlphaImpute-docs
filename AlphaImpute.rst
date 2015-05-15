@@ -48,7 +48,7 @@ Using |ai|
 
 .. note:: |ai| works for single chromosomes at a time only.
 
-.. note:: |ai| seeks to maximise the correlation between true and imputed markers while minimising the percentage of markers imputed incorrectly. It does not seek to maximise the percentage of markers correctly imputed as this would involve “cheating” and “guessing”, therefore it is not advisable to evaluate the performance of the program based on the percentage of alleles correctly imputed. For a discussion on this topic please consult (Hickey et al., 2012 -­‐ Factors affecting the accuracy of genotype imputation in populations from several maize breeding programs. Crop Science 52 (2) 654-­‐663)).
+.. note:: |ai| seeks to maximise the correlation between true and imputed markers while minimising the percentage of markers imputed incorrectly. It does not seek to maximise the percentage of markers correctly imputed as this would involve “cheating” and “guessing”, therefore it is not advisable to evaluate the performance of the program based on the percentage of alleles correctly imputed. For a discussion on this topic please consult (Hickey et al., 2012 - Factors affecting the accuracy of genotype imputation in populations from several maize breeding programs. Crop Science 52 (2) 654-663)).
 
 
 Input files
@@ -406,7 +406,7 @@ ImputePhase.txt is the secondary output file containing phased data. It contains
 Miscellaneous
 """""""""""""
 
-``Miscellaneous`` contains files that summarise the editing of the data. EditingSnpSummary.txt contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-­‐density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). Timer.txt contains the time takes to complete the task.
+``Miscellaneous`` contains files that summarise the editing of the data. EditingSnpSummary.txt contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). Timer.txt contains the time takes to complete the task.
 
 TestAlphaImpute
 """""""""""""""
@@ -447,9 +447,9 @@ We call this Example 1 and it is store in the directory Example/Example1 of the 
 
 The parameters of interest are described below.
 
-``InternalEdit`` is set to Yes so that the program attempts to edit the data internally using the parameters outlined in ``EditingParameters``. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP that was missing in more than 2% of the animals initially defined as being in the high-density group has been removed. The original high-­‐density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the AllSnpOut qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
+``InternalEdit`` is set to Yes so that the program attempts to edit the data internally using the parameters outlined in ``EditingParameters``. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP that was missing in more than 2% of the animals initially defined as being in the high-density group has been removed. The original high-density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the AllSnpOut qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
 
-``NumberOfPairsOfPhasingRounds`` is set to 10 meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-­‐density group of animals. The results of the Phasing rounds are stored in the directory Phasing.
+``NumberOfPairsOfPhasingRounds`` is set to 10 meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-density group of animals. The results of the Phasing rounds are stored in the directory Phasing.
 
 The core and tail lengths varied between 200 and 700, and the tail lengths varied between 100 and 600. The choice of these lengths creates a nice amount of overlap between cores and means that each SNP is phased multiple times as part of cores spanning different SNP. 
 
@@ -477,7 +477,7 @@ Once the phasing rounds have been finished |ai| can be re-run. The parameters to
 Example 3. How to run the program to impute genotypes and test the imputation accuracy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Run the program in pre-­‐processing mode with parameters as set in figure 4.
+Run the program in pre-processing mode with parameters as set in figure 4.
 
 Rename the Phase folder to PhaseOld and then re-run the program with the pre-processing turned off as shown in figure 5. Note that NumberOfPhasingRuns has now got the full path and that the number of phasing rounds is 20 instead of the 10 (to account for the Offset/NotOffest). 
 
@@ -506,7 +506,7 @@ The following papers are available at http://sites.google.com/site/hickeyjohn/pu
 
 .. [4] Li, Y., Willer, C.J., Ding, J., Scheet, P., Abecasis, G.R. (2010). `MaCH: using sequence and genotype data to estimate haplotypes and unobserved genotypes <http://onlinelibrary.wiley.com/doi/10.1002/gepi.20533/full>`_. Genetic Epidemiology 34(8): 816-834.
 
-#. Hickey, J.M., Kinghorn, B. P. and van der Werf, J.H.J. Long range phasing and haplotype imputation for improved genomic selection calibrations. Statistical Genetics of Livestock for thePost-­‐Genomic Era. University of Wisconsin -­‐ Madison, USA May 4-­‐6, 2009
+#. Hickey, J.M., Kinghorn, B. P. and van der Werf, J.H.J. Long range phasing and haplotype imputation for improved genomic selection calibrations. Statistical Genetics of Livestock for thePost-Genomic Era. University of Wisconsin - Madison, USA May 4-6, 2009
 
 #. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. (2009) Phasing of SNP data by combined recursive long range phasing and long range haplotype imputation. Proceedings of AAABG. Pages 72 – 75.
 
