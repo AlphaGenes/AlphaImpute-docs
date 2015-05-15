@@ -148,7 +148,7 @@ This parameter admits two alternatives.
   TrueGenotypeFile                      ,MyTrueGenos.txt
 
 
-It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (an their tails) is outlined in Hickey et al. (2011) [2]_. *Offset/NotOffset* mode is described below. 
+It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (an their tails) is outlined in Hickey et al. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
 
 *Alternative 2* can be used to read in data sets that have been previously phased by AlphaPhase1.1::
 
@@ -186,7 +186,7 @@ The second is the complete path to where these phasing rounds are stored. This p
 
 The third is the number of phasing jobs that are to be read from the folder. The folders containing each of the phasing rounds must be labelled Phase1, Phase2, ..., PhaseN, where N is the number of phasing rounds. It is important to realise that *Alternative 1* (described above) for ``NumberOfPhasingRounds`` sets a number that is half the actual number of phasing rounds carried out (because of it specifes the number of pairs of rounds rather than rounds). Therefore it is good to check how many phasing rounds are actually in the folder you are reading in. 
 
-The second alternative can be used in conjunction with **PreProcessDataOnly** (descried below) to give greater control on the computational time required to perform the phasing. An example of how this would work is given in detail in the `Examples`_ section (PreProcessDataExample).
+The second alternative can be used in conjunction with ``PreProcessDataOnly`` (descried below) to give greater control on the computational time required to perform the phasing. An example of how this would work is given in detail in the `Examples`_ section (PreProcessDataExample).
 
 
 CoreAndTailLengths
@@ -196,9 +196,9 @@ Gives the overall length in terms of numbers of SNP of the core and its adjacent
 
 CoreLengths
 """""""""""
-Gives the overall length in terms of numbers of SNPs of each core. The **CoreLengths** can never be longer than its corresponding **CoreAndTailLengths**. The total number of **CoreLengths** specified must equal the number specified for **NumberOfPairsOfPhasingRounds** (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreLengths specified).
+Gives the overall length in terms of numbers of SNPs of each core. The ``CoreLengths`` can never be longer than its corresponding ``CoreAndTailLengths``. The total number of ``CoreLengths`` specified must equal the number specified for ``NumberOfPairsOfPhasingRounds`` (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 CoreLengths specified).
 
-The order of the **CoreAndTailLengths** must correspond to the order of the **CoreLengths** (i.e. in figure 2 the **CoreAndTailLenghts** 200 is for the first pair of phasing runs and corresponds to the **CoreLenths** 100.
+The order of the ``CoreAndTailLengths`` must correspond to the order of the ``CoreLengths`` (i.e. in figure 2 the ``CoreAndTailLenghts`` 200 is for the first pair of phasing runs and corresponds to the ``CoreLenths`` 100.
 
 
 PedigreeFreePhasing
@@ -213,7 +213,7 @@ Gives the percentage of SNP that are allowed to be missing or in conflict across
 
 NumberOfProcessorsAvailable
 """""""""""""""""""""""""""
-Sets the number of processors used to compute the genotype probabilities and Phasing rounds. The more processors, the shorter the computational time, however **NumberOfProcessorsAvailable** should not be larger than the number of processors available because it might lead to inefficient performances.
+Sets the number of processors used to compute the genotype probabilities and Phasing rounds. The more processors, the shorter the computational time, however ``NumberOfProcessorsAvailable`` should not be larger than the number of processors available because it might lead to inefficient performances.
 
 
 InternalIterations
@@ -229,9 +229,9 @@ Has two options ``Yes`` or ``No``.
   
 ``No`` sets the program do a complete imputation run.
 
-The ``Yes`` option is useful for getting to know your data set. The different data **EditingParameters** alter the number of SNP to be included in the analysis, and alter the numbers of animals that are included in the high-density group that is passed to AlphaPhase1.1. These numbers are printed to the screen. It is best to try different editing options to tune to each data set. Pre-processing the data creates the files for the phasing rounds. The phasing rounds can then be run external to |ai| to see if the phasing parameters (CoreLengths, CoreAndTailLengths, GenotypeErrorPercentage) are appropriate in terms of speed and phasing yield for the EditingParameters used on the data set.
+The ``Yes`` option is useful for getting to know your data set. The different data ``EditingParameters`` alter the number of SNP to be included in the analysis, and alter the numbers of animals that are included in the high-density group that is passed to AlphaPhase1.1. These numbers are printed to the screen. It is best to try different editing options to tune to each data set. Pre-processing the data creates the files for the phasing rounds. The phasing rounds can then be run external to |ai| to see if the phasing parameters (CoreLengths, CoreAndTailLengths, GenotypeErrorPercentage) are appropriate in terms of speed and phasing yield for the EditingParameters used on the data set.
 
-The phasing rounds can be then run directly by the user by first running the program with PreProcessDataOnly set to ``Yes``, then renaming the folder Phase to something else (e.g. PhasePreProcess because the folder Phase gets deleted each time you run the program) and then the program can be rerun with **PreProcessDataOnly** set to ``No``, **RestartOption** set to ``2`` and having the **NumberOfPhasingRuns** altered so that it reads the Phasing rounds in the PhasePreProcess folder (N.B. Check the number of folders in this folder, you don’t want to leave phase rounds behind!). This option allows the user to tweak the phasing parameters.
+The phasing rounds can be then run directly by the user by first running the program with PreProcessDataOnly set to ``Yes``, then renaming the folder Phase to something else (e.g. PhasePreProcess because the folder Phase gets deleted each time you run the program) and then the program can be rerun with ``PreProcessDataOnly`` set to ``No``, ``RestartOption`` set to ``2`` and having the ``NumberOfPhasingRuns`` altered so that it reads the Phasing rounds in the PhasePreProcess folder (N.B. Check the number of folders in this folder, you don’t want to leave phase rounds behind!). This option allows the user to tweak the phasing parameters.
 
 
 UserDefinedAlphaPhaseAnimalsFile
@@ -248,25 +248,25 @@ RestartOption
 
 .. note:: This option behaves differently depending on the |ai| version. Two different version of |ai| are distributed, the *standard* version and the *cluster* version. If not specify otherwise, the *standard* version is explain all along this section.
 
-**RestartOption** admits four different values,``0, 1, 2, 3``. |ai| can be run in three different and consecutive steps: 1) to calculate genotype probabilities; 2) to perform haplotype phasing; and 3) to impute genotypes; and **RestartOption** controls which step is being processed at each time. 
+``RestartOption`` admits four different values,``0, 1, 2, 3``. |ai| can be run in three different and consecutive steps: 1) to calculate genotype probabilities; 2) to perform haplotype phasing; and 3) to impute genotypes; and ``RestartOption`` controls which step is being processed at each time. 
 
-**RestartOption** set to ``1`` calculates the genotype probabilities in different parallel processes. The number of parallel processes is given by **NumberOfProcessorsAvailable**. |ai| stops after all the processes have finished.
+``RestartOption`` set to ``1`` calculates the genotype probabilities in different parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. |ai| stops after all the processes have finished.
 
-.. note:: In the *cluster* version, the user should be responsible of creating a script which manages the calculation of the genotype probabilities accordingly to the number of processors specified in **NumberOfProcessorsAvailable** and to the cluster specifications. |ai| stops before the script has been executed.
+.. note:: In the *cluster* version, the user should be responsible of creating a script which manages the calculation of the genotype probabilities accordingly to the number of processors specified in ``NumberOfProcessorsAvailable`` and to the cluster specifications. |ai| stops before the script has been executed.
 
-**RestartOption** set to ``2`` runs the Phasing rounds in parallel processes. The number of parallel processes is given by **NumberOfProcessorsAvailable**. |ai| stops after all Phasing rounds have finished. By default, |ai| use AlphaPhase1.1 for computing the Phasing rounds, but these rounds can be externally run (see [PrepocessDataOnly]_ section). 
+``RestartOption`` set to ``2`` runs the Phasing rounds in parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. |ai| stops after all Phasing rounds have finished. By default, |ai| use AlphaPhase1.1 for computing the Phasing rounds, but these rounds can be externally run (see [PrepocessDataOnly]_ section).
 
-.. note:: In the *cluster* version, the user is responsible for creating a script which computes the haplotype phasing accordingly to the number of processors specified in **NumberOfPhasingRuns** and to the cluster specifications. |ai| stops before the script has been executed.
+.. note:: In the *cluster* version, the user is responsible for creating a script which computes the haplotype phasing accordingly to the number of processors specified in ``NumberOfPhasingRuns`` and to the cluster specifications. |ai| stops before the script has been executed.
 
-**RestartOption** set to ``3`` imputes the missing genotypes. |ai| has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is base on a hidden Markov model (HMM) (see [HMMOptions]_ and [HMMParameters]_ for more information).
+``RestartOption`` set to ``3`` imputes the missing genotypes. |ai| has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is base on a hidden Markov model (HMM) (see [HMMOptions]_ and [HMMParameters]_ for more information).
 
-**RestartOption** ``0`` runs the whole stepwise process, i.e. it computes genotype probabilities, performs haplotype phasing and imputes genotypes consecutively.
+``RestartOption`` ``0`` runs the whole stepwise process, i.e. it computes genotype probabilities, performs haplotype phasing and imputes genotypes consecutively.
 
-.. note:: **RestartOption** = ``0`` is disable in the *cluster* version. However, the user can create script simulating this option by running |ai| with **RestartOption** set to ``1``, ``2`` and ``3`` and the respectively scripts consecutively.
+.. note:: ``RestartOption`` = ``0`` is disable in the *cluster* version. However, the user can create script simulating this option by running |ai| with ``RestartOption`` set to ``1``, ``2`` and ``3`` and the respectively scripts consecutively.
 
 There are two reasons as to why a user might want to run the program in consecutive steps. Firstly the pre-processing steps can be used to observe how different InternalEdit settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing.
 
-**PhaseOnly**, **BypassGenProb** and **PrepocessDataOnly** might modify the **RestartOption** behaviour. For more details please, see [PhaseOnly]_, [BypassGenProb]_ and [PrepocessDataOnly]_ options, respectively.
+``PhaseOnly``, ``BypassGenProb`` and ``PrepocessDataOnly`` might modify the ``RestartOption`` behaviour. For more details please, see [PhaseOnly]_, [BypassGenProb]_ and [PrepocessDataOnly]_ options, respectively.
 
 PhaseOnly
 """""""""
@@ -300,11 +300,11 @@ Has two options ``Yes`` or ``No``.
 
 HMMOptions
 """"""""""
-During the imputation step, |ai| allows to carry out a hidden Markov model (HMM) in order to impute missing genotypes. Thus, if **RestartOption** is set to ``1`` or ``2``, then **HMMOptions** admits four different options: ``No``, ``Yes``, ``Prephase`` and ``Only``.
+During the imputation step, |ai| allows to carry out a hidden Markov model (HMM) in order to impute missing genotypes. Thus, if ``RestartOption`` is set to ``1`` or ``2``, then ``HMMOptions`` admits four different options: ``No``, ``Yes``, ``Prephase`` and ``Only``.
 
 ``No`` disables the HMM, thus |ai| carries out the long-range phase imputation (LRPI) method explained in Hickey et al., 2012 [1]_.
 
-``Prephase`` before computing imputation with the HMM method. As before, haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phase arbitrarily. This option requires the genotypes to be previously phased by running |ai| with **RestartOption** set to ``2`` (see [RestartOption]_ option for more details).
+``Prephase`` before computing imputation with the HMM method. As before, haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phase arbitrarily. This option requires the genotypes to be previously phased by running |ai| with ``RestartOption`` set to ``2`` (see [RestartOption]_ option for more details).
  
 ``Yes`` performs imputation first by means of the LRPI method. This method guarantees very accurate genotype imputation and haplotype phasing, which will be used to feed the HT in the HMM step. During the HMM step haplotypes are chosen at random from the previous step, and possible missing heterozygous loci are phase arbitrarily. This is the most accurate approach but also the most computational expensive in of time.
 
@@ -321,7 +321,7 @@ HMM imputation methods try to explain the genotype of a particular locus as gene
 
 In order to determine the specific model that better fits the data, crossovers and error parameters have to be estimated. For this purpose, crossovers and errors are updated based on recombination rates and allele frequencies in consecutive runs of the HMM model. The initial values of the model parameters are set to :math:`\theta_i=0.01; \varepsilon_j=0.00000001`, but other parameters such as number of haplotypes in the HT or number of runs have to be set. 
 
-**HMMParameters** control these parameters, plus an extra parameter affecting the parallelisation process.
+``HMMParameters`` control these parameters, plus an extra parameter affecting the parallelisation process.
 
 The first numerical parameter is the number of gametes used to create the HT. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger HT are considered. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved increasing the number of parallel processes, which is controlled by the last parameter in this section.
 
@@ -382,12 +382,12 @@ The genotype information should be contained in a single file containing 1 line 
 
 Output
 ------
-The output of |ai| is organised into a number sub directories (**Results and Miscellaneous**, and in the case of when a true genotype data file is supplied **TestAlphaImpute**). A description of what is contained within these folders is given below.
+The output of |ai| is organised into a number sub directories (``Results and Miscellaneous``, and in the case of when a true genotype data file is supplied ``TestAlphaImpute``). A description of what is contained within these folders is given below.
 
 Results
 ^^^^^^^
 
-The folder **Results** contains four files.
+The folder ``Results`` contains four files.
 
 Genotype data
 """""""""""""
@@ -406,12 +406,12 @@ ImputePhase.txt is the secondary output file containing phased data. It contains
 Miscellaneous
 """""""""""""
 
-**Miscellaneous** contains files that summarise the editing of the data. EditingSnpSummary.txt contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-­‐density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). Timer.txt contains the time takes to complete the task.
+``Miscellaneous`` contains files that summarise the editing of the data. EditingSnpSummary.txt contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-­‐density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). Timer.txt contains the time takes to complete the task.
 
 TestAlphaImpute
 """""""""""""""
 
-**TestAlphaImpute** is only invoked if a TrueGenotypeFile is supplied. The resulting folder contains four files. 
+``TestAlphaImpute`` is only invoked if a TrueGenotypeFile is supplied. The resulting folder contains four files.
 
 IndividualAnimalAccuracy.txt contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had (1 being both parents genotyped, 2 being sire and maternal grandsire genotyped, 3 being dam and paternal grandsire genotyped, 4 being sire genotyped, 5 being dam genotyped, and 6 being any other scenario; An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP), and the next columns are for each of the SNP, with the coding 1 being for SNP correctly imputed, 2 being for SNP incorrectly imputed, 3 being for SNP not imputed, and 4 being for SNP that were already genotyped. 
 
@@ -447,9 +447,9 @@ We call this Example 1 and it is store in the directory Example/Example1 of the 
 
 The parameters of interest are described below.
 
-**InternalEdit** is set to Yes so that the program attempts to edit the data internally using the parameters outlined in **EditingParameters**. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP that was missing in more than 2% of the animals initially defined as being in the high-­‐density group has been removed. The original high-­‐density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the AllSnpOut qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
+``InternalEdit`` is set to Yes so that the program attempts to edit the data internally using the parameters outlined in ``EditingParameters``. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP that was missing in more than 2% of the animals initially defined as being in the high-density group has been removed. The original high-­‐density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the AllSnpOut qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
 
-**NumberOfPairsOfPhasingRounds** is set to 10 meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-­‐density group of animals. The results of the Phasing rounds are stored in the directory Phasing. 
+``NumberOfPairsOfPhasingRounds`` is set to 10 meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-­‐density group of animals. The results of the Phasing rounds are stored in the directory Phasing.
 
 The core and tail lengths varied between 200 and 700, and the tail lengths varied between 100 and 600. The choice of these lengths creates a nice amount of overlap between cores and means that each SNP is phased multiple times as part of cores spanning different SNP. 
 
