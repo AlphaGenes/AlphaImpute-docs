@@ -227,7 +227,7 @@ Has two options ``Yes`` or ``No``.
 
 ``Yes`` sets the program so that it stops after it has pre-processed the data and set up the files for the analysis.
   
-``No`` sets the program do a complete imputation run.
+``No`` sets the program to do a complete imputation run.
 
 The ``Yes`` option is useful for getting to know your data set. The different data ``EditingParameters`` alter the number of SNP to be included in the analysis, and alter the numbers of animals that are included in the high-density group that is passed to AlphaPhase1.1. These numbers are printed to the screen. It is best to try different editing options to tune to each data set. Pre-processing the data creates the files for the phasing rounds. The phasing rounds can then be run external to |ai| to see if the phasing parameters (CoreLengths, CoreAndTailLengths, GenotypeErrorPercentage) are appropriate in terms of speed and phasing yield for the EditingParameters used on the data set.
 
