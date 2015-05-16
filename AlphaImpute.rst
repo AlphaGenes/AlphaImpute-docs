@@ -304,12 +304,14 @@ During the imputation step, |ai| allows to carry out a hidden Markov model (HMM)
 
 ``No`` disables the HMM, thus |ai| carries out the long-range phase imputation (LRPI) method explained in Hickey et al., 2012 [1]_.
 
-``Prephase`` before computing imputation with the HMM method. As before, haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phase arbitrarily. This option requires the genotypes to be previously phased by running |ai| with ``RestartOption`` set to ``2`` (see [RestartOption]_ option for more details).
+``Prephase`` uses pre-phased information to run the HMM imputation algorithm. Haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phase arbitrarily. 
  
-``Yes`` performs imputation first by means of the LRPI method. This method guarantees very accurate genotype imputation and haplotype phasing, which will be used to feed the HT in the HMM step. During the HMM step haplotypes are chosen at random from the previous step, and possible missing heterozygous loci are phase arbitrarily. This is the most accurate approach but also the most computational expensive in of time.
+``Yes`` computes imputation in two steps. In the first step, the program uses the SAHLI algorithm to guarantee very accurate genotype imputation and haplotype phasing. The phased haplotypes will be used to feed the Haplotype Template (HT) in the HMM step. During the HT generation haplotypes are chosen at random and possible missing heterozygous loci are phase arbitrarily. This is stepwise approach is the most accurate but also the most computational expensive in terms of time.
 
 ``Only`` runs HMM only, which means that no phase information is available. In this case, genotype data from random chromosomes will be used to create haplotypes. From those chromosomes, unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily.
 
+
+Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running |ai| with ``RestartOption`` set to ``2`` (see [RestartOption]_ option for more details).
 
 HMMParameters
 """""""""""""
@@ -321,15 +323,14 @@ HMM imputation methods try to explain the genotype of a particular locus as gene
 
 In order to determine the specific model that better fits the data, crossovers and error parameters have to be estimated. For this purpose, crossovers and errors are updated based on recombination rates and allele frequencies in consecutive runs of the HMM model. The initial values of the model parameters are set to :math:`\theta_i=0.01; \varepsilon_j=0.00000001`, but other parameters such as number of haplotypes in the HT or number of runs have to be set. 
 
-``HMMParameters`` control these parameters, plus an extra parameter affecting the parallelisation process.
-
-The first numerical parameter is the number of gametes used to create the HT. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger HT are considered. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved increasing the number of parallel processes, which is controlled by the last parameter in this section.
+The first numerical parameter of ``HMMParameters`` is the number of gametes used to create the HT. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger HT are considered. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved increasing the number of parallel processes, which is controlled by the last parameter in this section.
 
 The second numerical parameter sets the number of burnt rounds before the HMM is considered to be warmed up. Our empirical results have shown that 10 is a good value for this parameter.
 
 The third numerical parameter is the total number of rounds that the HMM will be performed. Larger values of this parameter leads to better results. However, user is discouraged to use more than 50 rounds, as imputation accuracy using 50 rounds tends to be slightly better than when HMM has been run only 20 rounds.
 
-The last numerical parameter controls the number of processors used to complete the genotype imputation with the HMM model. Each processor computes the HMM model for a single chromosome. The more processors used, the more chromosomes imputed simultaneously, and the less the computational time. However, this is not a linear relationship as using more processors increases the memory accesses and thus increases the number of idle processors.
+The last numerical parameter controls the number of processors used to complete the genotype imputation with the HMM model. Valid values are integer greater than ``0``. Each processor is responsible to compute the HMM model for a single chromosome, and to set this parameter to ``1`` will compute the HMM imputation in serial.
+
 
 TrueGenotypeFile
 """"""""""""""""
