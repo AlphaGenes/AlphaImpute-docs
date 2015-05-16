@@ -271,8 +271,6 @@ There are two reasons as to why a user might want to run the program in consecut
 PhaseOnly
 """""""""
 
-.. todo:: Think about to delete this option
-
 Has two options ``Yes`` or ``No``.
 
 ``Yes`` avoids the program to complete the imputation run and it stops after it has phased the data.
@@ -288,8 +286,6 @@ WellPhasedThreshold
 
 BypassGenProb
 """""""""""""
-
-.. todo:: Think about to delete this option
 
 Has two options ``Yes`` or ``No``.
 
