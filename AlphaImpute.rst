@@ -280,9 +280,17 @@ Has two options ``Yes`` or ``No``.
 
 ConservativeHaplotypeLibraryUse
 """""""""""""""""""""""""""""""
+Has two options ``Yes`` or ``No``.
+
+``Yes`` avoids the program to further populate the haplotype library, created during the LRPHI phasing process, during the imputation step.
+
+``No`` sets the program so that to update the haplotype library during the SHALI imputation step.
+
 
 WellPhasedThreshold
 """""""""""""""""""
+Controls the final imputation quality of the individuals. Those individuals with an imputation accuracy above ``WellPhasedThreshold`` will be output in the ``WellPhasedIndividuals.txt`` file.
+
 
 BypassGenProb
 """""""""""""
