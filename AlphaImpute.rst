@@ -114,7 +114,7 @@ The second numerical parameter controls Step 2, which removes some SNP from the 
 
 The third numerical parameter controls Step 3, which finalises the animals in the high-density group. It is similar to that of the first numerical parameter in that it divides the data into two groups, the finalised high-density group and low-density group. The animals in the data set that are genotyped for more than XX.X% (In figure 1 this figure is 98.0) of the SNP that remain after Step 2 has removed some SNP enter the finalised high-density set. The remaining animals enter the finalised low density set. The final high-density group is passed to AlphaPhase1.1 to be phased. 
 
-The case sensitive qualifier controls the SNP for which results are outputted and it has two options ``AllSnpOut`` or ``EditedSnpOut`` (note that these are case sensitive). ``AllSnpOut`` produces output for all the SNP that are inputted. ``EditedSnpOut`` produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file *EditingSnpSummary.txt* which is described below.
+The case sensitive qualifier controls the SNP for which results are outputted and it has two options ``AllSnpOut`` or ``EditedSnpOut`` (note that these are case sensitive). ``AllSnpOut`` produces output for all the SNP that are inputted. ``EditedSnpOut`` produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file ``EditingSnpSummary.txt`` which is described below.
 
 NumberOfPairsOfPhasingRounds
 """"""""""""""""""""""""""""
@@ -397,32 +397,32 @@ The folder ``Results`` contains four files.
 Genotype data
 """""""""""""
 
-ImputeGenotypeProbabilities.txt is the primary genotype output file. It contains, for each SNP and each animal in the pedigree, a real number, the genotype probability, which is the sum of the two allele probabilities (i.e. the genotype) at that locus. Therefore genotypes are coded as real numbers between 0 and 2. The first column is the Animal Id, with the subsequent columns being for each SNP. 
+``ImputeGenotypeProbabilities.txt`` is the primary genotype output file. It contains, for each SNP and each animal in the pedigree, a real number, the genotype probability, which is the sum of the two allele probabilities (i.e. the genotype) at that locus. Therefore genotypes are coded as real numbers between 0 and 2. The first column is the Animal Id, with the subsequent columns being for each SNP. 
 
-ImputeGenotypes.txt is the secondary genotype output file. It contains a genotype for each SNP and each animal in the pedigree where it was possible to match it to a haplotype or was already genotyped. SNP that could not be matched or were not genotyped are denoted as being missing by a 9 (in the previous file these missing values were replaced with genotype probabilities). The first column is the Animal Id, with the subsequent columns being for each SNP.
+``ImputeGenotypes.txt`` is the secondary genotype output file. It contains a genotype for each SNP and each animal in the pedigree where it was possible to match it to a haplotype or was already genotyped. SNP that could not be matched or were not genotyped are denoted as being missing by a 9 (in the previous file these missing values were replaced with genotype probabilities). The first column is the Animal Id, with the subsequent columns being for each SNP.
 
 Phased data
 """""""""""
 
-ImputePhaseProbabilities.txt is the primary output file containing phased data. It contains an allele probability for each of the two alleles of each SNP and each animal in the pedigree. The first column is the Animal Id, with the subsequent columns being for each SNP. Each animal has two rows, with the first of these being for the paternal gamete and the second being for the maternal gamete. Alleles are coded as real numbers between 0 and 1 (i.e. probability of allele being a 1).
+``ImputePhaseProbabilities.txt`` is the primary output file containing phased data. It contains an allele probability for each of the two alleles of each SNP and each animal in the pedigree. The first column is the Animal Id, with the subsequent columns being for each SNP. Each animal has two rows, with the first of these being for the paternal gamete and the second being for the maternal gamete. Alleles are coded as real numbers between 0 and 1 (i.e. probability of allele being a 1).
 
-ImputePhase.txt is the secondary output file containing phased data. It contains an allele for each of the two alleles of each SNP and each animal in the pedigree where it was possible to match it to a haplotype. Alleles that could not be matched these are denoted by a 9 as being missing. The first column is the Animal Id, with the subsequent columns being for each SNP. Each animal has two rows, with the first of these being for the paternal gamete and the second being for the maternal gamete. Alleles are coded as integers either 0 or 1 with missing alleles set to 9 (in the previous file these missing values were replaced with allele probabilities).
+``ImputePhase.txt`` is the secondary output file containing phased data. It contains an allele for each of the two alleles of each SNP and each animal in the pedigree where it was possible to match it to a haplotype. Alleles that could not be matched these are denoted by a 9 as being missing. The first column is the Animal Id, with the subsequent columns being for each SNP. Each animal has two rows, with the first of these being for the paternal gamete and the second being for the maternal gamete. Alleles are coded as integers either 0 or 1 with missing alleles set to 9 (in the previous file these missing values were replaced with allele probabilities).
 
 Miscellaneous
 """""""""""""
 
-``Miscellaneous`` contains files that summarise the editing of the data. EditingSnpSummary.txt contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). Timer.txt contains the time takes to complete the task.
+``Miscellaneous`` contains files that summarise the editing of the data. ``EditingSnpSummary.txt`` contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-density set, and the third being an indicator of whether the SNP was included in the analysis or not (1 = included / 0 = excluded). ``Timer.txt`` contains the time takes to complete the task.
 
 TestAlphaImpute
 """""""""""""""
 
 ``TestAlphaImpute`` is only invoked if a TrueGenotypeFile is supplied. The resulting folder contains four files.
 
-IndividualAnimalAccuracy.txt contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had (1 being both parents genotyped, 2 being sire and maternal grandsire genotyped, 3 being dam and paternal grandsire genotyped, 4 being sire genotyped, 5 being dam genotyped, and 6 being any other scenario; An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP), and the next columns are for each of the SNP, with the coding 1 being for SNP correctly imputed, 2 being for SNP incorrectly imputed, 3 being for SNP not imputed, and 4 being for SNP that were already genotyped. 
+``IndividualAnimalAccuracy.txt`` contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had (1 being both parents genotyped, 2 being sire and maternal grandsire genotyped, 3 being dam and paternal grandsire genotyped, 4 being sire genotyped, 5 being dam genotyped, and 6 being any other scenario; An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP), and the next columns are for each of the SNP, with the coding 1 being for SNP correctly imputed, 2 being for SNP incorrectly imputed, 3 being for SNP not imputed, and 4 being for SNP that were already genotyped.
 
-IndividualSummaryAccuracy.txt summarises the information in IndividualAnimalAccuracy.txt. Columns 1 and 2 were as for the previous file, column 3 is the percentage of SNP to be imputed that were imputed correctly for this animal, column 4 is the percentage imputed incorrectly, column 5 is the percentage not imputed, column 6 is the percentage of paternal alleles that were imputed or phased, column 7 is the percentage of maternal alleles that were imputed or phased.
+``IndividualSummaryAccuracy.txt`` summarises the information in ``IndividualAnimalAccuracy.txt``. Columns 1 and 2 were as for the previous file, column 3 is the percentage of SNP to be imputed that were imputed correctly for this animal, column 4 is the percentage imputed incorrectly, column 5 is the percentage not imputed, column 6 is the percentage of paternal alleles that were imputed or phased, column 7 is the percentage of maternal alleles that were imputed or phased.
 
-IndividualSummaryYield.txt summarises the yield in terms of the percentage of paternal/maternal alleles that have been imputed or phased for all animals in the pedigree. Column 1 is the ID, column 2 is an indicator as to whether it was genotyped for more than 50% of the SNP or not (1 = was genotyped, 0 = was not genotyped), column 3 is the percentage of paternal alleles imputed or phased, column 4 is the percentage of maternal alleles imputed or phased.
+``IndividualSummaryYield.txt`` summarises the yield in terms of the percentage of paternal/maternal alleles that have been imputed or phased for all animals in the pedigree. Column 1 is the ID, column 2 is an indicator as to whether it was genotyped for more than 50% of the SNP or not (1 = was genotyped, 0 = was not genotyped), column 3 is the percentage of paternal alleles imputed or phased, column 4 is the percentage of maternal alleles imputed or phased.
 
 Offset/NotOffset mode
 =====================
@@ -434,7 +434,7 @@ Examples
 
 In the download there is a directory called Examples. In Examples the example outlined here is contained. 
 
-The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file RecodedPicPedigree.txt. The genotypes are in the file PicGenotypeFile.txt and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as 0,1,2 and the missing SNP as 9. PicTrueGenotypeFile.txt is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the TrueGenotypeFile in the examples that test the program.
+The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file ``RecodedPicPedigree.txt``. The genotypes are in the file ``PicGenotypeFile.txt`` and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as 0,1,2 and the missing SNP as 9. ``PicTrueGenotypeFile.txt`` is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the TrueGenotypeFile in the examples that test the program.
 
 Four example scenarios are given.
 
@@ -448,7 +448,7 @@ Four example scenarios are given.
 Example 1. How to run the program to impute genotypes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We call this Example 1 and it is store in the directory Example/Example1 of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains AlphaImputeSpec.txt which has suitable parameters set to achieve the goal.
+We call this Example 1 and it is store in the directory Example/Example1 of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal.
 
 The parameters of interest are described below.
 
@@ -471,13 +471,13 @@ Example 2. How to run the program to first pre-process the data and then run it 
 
 Phasing can be a very computationally expensive task. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run |ai| with the PreprocessDataOnly set to Yes, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run |ai| with the PreprocessDataOnly set to No and the NumberOfPairsOfPhasingRounds set to PhaseDone.
 
-A full worked example of this is given in the directory Examples/Example2 of the download. The folder contains AlphaImputeSpec.txt which is completely empty but will be filled appropriately as we proceed. 
+A full worked example of this is given in the directory Examples/Example2 of the download. The folder contains ``AlphaImputeSpec.txt`` which is completely empty but will be filled appropriately as we proceed.
 
-To perform the first run of the program the contents of Run1AlphaImputeSpec.txt should be copied into AlphaImputeSpec.txt. This set of parameters is exactly the same as the set of parameters used to run Example1 with one difference, the PreprocessDataOnly is set to Yes. This causes the program to edit the data and set up the data sets and folder structure required to run the program. Then the program stops. 
+To perform the first run of the program the contents of ``Run1AlphaImputeSpec.txt`` should be copied into ``AlphaImputeSpec.txt``. This set of parameters is exactly the same as the set of parameters used to run Example1 with one difference, the PreprocessDataOnly is set to Yes. This causes the program to edit the data and set up the data sets and folder structure required to run the program. Then the program stops.
 
-The next thing that must be done is that the directory “Phasing” should be renamed to something like “PhasingByHand”. In this directory 20 subdirectories have been created (2 directories for each of the 10 pairs of Phasing rounds). In these directories a parameter file for controlling AlphaPhase1.1 called AlphaPhaseSpec.txt has been placed. This contains the parameters that control the phasing. Each of the phasing rounds should now be run by the user, who can then tweak the parameters of the AlphaPhaseSpec.txt files as appropriate to ensure a good phasing yield in a short amount of time. 
+The next thing that must be done is that the directory “Phasing” should be renamed to something like “PhasingByHand”. In this directory 20 subdirectories have been created (2 directories for each of the 10 pairs of Phasing rounds). In these directories a parameter file for controlling AlphaPhase1.1 called ``AlphaPhaseSpec.txt`` has been placed. This contains the parameters that control the phasing. Each of the phasing rounds should now be run by the user, who can then tweak the parameters of the ``AlphaPhaseSpec.txt`` files as appropriate to ensure a good phasing yield in a short amount of time.
 
-Once the phasing rounds have been finished |ai| can be re-run. The parameters to do this are in Run2AlphaImputeSpec.txt and these can now be copied into AlphaImputeSpec.txt in place of the previously copied parameters.
+Once the phasing rounds have been finished |ai| can be re-run. The parameters to do this are in ``Run2AlphaImputeSpec.txt`` and these can now be copied into ``AlphaImputeSpec.txt`` in place of the previously copied parameters.
 
 Example 3. How to run the program to impute genotypes and test the imputation accuracy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
