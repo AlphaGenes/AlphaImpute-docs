@@ -553,17 +553,17 @@ Background reading
 .. [6] Marchini, J. and Howie, B. (2010). `Genotype imputation for genome-wide association studies <http://www.nature.com/nrg/journal/v11/n7/full/nrg2796.html>`_. Nature Reviews Genetics 11: 499-511. Also see `Supplementary table S2: Comparison of imputation methods <http://www.nature.com/nrg/journal/v11/n7/extref/nrg2796-s2.xls>`_ and `Supplementary S3: Imputation information measures <http://www.nature.com/nrg/journal/v11/n7/extref/nrg2796-s3.pdf>`_.
 
 
-#. Hickey, J.M., Kinghorn, B. P. and van der Werf, J.H.J. Long range phasing and haplotype imputation for improved genomic selection calibrations. Statistical Genetics of Livestock for thePost-Genomic Era. University of Wisconsin - Madison, USA May 4-6, 2009
+.. #. Hickey, J.M., Kinghorn, B. P. and van der Werf, J.H.J. Long range phasing and haplotype imputation for improved genomic selection calibrations. Statistical Genetics of Livestock for thePost-Genomic Era. University of Wisconsin - Madison, USA May 4-6, 2009
 
-#. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. (2009) Phasing of SNP data by combined recursive long range phasing and long range haplotype imputation. Proceedings of AAABG. Pages 72 – 75.
+.. #. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. (2009) Phasing of SNP data by combined recursive long range phasing and long range haplotype imputation. Proceedings of AAABG. Pages 72 – 75.
 
-#. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. (2009) A recursive algorithm for long range phasing of SNP genotypes. Proceedings of AAABG. Pages 76 – 79.
+.. #. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. (2009) A recursive algorithm for long range phasing of SNP genotypes. Proceedings of AAABG. Pages 76 – 79.
 
-#. Hickey, J.M., Kinghorn, B.P., Cleveland, M., Tier, B. and van der Werf, J.H.J. (2010) Recursive Long Range Phasing And Long Haplotype Library Imputation: Application to Building A Global Haplotype Library for Holstein cattle. (Accepted at 9 th WCGALP).
+.. #. Hickey, J.M., Kinghorn, B.P., Cleveland, M., Tier, B. and van der Werf, J.H.J. (2010) Recursive Long Range Phasing And Long Haplotype Library Imputation: Application to Building A Global Haplotype Library for Holstein cattle. (Accepted at 9 th WCGALP).
 
-#. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. Reciprocal recurrent genomic selection (RRGS) for total genetic merit in crossbred individuals. 2010. (Accepted at 9 th WCGALP).
+.. #. Kinghorn, B.P., Hickey, J.M., and van der Werf, J.H.J. Reciprocal recurrent genomic selection (RRGS) for total genetic merit in crossbred individuals. 2010. (Accepted at 9 th WCGALP).
 
-#. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. Determining phase of genotype data by combined recursive long range phasing and long range haplotype imputation. (To be submitted)
+.. #. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. Determining phase of genotype data by combined recursive long range phasing and long range haplotype imputation. (To be submitted)
 
 
 .. |ai| replace:: **AlphaImpute1.2**
