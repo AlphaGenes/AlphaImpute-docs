@@ -416,7 +416,7 @@ Offset/NotOffset mode
 AlphaPhase1.1 can be run in an Offset mode or a NotOffset mode. The NotOffset mode means that the cores start at the first SNP. The Offset mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length along (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in NotOffset phases several cores, then running the program in Offset mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the NotOffset mode and the Offset mode.
 
 Examples
---------
+========
 
 In the download there is a directory called ``Examples``. In ``Examples`` the example outlined here is contained.
 
@@ -432,7 +432,7 @@ Four example scenarios are given.
 .. warning:: Beginners should focus on Example 2
 
 Example 1. How to run the program to impute genotypes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------------------
 
 We call this Example 1 and it is store in the directory Example/Example1 of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal.
 
@@ -453,7 +453,7 @@ The number of internal iterations has been set to ``3``.
 No true genotype is supplied hence this parameter is set to ``None``.
 
 Example 2. How to run the program to first pre-process the data and then run it by reading in previously phased data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------------------------------------------------------------------
 
 Phasing can be a very computationally expensive task. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run |ai| with the PreprocessDataOnly set to ``Yes``, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run |ai| with the PreprocessDataOnly set to ``No`` and the NumberOfPairsOfPhasingRounds set to PhaseDone.
 
@@ -466,7 +466,7 @@ The next thing that must be done is that the directory “Phasing” should be r
 Once the phasing rounds have been finished |ai| can be rerun. The parameters to do this are in ``Run2AlphaImputeSpec.txt`` and these can now be copied into ``AlphaImputeSpec.txt`` in place of the previously copied parameters.
 
 Example 3. How to run the program to impute genotypes and test the imputation accuracy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------------------------------------
 
 Run the program in pre-processing mode with parameters as set in here::
 
@@ -530,7 +530,8 @@ For this data set 10 Phasing rounds were done (effectively 20 as each of the 10 
 
 
 Example 4. How to run the program to impute genotypes and test the imputation accuracy on a sex chromosome
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------------------------------------------------------------------
+
 Contact `John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_
 
 An extensive example file is downloadable from the `AlphaGenes <http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphaimpute/>`_ website.
