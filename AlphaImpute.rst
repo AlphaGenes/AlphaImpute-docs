@@ -89,12 +89,23 @@ Below is a description of what each line does. It is important to note that ``Al
 
 PedigreeFile
 """"""""""""
-
 Gives the name of the file containing the pedigree information. Details on the format are given in section `Pedigree file`_.
 
 GenotypeFile
 """"""""""""
 Gives the name of the file containing the genotypes. Details on the format are given in section `Genotype file`_.
+
+
+SexChrom
+"""""""""
+Specifies whether the program should impute sex chromosomes or not. The two options are ``Yes`` or ``No``. 
+
+To impute sex chromosome requires to specify the file containing the sex chromosomes and the heterogametic status. They are provided just after the ``Yes`` string and separated by comas. For the heterogametic status the options are ``Male`` or ``Female``. Here below there is a sample of how the specification file should look like::
+
+  PedigreeFile                          ,MyPedrigree.txt
+  GenotypeFile                          ,MyGenos.txt
+  SexChrom                              ,Yes,MySexChromosomeFile.txt,Male
+
 
 NumberOfSnp
 """""""""""
@@ -102,7 +113,7 @@ Gives the number of SNP in the genotype file.
 
 InternalEdit
 """"""""""""
-Specifies whether the program should edit the data internally or not. The two options are ``Yes`` or ``No`` (note these are case sensitive). Editing the data allows the program to remove SNP that are missing in too many animals and/or remove animals from the high-density group that have too many SNP that are missing. Editing the data may increase the speed and accuracy of the imputation. It is particularly important not to allow too many missing genotypes to enter the phasing step in AlphaPhase1.1 as this can dramatically increase the time required to complete the phasing and reduce the phasing accuracy.
+Specifies whether the program should edit the data internally or not. The two options are ``Yes`` or ``No``. Editing the data allows the program to remove SNP that are missing in too many animals and/or remove animals from the high-density group that have too many SNP that are missing. Editing the data may increase the speed and accuracy of the imputation. It is particularly important not to allow too many missing genotypes to enter the phasing step in AlphaPhase1.1 as this can dramatically increase the time required to complete the phasing and reduce the phasing accuracy.
 
 EditingParameters
 """""""""""""""""
