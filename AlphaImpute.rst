@@ -413,20 +413,20 @@ TestAlphaImpute
 Offset/NotOffset mode
 =====================
 
-AlphaPhase1.1 can be run in an Offset mode or a NotOffset mode. The NotOffset mode means that the cores start at the first SNP. The Offset mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length along (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in NotOffset phases several cores, then running the program in Offset mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the NotOffset mode and the Offset mode.
+AlphaPhase1.1 can be run in an *Offset* mode or a *NotOffset* mode. The *NotOffset* mode means that the cores start at the first SNP. The *Offset* mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length along (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in *NotOffset* phases several cores, then running the program in *Offset* mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the *NotOffset* mode and the *Offset* mode.
 
 Examples
 ========
 
 In the download there is a directory called ``Examples``. In ``Examples`` the example outlined here is contained.
 
-The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file ``RecodedPicPedigree.txt``. The genotypes are in the file ``PicGenotypeFile.txt`` and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as ``0``, ``1``, ``2`` and the missing SNP as ``9``. ``PicTrueGenotypeFile.txt`` is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the TrueGenotypeFile in the examples that test the program.
+The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file ``RecodedPicPedigree.txt``. The genotypes are in the file ``PicGenotypeFile.txt`` and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as ``0``, ``1``, ``2`` and the missing SNP as ``9``. ``PicTrueGenotypeFile.txt`` is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the ``TrueGenotypeFile`` in the examples that test the program.
 
 Four example scenarios are given.
 
 #. Run the program to impute genotype.
 #. Run the program to first pre-process the data and the run it by reading in previously phased data.
-#. Run the program to imput genotypes and test the imputation accuracy.
+#. Run the program to impute genotypes and test the imputation accuracy.
 #. Run the program to impute genotypes and test the imputation accuracy on a sex chromosome.
 
 .. warning:: Beginners should focus on Example 2
