@@ -402,7 +402,7 @@ Miscellaneous
 TestAlphaImpute
 """""""""""""""
 
-``TestAlphaImpute`` is only invoked if a TrueGenotypeFile is supplied. The resulting folder contains four files.
+``TestAlphaImpute`` is only invoked if a ``TrueGenotypeFile`` is supplied. The resulting folder contains four files.
 
 ``IndividualAnimalAccuracy.txt`` contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had (``1`` being both parents genotyped, ``2`` being sire and maternal grandsire genotyped, ``3`` being dam and paternal grandsire genotyped, ``4`` being sire genotyped, ``5`` being dam genotyped, and ``6`` being any other scenario; An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP), and the next columns are for each of the SNP, with the coding ``1`` being for SNP correctly imputed, ``2`` being for SNP incorrectly imputed, ``3`` being for SNP not imputed, and ``4`` being for SNP that were already genotyped.
 
