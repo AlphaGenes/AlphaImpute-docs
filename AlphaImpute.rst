@@ -119,7 +119,7 @@ EditingParameters
 """""""""""""""""
 Controls the internal editing that is invoked the ``InternalEdit`` option described above. The three numerical parameters control the internal editing while the case sensitive qualifier controls the final output of the results with regard to the editing. The internal editing involves three steps run in sequence (Step 1, Step 2, and Step 3).
 
-The first numerical parameter controls Step 1, which divides the animals in the data into two initial groups, the high-density group, and the low-density group. Animals in the data set that are genotyped for more than XX.X% (in figure 1 this value is 95.0%) of the SNP enter the high‐density group, with the remainder entering the low-density group. 
+The first numerical parameter controls Step 1, which divides the animals in the data into two initial groups, the high-density group, and the low-density group. Animals in the data set that are genotyped for more than XX.X% (in figure 1 this value is 95.0%) of the SNP enter the high-density group, with the remainder entering the low-density group. 
 
 The second numerical parameter controls Step 2, which removes some SNP from the analysis. SNP that are missing in more than XX.X% (in figure 1 this value is 2.0) of the animals placed in the high-density set by the previous parameter are removed. 
 
@@ -131,7 +131,7 @@ NumberOfPairsOfPhasingRounds
 """"""""""""""""""""""""""""
 This parameter admits two alternatives.
 
-*Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high‐density group. The minimum for this number is 2 and the maximum is 30::
+*Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high-density group. The minimum for this number is 2 and the maximum is 30::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
