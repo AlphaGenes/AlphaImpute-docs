@@ -89,18 +89,18 @@ Below is a description of what each line does. It is important to note that ``Al
 
 PedigreeFile
 """"""""""""
-Gives the name of the file containing the pedigree information. Details on the format are given in section `Pedigree file`_.
+Gives the name of the file containing the pedigree information. Details on the format are given in the `Data format`_ section.
 
 GenotypeFile
 """"""""""""
-Gives the name of the file containing the genotypes. Details on the format are given in section `Genotype file`_.
+Gives the name of the file containing the genotypes. Details on the format are given in the `Data format`_ section.
 
 
 SexChrom
 """""""""
 Specifies whether the program should impute sex chromosomes or not. The two options are ``Yes`` or ``No``. 
 
-To impute sex chromosome requires to specify the file containing the sex chromosomes and the heterogametic status. They are provided just after the ``Yes`` string and separated by comas. For the heterogametic status the options are ``Male`` or ``Female``. Here below there is a sample of how the specification file should look like::
+Impute sex chromosome requires to specify the file containing the sex chromosomes and the heterogametic status. They are provided just after the ``Yes`` string and separated by comas. For the heterogametic status the options are ``Male`` or ``Female``. Below is a sample of how the specification file should look::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -119,11 +119,11 @@ EditingParameters
 """""""""""""""""
 Controls the internal editing that is invoked the ``InternalEdit`` option described above. The three numerical parameters control the internal editing while the case sensitive qualifier controls the final output of the results with regard to the editing. The internal editing involves three steps run in sequence (Step 1, Step 2, and Step 3).
 
-The first numerical parameter controls Step 1, which divides the animals in the data into two initial groups, the high-density group, and the low-density group. Animals in the data set that are genotyped for more than XX.X% (In figure 1 this figure is 95.0%) of the SNP enter the high‐density group, with the remainder entering the low-density group. 
+The first numerical parameter controls Step 1, which divides the animals in the data into two initial groups, the high-density group, and the low-density group. Animals in the data set that are genotyped for more than XX.X% (in figure 1 this value is 95.0%) of the SNP enter the high‐density group, with the remainder entering the low-density group. 
 
-The second numerical parameter controls Step 2, which removes some SNP from the analysis. SNP that are missing in more than XX.X% (In figure 1 this figure is 2.0) of the animals that have been placed in the high-density set by the previous parameter are removed. 
+The second numerical parameter controls Step 2, which removes some SNP from the analysis. SNP that are missing in more than XX.X% (in figure 1 this value is 2.0) of the animals placed in the high-density set by the previous parameter are removed. 
 
-The third numerical parameter controls Step 3, which finalises the animals in the high-density group. It is similar to that of the first numerical parameter in that it divides the data into two groups, the finalised high-density group and low-density group. The animals in the data set that are genotyped for more than XX.X% (In figure 1 this figure is 98.0) of the SNP that remain after Step 2 has removed some SNP enter the finalised high-density set. The remaining animals enter the finalised low density set. The final high-density group is passed to AlphaPhase1.1 to be phased. 
+The third numerical parameter controls Step 3, which finalises the animals in the high-density group. It is similar to that of the first numerical parameter in that it divides the data into two groups, the finalised high-density group and low-density group. The animals in the data set that are genotyped for more than XX.X% (in figure 1 this value is 98.0) of the SNP that remain after Step 2 enter the finalised high-density set. The remaining animals enter the finalised low density set. The final high-density group is passed to AlphaPhase1.1 to be phased. 
 
 The case sensitive qualifier controls the SNP for which results are outputted and it has two options ``AllSnpOut`` or ``EditedSnpOut`` (note that these are case sensitive). ``AllSnpOut`` produces output for all the SNP that are inputted. ``EditedSnpOut`` produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file ``EditingSnpSummary.txt`` which is described below.
 
@@ -131,7 +131,7 @@ NumberOfPairsOfPhasingRounds
 """"""""""""""""""""""""""""
 This parameter admits two alternatives.
 
-*Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high‐density group. The minimum for this number is 2 while the maximum is 30::
+*Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high‐density group. The minimum for this number is 2 and the maximum is 30::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -159,7 +159,7 @@ This parameter admits two alternatives.
   TrueGenotypeFile                      ,MyTrueGenos.txt
 
 
-It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (an their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
+It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (and their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
 
 *Alternative 2* can be used to read in data sets that have been previously phased by AlphaPhase1.1::
 
@@ -191,18 +191,18 @@ It is worth pointing out that a pair of rounds comprises one round with AlphaPha
 
 This allows users to read in results of previous phasing work. Three parameters are required here. 
 
-The first is the case sensitive qualifier ``PhaseDone``. This specifies that the phasing rounds that have been done previously. 
+The first is the case sensitive qualifier ``PhaseDone``. This specifies that the phasing rounds have been done previously. 
 
 The second is the complete path to where these phasing rounds are stored. This path must be surrounded by quotations (e.g. ``“/here/is/the/full/path/”``). 
 
-The third is the number of phasing jobs that are to be read from the folder. The folders containing each of the phasing rounds must be labelled Phase1, Phase2, ..., PhaseN, where N is the number of phasing rounds. It is important to realise that *Alternative 1* (described above) for ``NumberOfPhasingRounds`` sets a number that is half the actual number of phasing rounds carried out (because of it specifes the number of pairs of rounds rather than rounds). Therefore it is good to check how many phasing rounds are actually in the folder you are reading in. 
+The third is the number of phasing jobs that are to be read from the folder. The folders containing each of the phasing rounds must be labelled Phase1, Phase2, ..., PhaseN, where N is the number of phasing rounds. It is important to realise that *Alternative 1* (described above) for ``NumberOfPhasingRounds`` sets a number that is half the actual number of phasing rounds carried out (because of it specifes the number of pairs of rounds rather than individual rounds). Therefore it is good to check how many phasing rounds are actually in the folder you are reading in. 
 
-The second alternative can be used in conjunction with ``PreProcessDataOnly`` (descried below) to give greater control on the computational time required to perform the phasing. An example of how this would work is given in detail in the `Examples`_ section (``PreProcessDataExample``).
+The second alternative can be used in conjunction with ``PreProcessDataOnly`` (described below) to give greater control on the computational time required to perform the phasing. An example of how this works is given in detail in the `Examples`_ section (``PreProcessDataExample``).
 
 
 CoreAndTailLengths
 """"""""""""""""""
-Gives the overall length in terms of numbers of SNP of the core and its adjacent tails for each of the phasing runs. The concept of cores and tails is outlined in Hickey *et al*. (2011). For example if the CoreLengths (described below) value is 100 and the ``CoreAndTailLengths`` is 300 this means that the core is 100 SNP long and the tails are the 100 SNP adjacent to each end of the core, thus the length of the core and tail is 300 SNP. At the end of a chromosome, the tail can only extend in one direction. Thus in this case the core and tail length would only be 200 SNP, the 100 SNP in the core, and the 100 SNP adjacent to the one end of the core. The total number of ``CoreAndTailLengths`` specified must equal the number specified for ``NumberOfPairsOfPhasingRounds`` (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 ``CoreAndTailLengths`` specified).
+Gives the overall length in terms of numbers of SNP in the core and its adjacent tails for each of the phasing runs. The concept of cores and tails is outlined in Hickey *et al*. 2011. For example if the CoreLengths (described below) value is 100 and the ``CoreAndTailLengths`` is 300, the core is 100 SNP long and the tails are the 100 SNP adjacent to each end of the core. Thus the length of the core and tail is 300 SNP. At the end of a chromosome, the tail can only extend in one direction. In this case the core and tail length would only be 200 SNP, the 100 SNP in the core, and the 100 SNP adjacent to one end of the core. The total number of ``CoreAndTailLengths`` specified must equal the number specified for ``NumberOfPairsOfPhasingRounds`` (i.e. in figure 1 there are 10 rounds of phasing specified and there are 10 ``CoreAndTailLengths`` specified).
 
 
 CoreLengths
@@ -219,7 +219,7 @@ Tells the program to perform the long-range phasing step of AlphaPhase1.1 withou
 
 GenotypeErrorPercentage
 """""""""""""""""""""""
-Gives the percentage of SNP that are allowed to be missing or in conflict across the entire core and tail length during the surrogate definition in AlphaPhase1.1. A value of 1.00 (i.e. 1%) means that across a CoreAndTailLengths of 300 SNPs, 3 of these SNP are allowed to be missing or in disagreement between two otherwise compatible surrogate parents. Thus these two individuals are allowed to be surrogate parents of each other in spite of the fact that 1% of their genotypes are missing or are in conflict (i.e. opposing homozygotes). Small values are better (e.g. <1.0%). See the manual for AlphaPhase1.1 for more details.
+Gives the percentage of SNP that are allowed to be missing or in conflict across the entire core and tail length during the surrogate definition in AlphaPhase1.1. A value of 1.00 (i.e. 1%) means that across a ``CoreAndTailLengths`` of 300 SNPs, 3 of these SNP are allowed to be missing or in disagreement between two otherwise compatible surrogate parents. Thus these two individuals are allowed to be surrogate parents of each other in spite of the fact that 1% of their genotypes are missing or are in conflict (i.e. opposing homozygotes). Small values are better (e.g. <1.0%). See the manual for AlphaPhase1.1 for more details.
 
 
 NumberOfProcessorsAvailable
@@ -252,30 +252,30 @@ Gives the user an option to read in a list of individuals that are phased using 
 
 PrePhasedFile
 """""""""""""
-Gives the option to read in pre-phased data (e.g. phased by a previous roung of |ai| or by another program such as a half-sib haplotyping program). Specify ``None`` to the right of the comma if no file is to be read in, or specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain a two lines for each individual, the first line being its phased paternal gamete (alleles coded as 0 or 1 or another integer (e.g. 3) for missing alleles) and the second line being the phased maternal gamete. The first column should be a the ID’s of the individuals. The file takes the same format as ``ImputePhase.txt`` in the Results section of |ai|. Care must be taken here to ensure that only reliable phased individuals are included when using this option.
+Gives the option to read in pre-phased data (e.g. phased by a previous round of |ai| or by another program such as a half-sib haplotyping program). Specify ``None`` to the right of the comma if no file is to be read in, or specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain two lines for each individual, the first line being its phased paternal gamete (alleles coded as 0 or 1 or another integer (e.g. 3) for missing alleles) and the second line being the phased maternal gamete. The first column should be a the ID’s of the individuals. The file takes the same format as ``ImputePhase.txt`` in the Results section of |ai|. Care must be taken here to ensure that only reliable phased individuals are included when using this option.
 
 RestartOption
 """""""""""""
 
-.. note:: This option behaves differently depending on the |ai| version. Two different version of |ai| are distributed, the *standard* version and the *cluster* version. If not specify otherwise, the *standard* version is explain all along this section.
+.. note:: This option behaves differently depending on the |ai| version. Two different version of |ai| have been distributed, the *standard* version and the *cluster* version. If not specified otherwise, the *standard* version is explained in this section.
 
-The program can be run in three different and consecutive steps: 1) to calculate genotype probabilities; 2) haplotype phasing; and 3) to impute genotypes. ``RestartOption`` controls which step is being processed at each time.
+The program can be run in three different and consecutive steps: 1) calculate genotype probabilities; 2) haplotype phasing; and 3) impute genotypes. ``RestartOption`` controls which step is being processed at each time.
 
 ``RestartOption`` set to ``1`` calculates the genotype probabilities in different parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. The program stops after all the processes have finished.
 
-.. note:: In the *cluster* version, the user should be responsible of creating a script which manages the computation of the genotype probabilities rounds accordingly to the number of processors set in ``NumberOfProcessorsAvailable`` and to the cluster specifications. The program stops immediately before the script has been executed.
+.. note:: In the *cluster* version, the user is responsible for creating a script which manages the computation of the genotype probabilities rounds accordingly to the number of processors set in ``NumberOfProcessorsAvailable`` and to the cluster specifications. The program stops immediately before the script has been executed.
 
-``RestartOption`` set to ``2`` runs the Phasing rounds in parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. The program stops after all Phasing rounds have finished. AlphaPhase1.1 is used for computing the Phasing rounds by default, but Phasing rounds might also be run by any external program.
+``RestartOption`` set to ``2`` runs the Phasing rounds in parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. The program stops after all Phasing rounds have finished. AlphaPhase1.1 is used for computing the Phasing rounds by default, but Phasing rounds can also be run by any external program.
 
 .. note:: In the *cluster* version, the user is responsible for creating a script which computes the haplotype phasing accordingly to the number of processors specified in ``NumberOfPhasingRuns`` and to the cluster specifications. |ai| stops before the script has been executed.
 
-``RestartOption`` set to ``3`` run the program so that to impute the missing genotypes. The program has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is based on a hidden Markov model (HMM) (see [HMMOptions]_ and [HMMParameters]_ for more information about how to set optimal parameters).
+``RestartOption`` set to ``3`` runs the program to impute the missing genotypes. The program has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is based on a hidden Markov model (HMM) (see [HMMOptions]_ and [HMMParameters]_ for more information about how to set optimal parameters).
 
 ``RestartOption`` ``0`` runs the whole stepwise process, i.e. it computes genotype probabilities, performs haplotype phasing and imputes genotypes consecutively.
 
-.. note:: ``RestartOption`` = ``0`` is disable in the *cluster* version. However, the user can create script simulating this option by running |ai| with ``RestartOption`` set to ``1``, ``2`` and ``3`` and the respectively scripts consecutively.
+.. note:: ``RestartOption`` = ``0`` is disabled in the *cluster* version. However, the user can create a script to simulate this option by running |ai| with ``RestartOption`` set to ``1``, ``2`` and ``3`` consecutively.
 
-There are two reasons as to why a user might want to run the program in consecutive steps. Firstly the pre-processing steps can be used to observe how different parameters settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing and running the program in different step may help to speed up the entire process.
+There are two reasons as to why a user might want to run the program in consecutive steps. Firstly the pre-processing steps can be used to observe how different parameters settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing. Running the program using a different step may help to speed up the entire process.
 
 ``PhaseOnly``, ``BypassGenProb`` and ``PrepocessDataOnly`` might modify the ``RestartOption`` behaviour. For more details please, see [PhaseOnly]_, [BypassGenProb]_ and [PrepocessDataOnly]_ options, respectively.
 
@@ -286,12 +286,12 @@ Tells the program to skip the imputation run. The command options are a case sen
 
 ConservativeHaplotypeLibraryUse
 """""""""""""""""""""""""""""""
-Tells the program to avoid the further population of the haplotype library during the imputation step. The haplotype library has been previously created during the LRPHI phasing process. The command options are a case sensitive ``No`` or ``Yes``.
+Tells the program to avoid the further population of the haplotype library during the imputation step. The haplotype library was previously created during the LRPHI phasing process. The command options are a case sensitive ``No`` or ``Yes``.
 
 
 WellPhasedThreshold
 """""""""""""""""""
-Controls the final imputation quality of the individuals. Those individuals with an imputation accuracy above ``WellPhasedThreshold`` will be output in the ``WellPhasedIndividuals.txt`` file.
+Controls the final imputation quality of the individuals. Those individuals with an imputation accuracy above ``WellPhasedThreshold`` will be outputted in the ``WellPhasedIndividuals.txt`` file.
 
 
 BypassGenProb
@@ -299,7 +299,7 @@ BypassGenProb
 
 Has two options ``Yes`` or ``No``.
 
-``Yes`` sets the program so that to skip the computation of genotype probabilities rounds during the pre-processing data step, and so that to stop the program before the final computation of genotype dosages during final step of writing the results.
+``Yes`` sets the program to skip the computation of genotype probabilities rounds during the pre-processing data step, and stops the program before the final computation of genotype dosages during the final step of writing the results.
 
 ``No`` sets the program to run normally.
 
@@ -308,34 +308,34 @@ HMMOptions
 """"""""""
 During the imputation step, the program can use a hidden Markov model (HMM) to impute missing genotypes. ``HMMOptions`` admits four different options: ``No``, ``Yes``, ``Prephase`` and ``Only``.
 
-``No`` runs the program so that no use the HMM algorithm. The program will perform the combined SAHLI imputation method explained in Hickey *et al*., (2012) [1]_.
+``No`` runs the program without the use the HMM algorithm. The program will perform the combined SAHLI imputation method explained in Hickey *et al*., (2012) [1]_.
 
-``Prephase`` uses pre-phased information to run the HMM imputation algorithm. Haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phase arbitrarily. 
+``Prephase`` uses pre-phased information to run the HMM imputation algorithm. Haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phased arbitrarily. 
  
-``Yes`` computes imputation in two steps. In the first step, the program uses the SAHLI method to guarantee very accurate genotype imputation and haplotype phasing. Haplotypes obtained at the phasing step will be used to feed the Haplotype Template (HT) of the HMM method. During the generation of the template, haplotypes are chosen at random and possible missing heterozygous loci are phase arbitrarily. This is stepwise approach is the most accurate but also the most computational expensive in terms of time.
+``Yes`` computes imputation in two steps. In the first step, the program uses the SAHLI method to guarantee very accurate genotype imputation and haplotype phasing. Haplotypes obtained at the phasing step will be used to feed the Haplotype Template (HT) of the HMM method. During the generation of the template, haplotypes are chosen at random and possible missing heterozygous loci are phased arbitrarily. This is stepwise approach is the most accurate but also the most computationally expensive in terms of time.
 
-``Only`` runs HMM method only. The haplotype template of the HMM method will be populated with genotype data from individuals picked at random. Unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily. This option is useful when phasing information is not available or when imputation is required in unrelated populations (Marchini and Howie, 2010) [6]_.
+``Only`` runs HMM method only. The haplotype template of the HMM method is populated with genotype data from individuals picked at random. Unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily. This option is useful when phasing information is not available or when imputation is required in unrelated populations (Marchini and Howie, 2010) [6]_.
 
 Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running the program with ``RestartOption`` set to ``2`` (see [RestartOption]_ option for more details).
 
 HMMParameters
 """""""""""""
-HMM algorithms are very flexible performing well in unrelated samples and being applicable in most genome regions computing genotype dosages, where heuristic methods fail if rules are not met. HMM imputation methods try to explain the genotype of a particular locus as generated by a hidden state conditional to the previous state. HMM methods are defined by the transition probabilities between states, i.e. the probability of getting a state given the previous one, and the emission probabilities, i.e. probability of observe a genotype given a particular state. Commonly, the number of states determines the computational complexity of HMM algorithms.
+Where heuristic methods fail if rules are not met, HMM algorithms are very flexible performing well in unrelated samples and being applicable in most genome regions computing genotype dosages. HMM imputation methods try to explain the genotype of a particular locus as generated by a hidden state conditional to the previous state. HMM methods are defined by the transition probabilities between states, i.e. the probability of getting a state given the previous one, and the emission probabilities, i.e. probability of observing a genotype given a particular state. Commonly, the number of states determines the computational complexity of HMM algorithms.
 
-|ai| implements the Markov model described in Li *et al*., 2009 [5]_. This model is defined by the number of states, :math:`H^2`, the crossovers parameters, :math:`\theta_i, i = {1,\ldots,M}`, and the error parameters, :math:`\varepsilon_j, j = {1,\ldots,M}`; where :math:`H` is the number of haplotypes in the haplotype template, and :math:`M` is the number of markers. The crossovers define the transition probabilities from one state to the next, giving an estimation of the recombination rates across haplotypes. The errors define the emission probabilities, giving an estimation of the gene conversion events and recurrent mutations. In order to determine the specific model that better fits the data, crossovers and error parameters have to be estimated. For this purpose, crossovers and errors are updated based on the recombination rates and allele frequencies in consecutive runs of the HMM model. The initial values of the model parameters are set to :math:`\theta_i=0.01; \, \varepsilon_j=0.00000001`, but other parameters such as number of haplotypes in the template or number of runs have to be set by the user (see HMMParameters option).
+|ai| implements the Markov model described in Li *et al*., 2009 [5]_. This model is defined by the number of states, :math:`H^2`, the crossovers parameters, :math:`\theta_i, i = {1,\ldots,M}`, and the error parameters, :math:`\varepsilon_j, j = {1,\ldots,M}`; where :math:`H` is the number of haplotypes in the haplotype template, and :math:`M` is the number of markers. The crossovers define the transition probabilities from one state to the next, giving an estimation of the recombination rates across haplotypes. The errors define the emission probabilities, giving an estimation of the gene conversion events and recurrent mutations. In order to determine the specific model that best fits the data, crossovers and error parameters have to be estimated. For this purpose, crossovers and errors are updated based on the recombination rates and allele frequencies in consecutive runs of the HMM model. The initial values of the model parameters are set to :math:`\theta_i=0.01; \, \varepsilon_j=0.00000001`, but other parameters such as number of haplotypes in the template or number of runs have to be set by the user (see HMMParameters option).
 
-The first numerical parameter of ``HMMParameters`` is the number of gametes used to create the haplotype template. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger templates are used. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved increasing the number of parallel processes, which is controlled by the last parameter in this section.
+The first numerical parameter of ``HMMParameters`` is the number of gametes used to create the haplotype template. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger templates are used. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved by increasing the number of parallel processes, which is controlled by the last parameter in this section.
 
 The second numerical parameter sets the number of rounds dismissed before the parameters of the HMM model have stabilised. ``10`` is a good value for this parameter.
 
-The third numerical parameter is the total number of rounds that the HMM will be computed. A greater number of rounds lead to better results. However, the user is discouraged to use more than 50 rounds, as imputation accuracy tends to be only slightly better than when a lesser number of rounds are used.
+The third numerical parameter is the total number of rounds that the HMM will be computed. A greater number of rounds lead to better results. However, the user is discouraged from using more than 50 rounds, as imputation accuracy tends to be only slightly better than when a lesser number of rounds are used.
 
-The last numerical parameter controls the number of parallel processes used to complete the genotype imputation. Valid values are integer greater than ``0``. Each processor is responsible to compute the HMM model for a single individual. To set this parameter to ``1`` will compute the HMM imputation in serial.
+The last numerical parameter controls the number of parallel processes used to complete the genotype imputation. Valid values are integer greater than ``0``. Each processor is responsible for computing the HMM model for a single individual. Setting this parameter to ``1`` will compute the HMM imputation in serial.
 
 
 TrueGenotypeFile
 """"""""""""""""
-Gives the name of the file containing the true genotypes if you want to test the program. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to ``None``. Testing the program can be useful when applying the program to a new population, perhaps the user should mask some SNP in a small percentage of the animals and see how it performs imputing them!::
+If you want to test the program ``TrueGenotypeFile``, gives the name of the file containing the true genotypes. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to ``None``. Testing the program can be useful when applying the program to a new population, perhaps the user should mask some SNP in a small percentage of the animals and see how it performs imputing them!::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -366,7 +366,7 @@ Gives the name of the file containing the true genotypes if you want to test the
 Advice on values for parameters
 -------------------------------
 
-For a data set comprised of 10,000 animals, of which 3000 animals are genotyped for 3129 SNP (on chromosome 1, thus equivalent to 50k density) and 1000 animals are genotyped for (180 SNP on chromosome 1, thus equivalent to some low density chip) a good way to proceed would be with the parameters outlined in figure 1. However a full example of how to apply the program to a real data set will be given below in the examples.
+For a data set comprised of 10,000 animals, of which 3000 animals are genotyped for 3129 SNP (on chromosome 1, thus equivalent to 50k density) and 1000 animals are genotyped for (180 SNP on chromosome 1, thus equivalent to some low density chip) a good way to proceed would be with the parameters outlined in figure 1. However a full example of how to apply the program to a real data set is given below in the examples.
 
 Data format
 -----------
@@ -375,7 +375,7 @@ The program generally requires two input files, a pedigree file and a genotype f
 Pedigree file
 ^^^^^^^^^^^^^
 
-The pedigree file should have three columns, individual, father, and mother. It should be space or comma separated with for missing parents coded as 0. No header line should be included in the pedigree file both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this.
+The pedigree file should have three columns, individual, father, and mother. It should be separated with space or comma with for missing parents coded as 0. No header line should be included in the pedigree file. Both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this.
 
 Genotype file
 ^^^^^^^^^^^^^
@@ -384,7 +384,7 @@ The genotype information should be contained in a single file containing 1 line 
 
 Output
 ------
-The output of |ai| is organised into a number sub directories (``Results and Miscellaneous``, and in the case of when a true genotype data file is supplied ``TestAlphaImpute``). A description of what is contained within these folders is given below.
+The output of |ai| is organised into a number of sub directories (``Results and Miscellaneous``, and in the case of when a true genotype data file is supplied ``TestAlphaImpute``). A description of what is contained within these folders is given below.
 
 Results
 ^^^^^^^
@@ -415,23 +415,23 @@ TestAlphaImpute
 
 ``TestAlphaImpute`` is only invoked if a ``TrueGenotypeFile`` is supplied. The resulting folder contains four files.
 
-``IndividualAnimalAccuracy.txt`` contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had (``1`` being both parents genotyped, ``2`` being sire and maternal grandsire genotyped, ``3`` being dam and paternal grandsire genotyped, ``4`` being sire genotyped, ``5`` being dam genotyped, and ``6`` being any other scenario; An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP), and the next columns are for each of the SNP, with the coding ``1`` being for SNP correctly imputed, ``2`` being for SNP incorrectly imputed, ``3`` being for SNP not imputed, and ``4`` being for SNP that were already genotyped.
+``IndividualAnimalAccuracy.txt`` contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had ``1`` being both parents genotyped, ``2`` being sire and maternal grandsire genotyped, ``3`` being dam and paternal grandsire genotyped, ``4`` being sire genotyped, ``5`` being dam genotyped, and ``6`` being any other scenario. An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP. The next columns are for each of the SNP, with ``1`` if the SNP is correctly imputed, ``2`` the SNP is incorrectly imputed, ``3`` if the SNP is not imputed, and ``4`` if the SNP was already genotyped.
 
-``IndividualSummaryAccuracy.txt`` summarises the information in ``IndividualAnimalAccuracy.txt``. Columns 1 and 2 were as for the previous file, column 3 is the percentage of SNP to be imputed that were imputed correctly for this animal, column 4 is the percentage imputed incorrectly, column 5 is the percentage not imputed, column 6 is the percentage of paternal alleles that were imputed or phased, column 7 is the percentage of maternal alleles that were imputed or phased.
+``IndividualSummaryAccuracy.txt`` summarises the information in ``IndividualAnimalAccuracy.txt``. Columns 1 and 2 are the same as the previous file, column 3 is the percentage of SNP to be imputed that were imputed correctly for this animal, column 4 is the percentage imputed incorrectly, column 5 is the percentage not imputed, column 6 is the percentage of paternal alleles that were imputed or phased, and column 7 is the percentage of maternal alleles that were imputed or phased.
 
 ``IndividualSummaryYield.txt`` summarises the yield in terms of the percentage of paternal/maternal alleles that have been imputed or phased for all animals in the pedigree. Column 1 is the ID, column 2 is an indicator as to whether it was genotyped for more than 50% of the SNP or not (``1`` = was genotyped, ``0`` = was not genotyped), column 3 is the percentage of paternal alleles imputed or phased, column 4 is the percentage of maternal alleles imputed or phased.
 
 Offset/NotOffset mode
 =====================
 
-AlphaPhase1.1 can be run in an *Offset* mode or a *NotOffset* mode. The *NotOffset* mode means that the cores start at the first SNP. The *Offset* mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length along (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in *NotOffset* phases several cores, then running the program in *Offset* mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the *NotOffset* mode and the *Offset* mode.
+AlphaPhase1.1 can be run in an *Offset* mode or a *NotOffset* mode. The *NotOffset* mode means that the cores start at the first SNP. The *Offset* mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in *NotOffset* phases several cores, then running the program in *Offset* mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the *NotOffset* mode and the *Offset* mode.
 
 Examples
 ========
 
 In the download there is a directory called ``Examples``. In ``Examples`` the example outlined here is contained.
 
-The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file ``RecodedPicPedigree.txt``. The genotypes are in the file ``PicGenotypeFile.txt`` and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as ``0``, ``1``, ``2`` and the missing SNP as ``9``. ``PicTrueGenotypeFile.txt`` is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP is included. This can be used as the ``TrueGenotypeFile`` in the examples that test the program.
+The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 6473 animals in the file ``RecodedPicPedigree.txt``. The genotypes are in the file ``PicGenotypeFile.txt`` and comprise 3509 animals, of which 3209 were genotyped for all 3129 SNP and a further 300 were genotyped for a subset of the SNP. The genotyped SNP are coded as ``0``, ``1``, ``2`` and the missing SNP as ``9``. ``PicTrueGenotypeFile.txt`` is a file containing the unmasked genotypes for the animals genotyped for the subset of SNP. This can be used as the ``TrueGenotypeFile`` in the examples that test the program.
 
 Four example scenarios are given.
 
@@ -449,15 +449,15 @@ We call this Example 1 and it is store in the directory Example/Example1 of the 
 
 The parameters of interest are described below.
 
-``InternalEdit`` is set to ``Yes`` so that the program attempts to edit the data internally using the parameters outlined in ``EditingParameters``. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP that was missing in more than 2% of the animals initially defined as being in the high-density group has been removed. The original high-density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the AllSnpOut qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
+``InternalEdit`` is set to ``Yes`` so that the program attempts to edit the data internally using the parameters outlined in ``EditingParameters``. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP, missing in more than 2% of the animals initially defined as being in the high-density group has been removed. The original high-density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the ``AllSnpOut`` qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
 
-``NumberOfPairsOfPhasingRounds`` is set to ``10`` meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-density group of animals. The results of the Phasing rounds are stored in the directory Phasing.
+``NumberOfPairsOfPhasingRounds`` is set to ``10`` meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-density group of animals. The results of the Phasing rounds are stored in the directory ``Phasing``.
 
-The core and tail lengths varied between 200 and 700, and the tail lengths varied between 100 and 600. The choice of these lengths creates a nice amount of overlap between cores and means that each SNP is phased multiple times as part of cores spanning different SNP. 
+The core and tail lengths varied between 200 and 700, and the tail lengths varied between 100 and 600. The choice of these lengths creates a nice amount of overlap between cores and means that each SNP is phased multiple times as part of the cores spanning different SNP. 
 
 The genotype error percentage is assumed to be very low (i.e. 0%). This is suitable here because the data is very clean, however data sets with less favourable call rates may require this value to be set slightly higher (e.g. 1%). Higher number can slow the program down and reduce the phasing accuracy.
 
-It is assumed that 20 processors are available. This means that all 20 phasing rounds can be run in parallel. If this number was set to ``1`` it would mean they would have to be done in sequence, thus slowing down the process dramatically.
+It is assumed that 20 processors are available. This means that all 20 phasing rounds can be run in parallel. If this number was set to ``1`` it would mean they would have to be done in sequence, thus slowing the process dramatically.
 
 The number of internal iterations has been set to ``3``.
 
@@ -466,20 +466,20 @@ No true genotype is supplied hence this parameter is set to ``None``.
 Example 2. How to run the program to first pre-process the data and then run it by reading in previously phased data
 --------------------------------------------------------------------------------------------------------------------
 
-Phasing can be a very computationally expensive task. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run |ai| with the PreprocessDataOnly set to ``Yes``, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run |ai| with the PreprocessDataOnly set to ``No`` and the NumberOfPairsOfPhasingRounds set to PhaseDone.
+Phasing can be a very computationally expensive task. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run |ai| with the ``PreprocessDataOnly`` set to ``Yes``, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run |ai| with the ``PreprocessDataOnly`` set to ``No`` and the ``NumberOfPairsOfPhasingRounds`` set to ``PhaseDone``.
 
 A full worked example of this is given in the directory Examples/Example2 of the download. The folder contains ``AlphaImputeSpec.txt`` which is completely empty but will be filled appropriately as we proceed.
 
-To perform the first run of the program the contents of ``Run1AlphaImputeSpec.txt`` should be copied into ``AlphaImputeSpec.txt``. This set of parameters is exactly the same as the set of parameters used to run Example1 with one difference, the PreprocessDataOnly is set to ``Yes``. This causes the program to edit the data and set up the data sets and folder structure required to run the program. Then the program stops.
+To perform the first run of the program the contents of ``Run1AlphaImputeSpec.txt`` should be copied into ``AlphaImputeSpec.txt``. This set of parameters is exactly the same as the set of parameters used to run Example1 with one difference, the ``PreprocessDataOnly`` is set to ``Yes``. This causes the program to edit the data and set up the data sets and folder structure required to run the program. Then the program stops.
 
 The next thing that must be done is that the directory “Phasing” should be renamed to something like “PhasingByHand”. In this directory 20 subdirectories have been created (2 directories for each of the 10 pairs of Phasing rounds). In these directories a parameter file for controlling AlphaPhase1.1 called ``AlphaPhaseSpec.txt`` has been placed. This contains the parameters that control the phasing. Each of the phasing rounds should now be run by the user, who can then tweak the parameters of the ``AlphaPhaseSpec.txt`` files as appropriate to ensure a good phasing yield in a short amount of time.
 
-Once the phasing rounds have been finished |ai| can be rerun. The parameters to do this are in ``Run2AlphaImputeSpec.txt`` and these can now be copied into ``AlphaImputeSpec.txt`` in place of the previously copied parameters.
+Once the phasing rounds have been finished |ai| can be rerun. The parameters to do this are in ``Run2AlphaImputeSpec.txt`` and these can now be copied into ``AlphaImputeSpec.txt`` in place of the previously parameters.
 
 Example 3. How to run the program to impute genotypes and test the imputation accuracy
 --------------------------------------------------------------------------------------
 
-Run the program in pre-processing mode with parameters as set in here::
+Run the program in pre-processing mode with the parameters shown here::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -507,7 +507,7 @@ Run the program in pre-processing mode with parameters as set in here::
   TrueGenotypeFile                      ,MyTrueGenos.txt
 
 
-Rename the ``Phase`` folder to PhaseOld and then rerun the program with the pre-processing turned off as shown here below::
+Rename the ``Phase`` folder to ``PhaseOld`` and then rerun the program with the pre-processing turned off as shown below::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -547,7 +547,7 @@ Contact `John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_
 
 An extensive example file is downloadable from the `AlphaGenes <http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphaimpute/>`_ website.
 
-The example comprises the PIC data set described in Hickey *et al*. (2012) [1]_. It consists of a pedigree of 6473 animals, of which 3209 are genotyped for almost all of the 3129 SNP (50k density) and 300 animals (at the end of the pedigree) are genotyped for a subset of XXX of the SNP (Xk density).
+The example comprises the PIC data set described in Hickey *et al*. 2012 [1]_. It consists of a pedigree of 6473 animals, of which 3209 are genotyped for almost all of the 3129 SNP (50k density) and 300 animals (at the end of the pedigree) are genotyped for a subset of XXX of the SNP (Xk density).
 
 Background reading
 ==================
