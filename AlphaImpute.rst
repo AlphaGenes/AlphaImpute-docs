@@ -43,6 +43,153 @@ Description of methods
 
 The method implemented in |ai| is described in detail in Hickey *et al*. (2011).
 
+Quickstart
+==========
+
+|ai| comes with two flavors: Standard and Cluster. The `standard version`_ of |ai| is thought to be run in standard devices where the user does not have restrictions about the device resources. For users who want to use |ai| in servers where jobs are controlled by queuing systems, the `cluster version`_ is recomended.
+
+.. _`standard version`: 
+
+Standard version
+----------------
+
+To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. |ai| will welcome the user with this message::
+
+                               ***********************
+                               *                     *
+                               *     AlphaImpute     *
+                               *      Beta 1.21      *
+                               *                     *
+                               ***********************
+
+                     Software For Phasing and Imputing Genotypes
+
+   Written by John Hickey, Matt Cleveland, Andreas Kranis, and Brian Kinghorn
+
+and it will look input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
+
+  PedigreeFile                          ,MyPedrigree.txt
+  GenotypeFile                          ,MyGenos.txt
+  SexChrom                              ,No
+  NumberSnp                             ,1000
+  InternalEdit                          ,No
+  EditingParameters                     ,0.0,0.0,0.0
+  NumberPhasingRuns                     ,4
+  CoreAndTailLengths                    ,250,500,750,1000
+  CoreLengths                           ,200,450,700,900
+  PedigreeFreePhasing                   ,No
+  GenotypeError                         ,0.0
+  NumberOfProcessorsAvailable           ,8
+  InternalIterations                    ,3
+  PreprocessDataOnly                    ,No
+  PhasingOnly                           ,No
+  ConservativeHaplotypeLibraryUse       ,No
+  WellPhasedThreshold                   ,99.0
+  UserDefinedAlphaPhaseAnimalsFile      ,None
+  PrePhasedFile                         ,None
+  BypassGeneProb                        ,No
+  RestartOption                         ,1
+  HMMOption                             ,No
+  HmmParameters                         ,300,19,20,4
+  TrueGenotypeFile                      ,None
+
+|ai| should be run in different steps in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; and 3) impute and phase genotype data of all individuals in the population. The three different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
+
+The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This will create the following folder structure::
+
+  GeneProb/
+  InputFiles/
+  IterateGeneProb/
+  Miscellaneous/
+  Phasing/
+  Results/
+
+and will compute the genotype probabilities. 
+
+Genotype probabilities are computed by **GeneProbForAlphaImpute** which has been provided along with |ai|. |ai| will split the data in 
+
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This will compute phase of those individuals genotyped at high-density. These individuals and their genotypes will be stored in the file ``AlphaPhaseInputGenotypes.txt`` within the folder ``InputFiles``.
+
+|ai| has to be run a third time with the ``RestartOption`` set to ``3``. This time, |ai| will impute genotypes for all the individuals in the pedigree file ``MyPedrigree.txt``. Besides the imputed genotypes, genotype probabilities will be computed by **GeneProbForAlphaImpute** based on the new imputed genotypes. 
+
+|ai| has to be run a final time with the ``RestartOption`` set to ``4``. This will compute dosage and genotype probabilities and generate . This will create 
+
+.. _`cluster version`:
+
+Cluster version
+---------------
+
+To run |ai|, just type ``AlphaImpute`` on the console and press enter. |ai| will welcome the user with this message::
+
+                               ***********************
+                               *                     *
+                               *     AlphaImpute     *
+                               *      Beta 1.21      *
+                               *                     *
+                               ***********************
+
+                     Software For Phasing and Imputing Genotypes
+
+   Written by John Hickey, Matt Cleveland, Andreas Kranis, and Brian Kinghorn
+
+and it will look for the input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
+
+  PedigreeFile                          ,MyPedrigree.txt
+  GenotypeFile                          ,MyGenos.txt
+  SexChrom                              ,No
+  NumberSnp                             ,1000
+  InternalEdit                          ,No
+  EditingParameters                     ,0.0,0.0,0.0
+  NumberPhasingRuns                     ,4
+  CoreAndTailLengths                    ,250,500,750,1000
+  CoreLengths                           ,200,450,700,900
+  PedigreeFreePhasing                   ,No
+  GenotypeError                         ,0.0
+  NumberOfProcessorsAvailable           ,8
+  InternalIterations                    ,3
+  PreprocessDataOnly                    ,No
+  PhasingOnly                           ,No
+  ConservativeHaplotypeLibraryUse       ,No
+  WellPhasedThreshold                   ,99.0
+  UserDefinedAlphaPhaseAnimalsFile      ,None
+  PrePhasedFile                         ,None
+  BypassGeneProb                        ,No
+  RestartOption                         ,1
+  HMMOption                             ,No
+  HmmParameters                         ,300,19,20,4
+  TrueGenotypeFile                      ,None
+
+|ai| should be run in different steps in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; and 3) impute and phase genotype data of all individuals in the population. The three different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
+
+The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This will create the following folder structure::
+
+  GeneProb/
+  InputFiles/
+  IterateGeneProb/
+  Miscellaneous/
+  Phasing/
+  Results/
+
+and |ai| will stop at this point with the message
+
+.. warning:: ``Restart option 1 stops program before Geneprobs jobs have been submitted``
+
+
+A new structure of subfolders will be created within the ``GeneProb`` folder. Each subfolder will contain the a spec file ``GeneProbSpec.txt`` to run **GeneProbForAlphaImpute** to 
+
+Once the *GeneProb* processes have finished, |ai| has to be run with ``RestartOption`` set to ``2``. This will populate the folder ``Phasing`` with  compute phase of those individuals genotyped at high-density. These individuals and their genotypes will be stored in the file ``AlphaPhaseInputGenotypes.txt`` within the folder ``InputFiles``.
+
+Once you run AlphaImpute for the first time (RestartOption=1) some folder are created. One of them is GeneProb. Inside GeneProb there are other folders called GeneProbX where X is a number. You should have as many GeneProbs as processors you have specified in the spec file. You need to run GeneProbForLinux inside each particular GeneProbX.
+
+When they have finished, you need to run AlphaImpute again (RestartOption=2) to prepare the data for phasing. When AlphaImpute stops, phasing process have to be run inside the Phasing/PhaseX folder in the same way you did with GeneProb. In this case, use the AlphaPhase binary.
+
+The next step is to run AlphaImpute again (RestartOption=3) and compute the imputation. After that, run GeneProb again inside the folders IterateGeneProb/GeneProbX
+
+Finally, the last step is to run AlphaImpute (RestartOption=4) to gather the information from the IterateGeneProb folders and output the imputed gentoypes (Results/ImputeGenotypes.txt) and genotype dosages (Results/ImputeGenotypeProbabilities.txt)
+
+Because you have to run GeneProbForLinux and AlphaPhase many times it would be convenient to create a small pipeline with the whole process. However, keep in mind that you have to wait until all the GeneProb and phasing subprocesses have finished before carrying out the next step.
+
+
 Using AlphaImpute
 =================
 
