@@ -1,2 +1,9 @@
 *.pdf
 *.html
+*.tex
+*.aux
+*.log
+*.toc
+*.out
+*.docx
+*.odt
