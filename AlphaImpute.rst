@@ -46,7 +46,7 @@ The method implemented in |ai| is described in detail in Hickey *et al*. (2011).
 Quickstart
 ==========
 
-|ai| comes with two flavors: Standard and Cluster. The `standard version`_ of |ai| is thought to be run in standard devices where the user does not have restrictions about the device resources. For users who want to use |ai| in servers where jobs are controlled by queuing systems, the `cluster version`_ is recomended.
+|ai| comes with two different flavors: *Standard* and *Cluster*. The `standard version`_ of |ai| is thought to be run in machines where the user has no restrictions about the device resources in terms of memory or number of processors. For users who want to use |ai| in servers where jobs are controlled by queuing systems, the `cluster version`_ is recomended.
 
 .. _`standard version`: 
 
@@ -66,7 +66,7 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. |ai| wi
 
    Written by John Hickey, Matt Cleveland, Andreas Kranis, and Brian Kinghorn
 
-and it will look input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
+and it will look for input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -90,13 +90,16 @@ and it will look input parameters within the file ``AlphaImputeSpec.txt``. An ex
   BypassGeneProb                        ,No
   RestartOption                         ,1
   HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
+  HmmParameters                         ,200,5,20,8,-123456789
   TrueGenotypeFile                      ,None
 
-|ai| should be run in different steps in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; and 3) impute and phase genotype data of all individuals in the population. The three different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
+|ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
+
+Genotype Probabilities
+^^^^^^^^^^^^^^^^^^^^^^
 
 The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This will create the following folder structure::
-
+    
   GeneProb/
   InputFiles/
   IterateGeneProb/
@@ -104,15 +107,48 @@ The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This will 
   Phasing/
   Results/
 
-and will compute the genotype probabilities. 
+After creating the directories structure, |ai| will compute the genotype probabilities. Genotype probabilities are computed separately in different chunks of markers of the same size. These chunks are created by splitting the chromosome according to the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor available, a folder ``GeneProb/GeneProbX`` is created containing a spec file (``GeneProbSpec.txt``) and the binary **GeneProbForAlphaImpute**. |ai| will automatically run GeneProbForAlphaImpute for each ``GeneProbX`` folder according to the spec file.
 
-Genotype probabilities are computed by **GeneProbForAlphaImpute** which has been provided along with |ai|. |ai| will split the data in 
+Phase HD animals
+^^^^^^^^^^^^^^^^
 
-The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This will compute phase of those individuals genotyped at high-density. These individuals and their genotypes will be stored in the file ``AlphaPhaseInputGenotypes.txt`` within the folder ``InputFiles``.
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This will compute phase of those individuals genotyped at high-density. These individuals and their genotypes are stored in ``InputFiles/AlphaPhaseInputGenotypes.txt``. Phasing will be computed automatically across all markers according to the phasing strategies set with parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core specified in the spec file, |ai| will compute two phasing rounds by running AlphaPhase in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
+ 
+Impute genotypes
+^^^^^^^^^^^^^^^^
 
-|ai| has to be run a third time with the ``RestartOption`` set to ``3``. This time, |ai| will impute genotypes for all the individuals in the pedigree file ``MyPedrigree.txt``. Besides the imputed genotypes, genotype probabilities will be computed by **GeneProbForAlphaImpute** based on the new imputed genotypes. 
+The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This will impute genotypes for all the individuals in the pedigree file ``MyPedrigree.txt`` based on the phased data obtained in the previous step. 
 
-|ai| has to be run a final time with the ``RestartOption`` set to ``4``. This will compute dosage and genotype probabilities and generate . This will create 
+In some situations, thresholds of the imputation heuristic rules are not met and markers cannot be imputed. 
+
+The standard way to proceed in |ai| is to use **GeneProbForAlphaImpute**. **GeneProbForAlphaImpute** is run inside each ``IterateGeneProb/GeneProbX`` folder in order to impute those missing markers after the imputation rules. Missing genotypes are imputed if probabilities from GeneProb meet certain thresholds.
+
+A more sophisticated approach is to impute the missing genotypes with a hidden Markov model. To use the Markov model in |ai| ``HMMOption`` has to be set to ``Yes``. The five parameters in the ``HmmParameters`` option are referred to the *number of haplotypes*, *number of burning rounds*, *number of rounds*, *number of processors available* and a *seed*. The parameters shown in the spec file above have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters). Once the hidden Markov model has finished, most likely genotypes, genotype dosages and genotype probabilities are outputed:
+
+* ``ImputeGenotypes.txt``
+* ``ImputeGenotypesHMM.txt``
+* ``ImputeGenotypesProbabilities.txt``
+* ``GenotypeProbabilities.txt``
+
+Similar information will also be provided for phasing results and allele probabilities:
+
+* ``ImputePhase.txt``
+* ``ImputePhaseHMM.txt``
+* ``ImputePhaseProbabilities.txt``
+
+Summarise results
+^^^^^^^^^^^^^^^^^
+
+If the segregation analysis approach (i.e. **GeneProbForAlphaImpute**) has been used during the imputation step, results have to be summarised. So, |ai| has to be run a final time with the ``RestartOption`` set to ``4``. This will write out files with the most likely genotypes, genotype dosages and genotype probabilities
+
+* ``ImputeGenotypes.txt``
+* ``ImputeGenotypesProbabilities.txt``
+* ``GenotypeProbabilities.txt``
+
+Similar information will also be provided for phasing results and allele probabilities:
+
+* ``ImputePhase.txt``
+* ``ImputePhaseProbabilities.txt``
 
 .. _`cluster version`:
 
@@ -156,7 +192,7 @@ and it will look for the input parameters within the file ``AlphaImputeSpec.txt`
   BypassGeneProb                        ,No
   RestartOption                         ,1
   HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
+  HmmParameters                         ,200,5,20,8,-123456789
   TrueGenotypeFile                      ,None
 
 |ai| should be run in different steps in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; and 3) impute and phase genotype data of all individuals in the population. The three different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
