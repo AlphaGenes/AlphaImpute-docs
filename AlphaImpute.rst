@@ -760,4 +760,4 @@ Background reading
 .. #. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. Determining phase of genotype data by combined recursive long range phasing and long range haplotype imputation. (To be submitted)
 
 
-.. |ai| replace:: **AlphaImpute1.2**
+.. |ai| replace:: **AlphaImpute1.3**
