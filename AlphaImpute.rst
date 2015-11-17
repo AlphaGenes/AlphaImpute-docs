@@ -106,7 +106,7 @@ The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This creat
   Phasing/
   Results/
 
-After creating the directories, |ai| computes the genotype probabilities. To speed up this computation, it splits chromosomes into non-overlaping blocks of markers of the same size, and it computes genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
+After creating the directories, |ai| computes the genotype probabilities. To speed up this computation, |ai| splits chromosomes into non-overlaping blocks of markers of the same size, and it computes genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
 
 * ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
 * **GeneProbForAlphaImpute**: The executable of GeneProb. 
@@ -116,7 +116,7 @@ After creating the directories, |ai| computes the genotype probabilities. To spe
 Phase HD animals
 ^^^^^^^^^^^^^^^^
 
-The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This phases the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that has been set with parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running AlphaPhase in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This phases the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that has been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running AlphaPhase in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
 
 |ai| runs the phasing rounds in different parallel processes. It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable``:math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing: 
 
@@ -132,7 +132,7 @@ The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This imput
 
 In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two distint solutions: To run GeneProbs or to apply a hidden Markov model.
 
-The standard solution is to run **GeneProbForAlphaImpute** inside each ``IterateGeneProb/GeneProbX`` folder. Once |ai| has finished, it has to be run with ``RestartOption`` set to ``4`` in order to summarise genotype probabilities and impute missing genotypes. Genotypes are imputed if probabilities from GeneProb meet certain thresholds.
+The standard solution is to run **GeneProbForAlphaImpute** inside each ``IterateGeneProb/GeneProbX`` folder. Once |ai| has finished, it has to be run with ``RestartOption`` set to ``4`` in order to summarise genotype probabilities (see section `Summarise Results`_ for more information) and impute missing genotypes. Genotypes are imputed if probabilities from GeneProb meet certain thresholds.
 
 A more sophisticated approach is to impute the missing genotypes with a hidden Markov model. To use the Markov model after the imputation process, ``HMMOption`` has to be set to ``Yes`` and ``RestartOption`` to ``3``. The hidden Markov model is controlled by the five parameters in option ``HmmParameters``. These five parameters are referred to (in order):
 
@@ -174,12 +174,11 @@ If the segregation analysis approach (i.e. **GeneProbForAlphaImpute**) was used 
 Cluster version
 ---------------
 
-To run |ai|, just type ``AlphaImpute`` on the console and press enter. |ai| will welcome the user with this message::
+To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After welcoming the user with this message::
 
                                ***********************
                                *                     *
                                *     AlphaImpute     *
-                               *      Beta 1.21      *
                                *                     *
                                ***********************
 
@@ -187,7 +186,7 @@ To run |ai|, just type ``AlphaImpute`` on the console and press enter. |ai| will
 
    Written by John Hickey, Matt Cleveland, Andreas Kranis, and Brian Kinghorn
 
-and it will look for the input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
+|ai| looks for input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
 
   PedigreeFile                          ,MyPedrigree.txt
   GenotypeFile                          ,MyGenos.txt
@@ -214,10 +213,13 @@ and it will look for the input parameters within the file ``AlphaImputeSpec.txt`
   HmmParameters                         ,200,5,20,8,-123456789
   TrueGenotypeFile                      ,None
 
-|ai| should be run in different steps in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; and 3) impute and phase genotype data of all individuals in the population. The three different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
+|ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
 
-The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This will create the following folder structure::
+Genotype Probabilities
+^^^^^^^^^^^^^^^^^^^^^^
 
+The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This creates the folder structure::
+    
   GeneProb/
   InputFiles/
   IterateGeneProb/
@@ -225,24 +227,87 @@ The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This will 
   Phasing/
   Results/
 
-and |ai| will stop at this point with the message
+To speed up this computation, |ai| splits chromosomes into non-overlaping blocks of markers of the same size, and prepares the folder structure to compute the genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
 
-.. warning:: ``Restart option 1 stops program before Geneprobs jobs have been submitted``
+* ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
+* **GeneProbForAlphaImpute**: The executable of GeneProb. 
 
+Because each cluster system is potentially different, |ai| does not run **GeneProbForAlphaImpute** for each ``GeneProbX`` automatically, and after creating the directories, |ai| stops with this message:
 
-A new structure of subfolders will be created within the ``GeneProb`` folder. Each subfolder will contain the a spec file ``GeneProbSpec.txt`` to run **GeneProbForAlphaImpute** to 
+.. warning:: ``Restart option 1 stops program before Geneprobs jobs have been submitted``. 
 
-Once the *GeneProb* processes have finished, |ai| has to be run with ``RestartOption`` set to ``2``. This will populate the folder ``Phasing`` with  compute phase of those individuals genotyped at high-density. These individuals and their genotypes will be stored in the file ``AlphaPhaseInputGenotypes.txt`` within the folder ``InputFiles``.
+The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
 
-Once you run AlphaImpute for the first time (RestartOption=1) some folder are created. One of them is GeneProb. Inside GeneProb there are other folders called GeneProbX where X is a number. You should have as many GeneProbs as processors you have specified in the spec file. You need to run GeneProbForLinux inside each particular GeneProbX.
+Phase HD animals for clusters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When they have finished, you need to run AlphaImpute again (RestartOption=2) to prepare the data for phasing. When AlphaImpute stops, phasing process have to be run inside the Phasing/PhaseX folder in the same way you did with GeneProb. In this case, use the AlphaPhase binary.
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. 
 
-The next step is to run AlphaImpute again (RestartOption=3) and compute the imputation. After that, run GeneProb again inside the folders IterateGeneProb/GeneProbX
+As before, |ai| split the chromosome into different cores in order to phase the haplotypes of individuals genotyped at high-density in different parallel processes. Phasing is computed across all markers according to the phasing strategies that has been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, two phasing rounds are computed by running **AlphaPhase** in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
 
-Finally, the last step is to run AlphaImpute (RestartOption=4) to gather the information from the IterateGeneProb folders and output the imputed gentoypes (Results/ImputeGenotypes.txt) and genotype dosages (Results/ImputeGenotypeProbabilities.txt)
+It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable``:math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing: 
 
-Because you have to run GeneProbForLinux and AlphaPhase many times it would be convenient to create a small pipeline with the whole process. However, keep in mind that you have to wait until all the GeneProb and phasing subprocesses have finished before carrying out the next step.
+* ``AlphaPhaseSpec.txt``: The spec file of parameters.
+* **AlphaPhase1.1**: The executable of AlphaPhase. 
+
+However, |ai| stops before processing the phasing with the message:
+
+.. warning:: ``Restart option 2 stops program before Phasing has been managed``
+
+and does not run **AlphaPhase1.1** in the different ``PhaseX`` folders. The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
+
+Impute genotypes
+^^^^^^^^^^^^^^^^
+
+The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This imputes genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase HD animals for clusters`_). 
+
+In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two distint solutions: to run GeneProbs or to apply a hidden Markov model.
+
+The default solution is to run **GeneProbForAlphaImpute** to calculate genotype probabilities based on the new genotype information. |ai| creates the folder structure ``IterateGeneProb/GeneProbX``, and each ``GeneProbX`` folder contains:
+
+* ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
+* **GeneProbForAlphaImpute**: The executable of GeneProb. 
+
+|ai| does not compute the genotype probabilities automatically and it stops with the message:
+
+.. warning:: ``Restart option 3 stops program before Iterate Geneprob jobs have been submitted``
+
+The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue. Once all the **GeneProbForAlphaImpute** have finished, |ai| has to be run with ``RestartOption`` set to ``4`` in order to summarise genotype probabilities (see section `Summarise GeneProbs Results`_ for more information) and impute missing genotypes.
+
+A more sophisticated approach is to impute the missing genotypes with a hidden Markov model. To use the Markov model after the imputation process, ``HMMOption`` has to be set to ``Yes`` and ``RestartOption`` to ``3``. The hidden Markov model is controlled by the five parameters in option ``HmmParameters``. These five parameters are referred to (in order):
+
+* *number of haplotypes*
+* *number of burning rounds*
+* *number of rounds*
+* *number of processors available*
+* *seed*
+
+The parameters shown in the spec file above have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters). Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
+
+* ``ImputeGenotypes.txt``
+* ``ImputeGenotypesHMM.txt``
+* ``ImputeGenotypesProbabilities.txt``
+* ``GenotypeProbabilities.txt``
+
+|ai| provides similar information for phasing results and allele probabilities:
+
+* ``ImputePhase.txt``
+* ``ImputePhaseHMM.txt``
+* ``ImputePhaseProbabilities.txt``
+
+Summarise GeneProbs Results
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the segregation analysis approach (i.e. **GeneProbForAlphaImpute**) was used during the imputation step, results have to be summarised. So, |ai| has to be run a final time with the ``RestartOption`` set to ``4``. This writes out files with the most likely genotypes, genotype dosages and genotype probabilities
+
+* ``ImputeGenotypes.txt``
+* ``ImputeGenotypesProbabilities.txt``
+* ``GenotypeProbabilities.txt``
+
+|ai| provides similar information for phasing results and allele probabilities:
+
+* ``ImputePhase.txt``
+* ``ImputePhaseProbabilities.txt``
 
 
 Using AlphaImpute
