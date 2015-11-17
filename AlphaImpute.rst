@@ -118,7 +118,7 @@ Phase HD animals
 
 The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This phases the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that has been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running AlphaPhase in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
 
-|ai| runs the phasing rounds in different parallel processes. It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable``:math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing: 
+|ai| runs the phasing rounds in different parallel processes. It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable`` :math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing:
 
 * ``AlphaPhaseSpec.txt``: The spec file of parameters.
 * **AlphaPhase1.1**: The executable of AlphaPhase. 
@@ -142,7 +142,9 @@ A more sophisticated approach is to impute the missing genotypes with a hidden M
 * *number of processors available*
 * *seed*
 
-The parameters shown in the spec file above have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters). Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
+The parameters shown in the example spec file have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
+
+Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
 
 * ``ImputeGenotypes.txt``
 * ``ImputeGenotypesHMM.txt``
@@ -234,7 +236,7 @@ To speed up this computation, |ai| splits chromosomes into non-overlaping blocks
 
 Because each cluster system is potentially different, |ai| does not run **GeneProbForAlphaImpute** for each ``GeneProbX`` automatically, and after creating the directories, |ai| stops with this message:
 
-.. warning:: ``Restart option 1 stops program before Geneprobs jobs have been submitted``. 
+.. warning:: ``Restart option 1 stops program before Geneprobs jobs have been submitted``
 
 The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
 
@@ -282,7 +284,9 @@ A more sophisticated approach is to impute the missing genotypes with a hidden M
 * *number of processors available*
 * *seed*
 
-The parameters shown in the spec file above have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters). Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
+The parameters shown in the spec file above have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
+
+Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
 
 * ``ImputeGenotypes.txt``
 * ``ImputeGenotypesHMM.txt``
@@ -536,7 +540,7 @@ The program can be run in three different and consecutive steps: 1) calculate ge
 
 .. note:: In the *cluster* version, the user is responsible for creating a script which computes the haplotype phasing accordingly to the number of processors specified in ``NumberOfPhasingRuns`` and to the cluster specifications. |ai| stops before the script has been executed.
 
-``RestartOption`` set to ``3`` runs the program to impute the missing genotypes. The program has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is based on a hidden Markov model (HMM) (see [HMMOptions]_ and [HMMParameters]_ for more information about how to set optimal parameters).
+``RestartOption`` set to ``3`` runs the program to impute the missing genotypes. The program has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is based on a hidden Markov model (HMM) (see `HMMOptions`_ and `HMMParameters`_ for more information about how to set optimal parameters).
 
 ``RestartOption`` ``0`` runs the whole stepwise process, i.e. it computes genotype probabilities, performs haplotype phasing and imputes genotypes consecutively.
 
@@ -544,7 +548,7 @@ The program can be run in three different and consecutive steps: 1) calculate ge
 
 There are two reasons as to why a user might want to run the program in consecutive steps. Firstly the pre-processing steps can be used to observe how different parameters settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing. Running the program using a different step may help to speed up the entire process.
 
-``PhaseOnly``, ``BypassGenProb`` and ``PrepocessDataOnly`` might modify the ``RestartOption`` behaviour. For more details please, see [PhaseOnly]_, [BypassGenProb]_ and [PrepocessDataOnly]_ options, respectively.
+``PhaseOnly``, ``BypassGenProb`` and ``PrepocessDataOnly`` might modify the ``RestartOption`` behaviour. For more details please, see `PhaseOnly`_, `BypassGenProb`_ and `PrepocessDataOnly`_ options, respectively.
 
 PhaseOnly
 """""""""
@@ -583,7 +587,7 @@ During the imputation step, the program can use a hidden Markov model (HMM) to i
 
 ``Only`` runs HMM method only. The haplotype template of the HMM method is populated with genotype data from individuals picked at random. Unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily. This option is useful when phasing information is not available or when imputation is required in unrelated populations (Marchini and Howie, 2010) [6]_.
 
-Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running the program with ``RestartOption`` set to ``2`` (see [RestartOption]_ option for more details).
+Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running the program with ``RestartOption`` set to ``2`` (see `RestartOption`_ option for more details).
 
 HMMParameters
 """""""""""""
