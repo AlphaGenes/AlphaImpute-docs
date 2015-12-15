@@ -94,10 +94,10 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
 
 |ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
 
-Genotype Probabilities
-^^^^^^^^^^^^^^^^^^^^^^
+Compute Genotype Probabilities
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This creates the folder structure::
+The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This causes |ai| to create the folder structure::
     
   GeneProb/
   InputFiles/
@@ -106,17 +106,17 @@ The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This creat
   Phasing/
   Results/
 
-After creating the directories, |ai| computes the genotype probabilities. To speed up this computation, |ai| splits chromosomes into non-overlaping blocks of markers of the same size, and it computes genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
+After creating the folders, |ai| computes the genotype probabilities. To speed up this computation, |ai| splits chromosomes into non-overlapping blocks of markers of the same size, and it computes genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
 
 * ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
 * **GeneProbForAlphaImpute**: The executable of GeneProb. 
 
 |ai| automatically runs **GeneProbForAlphaImpute** for each ``GeneProbX`` folder according to the spec file.
 
-Phase HD animals
-^^^^^^^^^^^^^^^^
+Phase animals gentoyped at HD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This phases the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that has been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running AlphaPhase in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This causes |ai| to phase the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that have been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running AlphaPhase in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
 
 |ai| runs the phasing rounds in different parallel processes. It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable`` :math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing:
 
@@ -125,24 +125,27 @@ The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This phas
 
 |ai| automatically runs **AlphaPhase** for each ``PhaseX`` folder according to the spec file.
 
-Impute genotypes
-^^^^^^^^^^^^^^^^
+Impute genotype data for all individuals
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This imputes genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase HD animals`_). 
+The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This makes |ai| to impute genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase HD animals`_). 
 
-In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two distint solutions: To run GeneProbs or to apply a hidden Markov model.
+In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two different solutions: To run GeneProbs or to apply a hidden Markov model.
 
-The standard solution is to run **GeneProbForAlphaImpute** inside each ``IterateGeneProb/GeneProbX`` folder. Once |ai| has finished, it has to be run with ``RestartOption`` set to ``4`` in order to summarise genotype probabilities (see section `Summarise Results`_ for more information) and impute missing genotypes. Genotypes are imputed if probabilities from GeneProb meet certain thresholds.
+The default solution is to run **GeneProbForAlphaImpute** to calculate genotype probabilities based on the new genotype information. |ai| creates the folder structure ``IterateGeneProb/GeneProbX``. Each ``GeneProbX`` folder contains:
+
+* ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
+* **GeneProbForAlphaImpute**: The executable of GeneProb. 
 
 A more sophisticated approach is to impute the missing genotypes with a hidden Markov model. To use the Markov model after the imputation process, ``HMMOption`` has to be set to ``Yes`` and ``RestartOption`` to ``3``. The hidden Markov model is controlled by the five parameters in option ``HmmParameters``. These five parameters are referred to (in order):
 
 * *number of haplotypes*
-* *number of burning rounds*
+* *number of burn-in rounds*
 * *number of rounds*
 * *number of processors available*
 * *seed*
 
-The parameters shown in the example spec file have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
+The parameters shown in the example spec file work well for most cases, but the user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
 
 Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
 
@@ -157,8 +160,8 @@ Once the hidden Markov model has finished, |ai| outputs the most likely genotype
 * ``ImputePhaseHMM.txt``
 * ``ImputePhaseProbabilities.txt``
 
-Summarise results
-^^^^^^^^^^^^^^^^^
+Summarise results and write the outputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If the segregation analysis approach (i.e. **GeneProbForAlphaImpute**) was used during the imputation step, results have to be summarised. So, |ai| has to be run a final time with the ``RestartOption`` set to ``4``. This writes out files with the most likely genotypes, genotype dosages and genotype probabilities
 
@@ -188,39 +191,56 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
 
    Written by John Hickey, Matt Cleveland, Andreas Kranis, and Brian Kinghorn
 
-|ai| looks for input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
+|ai| looks for input parameters within the file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. An example of ``AlphaImputeSpec.txt`` is shown here::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,1000
-  InternalEdit                          ,No
-  EditingParameters                     ,0.0,0.0,0.0
-  NumberPhasingRuns                     ,4
-  CoreAndTailLengths                    ,250,500,750,1000
-  CoreLengths                           ,200,450,700,900
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,8
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,1
-  HMMOption                             ,No
-  HmmParameters                         ,200,5,20,8,-123456789
-  TrueGenotypeFile                      ,None
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                ,LD1_combine_ped.txt
+  GenotypeFile                ,LD1_combine_geno_sel_chr4.txt
+  TrueGenotypeFile            ,None
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                    ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                   ,1794
+  MultipleHDPanels            ,No
+  HDAnimalsThreshold          ,50
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                ,No
+  EditingParameters           ,95.0,1.0,99.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns           ,10
+  CoreAndTailLengths          ,600,700,800,900,1000,1100,1200,1300,1600,1800
+  CoreLengths                 ,500,600,700,800,900,1000,1100,1200,1400,1600
+  PedigreeFreePhasing         ,No
+  GenotypeError               ,0.0
+  NumberOfProcessorsAvailable ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations          ,1
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold         ,90.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                   ,Yes
+  TemplateHaplotypes          ,10
+  BurnInRounds                ,1
+  Rounds                      ,20
+  ParallelProcessors          ,1,
+  Seed                        ,-123456789
+  ThresholdForPhasedAnimals   ,50.0
+  ThresholdImputed            ,90.0
+  WindowLength                ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly          ,No
+  PhasingOnly                 ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile               ,None
+  BypassGeneProb              ,No
+  RestartOption               ,3
 
 |ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
 
-Genotype Probabilities
-^^^^^^^^^^^^^^^^^^^^^^
+Compute Genotype Probabilities
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This creates the folder structure::
+The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This causes |ai| to create the folder structure::
     
   GeneProb/
   InputFiles/
@@ -229,23 +249,23 @@ The first time |ai| is run, ``RestartOption`` has to be set to ``1``. This creat
   Phasing/
   Results/
 
-To speed up this computation, |ai| splits chromosomes into non-overlaping blocks of markers of the same size, and prepares the folder structure to compute the genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
+To speed up this computation, |ai| splits chromosomes into non-overlapping blocks of markers of the same size, and prepares the folder structure to compute the genotype probabilities for each block in parallel. The size of these blocks depends on the number of processors specified in the spec file (``NumberOfProcessorsAvailable``). For each processor, a folder ``GeneProb/GeneProbX`` is created containing:
 
 * ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
 * **GeneProbForAlphaImpute**: The executable of GeneProb. 
 
-Because each cluster system is potentially different, |ai| does not run **GeneProbForAlphaImpute** for each ``GeneProbX`` automatically, and after creating the directories, |ai| stops with this message:
+Because each cluster system is potentially different, |ai| does not run **GeneProbForAlphaImpute** for each ``GeneProbX`` automatically, and after creating the folders, |ai| stops with this message:
 
 .. warning:: ``Restart option 1 stops program before Geneprobs jobs have been submitted``
 
 The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
 
-Phase HD animals for clusters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Phase animals gentoyped at HD for clusters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The second time |ai| is run, ``RestartOption`` has to be set to ``2``. 
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This causes |ai| to phase the haplotypes of those animals genotyped at high-density.
 
-As before, |ai| split the chromosome into different cores in order to phase the haplotypes of individuals genotyped at high-density in different parallel processes. Phasing is computed across all markers according to the phasing strategies that has been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, two phasing rounds are computed by running **AlphaPhase** in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
+As before, |ai| split the chromosome into different cores in order to phase the haplotypes of individuals genotyped at high-density in different parallel processes. Phasing is computed across all markers according to the phasing strategies that have been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, two phasing rounds are computed by running **AlphaPhase** in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
 
 It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable``:math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing: 
 
@@ -258,14 +278,14 @@ However, |ai| stops before processing the phasing with the message:
 
 and does not run **AlphaPhase1.1** in the different ``PhaseX`` folders. The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
 
-Impute genotypes
-^^^^^^^^^^^^^^^^
+Impute genotype data for all individuals
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This imputes genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase HD animals for clusters`_). 
+The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This causes |ai| to impute genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase animals gentoyped at HD for clusters`_). 
 
-In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two distint solutions: to run GeneProbs or to apply a hidden Markov model.
+In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two different solutions: to run GeneProbs or to apply a hidden Markov model.
 
-The default solution is to run **GeneProbForAlphaImpute** to calculate genotype probabilities based on the new genotype information. |ai| creates the folder structure ``IterateGeneProb/GeneProbX``, and each ``GeneProbX`` folder contains:
+The default solution is to run **GeneProbForAlphaImpute** to calculate genotype probabilities based on the new genotype information. |ai| creates the folder structure ``IterateGeneProb/GeneProbX``. Each ``GeneProbX`` folder contains:
 
 * ``GeneProbSpec.txt``: The file of parameters or commonly the *spec* file
 * **GeneProbForAlphaImpute**: The executable of GeneProb. 
@@ -274,17 +294,17 @@ The default solution is to run **GeneProbForAlphaImpute** to calculate genotype 
 
 .. warning:: ``Restart option 3 stops program before Iterate Geneprob jobs have been submitted``
 
-The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue. Once all the **GeneProbForAlphaImpute** have finished, |ai| has to be run with ``RestartOption`` set to ``4`` in order to summarise genotype probabilities (see section `Summarise GeneProbs Results`_ for more information) and impute missing genotypes.
+The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
 
 A more sophisticated approach is to impute the missing genotypes with a hidden Markov model. To use the Markov model after the imputation process, ``HMMOption`` has to be set to ``Yes`` and ``RestartOption`` to ``3``. The hidden Markov model is controlled by the five parameters in option ``HmmParameters``. These five parameters are referred to (in order):
 
 * *number of haplotypes*
-* *number of burning rounds*
+* *number of burn-in rounds*
 * *number of rounds*
 * *number of processors available*
 * *seed*
 
-The parameters shown in the spec file above have been proved to work well for most of the cases, but user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
+The parameters shown in the spec file above work well for most cases, but the user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
 
 Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
 
@@ -299,8 +319,8 @@ Once the hidden Markov model has finished, |ai| outputs the most likely genotype
 * ``ImputePhaseHMM.txt``
 * ``ImputePhaseProbabilities.txt``
 
-Summarise GeneProbs Results
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Summarise results and write the outputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If the segregation analysis approach (i.e. **GeneProbForAlphaImpute**) was used during the imputation step, results have to be summarised. So, |ai| has to be run a final time with the ``RestartOption`` set to ``4``. This writes out files with the most likely genotypes, genotype dosages and genotype probabilities
 
@@ -655,7 +675,7 @@ The genotype information should be contained in a single file containing 1 line 
 
 Output
 ------
-The output of |ai| is organised into a number of sub directories (``Results and Miscellaneous``, and in the case of when a true genotype data file is supplied ``TestAlphaImpute``). A description of what is contained within these folders is given below.
+The output of |ai| is organised into a number of sub folders (``Results and Miscellaneous``, and in the case of when a true genotype data file is supplied ``TestAlphaImpute``). A description of what is contained within these folders is given below.
 
 Results
 ^^^^^^^
