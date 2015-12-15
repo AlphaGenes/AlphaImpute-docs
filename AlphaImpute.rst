@@ -652,8 +652,7 @@ Controls the final imputation quality of the individuals. Those individuals with
 
 BypassGenProb
 """""""""""""
-
-Has two options ``Yes`` or ``No``.
+Tells the program to avoid the computation of the Genotype probabilities. ``BypassGenProb`` has two options ``Yes`` or ``No``.
 
 ``Yes`` sets the program to skip the computation of genotype probabilities rounds during the pre-processing data step, and stops the program before the final computation of genotype dosages during the final step of writing the results.
 
@@ -662,17 +661,18 @@ Has two options ``Yes`` or ``No``.
 
 HMMOptions
 """"""""""
-During the imputation step, the program can use a hidden Markov model (HMM) to impute missing genotypes. ``HMMOptions`` admits four different options: ``No``, ``Yes``, ``Prephase`` and ``Only``.
+Controls the imputation algorithm during the imputation step (``RestartOption`` set to ``3``). ``HMMOptions`` has three possible values: ``No``, ``Yes`` and ``Only``.
+ .. and ``Prephase``.
 
-``No`` runs the program without the use the HMM algorithm. The program will perform the combined SAHLI imputation method explained in Hickey *et al*., (2012) [1]_.
+``No`` makes |ai| to compute the heuristic imputation method explained in Hickey *et al*., (2012) [1]_. This is the standard imputation.
 
-``Prephase`` uses pre-phased information to run the HMM imputation algorithm. Haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phased arbitrarily. 
+.. ``Prephase`` uses pre-phased information to run the HMM imputation algorithm. Haplotypes are chosen at random from the prephased data, and possible missing heterozygous loci are phased arbitrarily.
  
-``Yes`` computes imputation in two steps. In the first step, the program uses the SAHLI method to guarantee very accurate genotype imputation and haplotype phasing. Haplotypes obtained at the phasing step will be used to feed the Haplotype Template (HT) of the HMM method. During the generation of the template, haplotypes are chosen at random and possible missing heterozygous loci are phased arbitrarily. This is stepwise approach is the most accurate but also the most computationally expensive in terms of time.
+``Only`` makes |ai| to compute imputation with the hidden Markov model (HMM) explained in Li *et al*., 2009 [5]_. The haplotype template of the HMM method is populated with genotype data from individuals picked at random. Unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily. This option is useful when phasing information is not available or when imputation is required in unrelated populations (Marchini and Howie, 2010) [6]_.
 
-``Only`` runs HMM method only. The haplotype template of the HMM method is populated with genotype data from individuals picked at random. Unambiguous alleles are phased from homozygous loci, whereas heterozygous loci are phased arbitrarily. This option is useful when phasing information is not available or when imputation is required in unrelated populations (Marchini and Howie, 2010) [6]_.
+``Yes`` causes |ai| to compute imputation in two steps. In the first step, the program uses the standard imputation method to guarantee very accurate genotype imputation and haplotype phasing. Haplotypes obtained at the phasing step will be used to feed the haplotype template of the HMM method. During the generation of the template, haplotypes are chosen at random and possible missing heterozygous loci are phased arbitrarily. This stepwise approach is the most accurate but also the most computationally expensive in terms of time.
 
-Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running the program with ``RestartOption`` set to ``2`` (see `RestartOption`_ option for more details).
+.. Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running the program with ``RestartOption`` set to ``2`` (see `RestartOption`_ option for more details).
 
 HMMParameters
 """""""""""""
@@ -687,7 +687,6 @@ The second numerical parameter sets the number of rounds dismissed before the pa
 The third numerical parameter is the total number of rounds that the HMM will be computed. A greater number of rounds lead to better results. However, the user is discouraged from using more than 50 rounds, as imputation accuracy tends to be only slightly better than when a lesser number of rounds are used.
 
 The last numerical parameter controls the number of parallel processes used to complete the genotype imputation. Valid values are integer greater than ``0``. Each processor is responsible for computing the HMM model for a single individual. Setting this parameter to ``1`` will compute the HMM imputation in serial.
-
 
 TrueGenotypeFile
 """"""""""""""""
