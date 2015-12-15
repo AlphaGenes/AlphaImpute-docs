@@ -696,43 +696,6 @@ If you want to test the program ``TrueGenotypeFile``, gives the name of the file
   PedigreeFile                        ,MyPedrigree.txt
   GenotypeFile                        ,MyGenos.txt
   TrueGenotypeFile                    ,MyTrueGenos.txt
-  = BOX 2: Sex Chromosome =============================================================
-  SexChrom                            ,No
-  = BOX 3: SNPs =======================================================================
-  NumberSnp                           ,1000
-  MultipleHDPanels                    ,0
-  HDAnimalsThreshold                  ,90.0
-  = BOX 4: Internal Editing ===========================================================
-  InternalEdit                        ,Yes
-  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
-  = BOX 5: Phasing ====================================================================
-  NumberPhasingRuns                   ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
-  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                 ,No
-  GenotypeError                       ,0.0
-  NumberOfProcessorsAvailable         ,20
-  = BOX 6: Imputation =================================================================
-  InternalIterations                  ,3
-  ConservativeHaplotypeLibraryUse     ,No
-  WellPhasedThreshold                 ,99.0
-  = BOX 7: Hidden Markov Model ========================================================
-  HMMOption                           ,No
-  TemplateHaplotypes                  ,200
-  BurnInRounds                        ,5
-  Rounds                              ,20
-  ParallelProcessors                  ,8,
-  Seed                                ,-123456789
-  ThresholdForPhasedAnimals           ,90.0
-  ThresholdImputed                    ,90.0
-  WindowLength                        ,150
-  = BOX 8: Running options ============================================================
-  PreprocessDataOnly                  ,No
-  PhasingOnly                         ,No
-  UserDefinedAlphaPhaseAnimalsFile    ,None
-  PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
-  RestartOption                       ,2
 
 Advice on values for parameters
 -------------------------------
