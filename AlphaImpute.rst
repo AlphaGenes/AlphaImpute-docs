@@ -65,32 +65,49 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
 
    Written by John Hickey, Matt Cleveland, Andreas Kranis, and Brian Kinghorn
 
-|ai| looks for input parameters within the file ``AlphaImputeSpec.txt``. An example of ``AlphaImputeSpec.txt`` is shown here::
+|ai| looks for input parameters within the file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. An example of ``AlphaImputeSpec.txt`` is shown here::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,1000
-  InternalEdit                          ,No
-  EditingParameters                     ,0.0,0.0,0.0
-  NumberPhasingRuns                     ,4
-  CoreAndTailLengths                    ,250,500,750,1000
-  CoreLengths                           ,200,450,700,900
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,8
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,1
-  HMMOption                             ,No
-  HmmParameters                         ,200,5,20,8,-123456789
-  TrueGenotypeFile                      ,None
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,MyPedrigree.txt
+  GenotypeFile                        ,MyGenos.txt
+  TrueGenotypeFile                    ,None
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,No
+  EditingParameters                   ,95.0,2.0,99.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,4
+  CoreAndTailLengths                  ,250,500,750,1000
+  CoreLengths                         ,200,450,700,900
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,8
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,90.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,0
 
 |ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
 
@@ -194,46 +211,46 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
 |ai| looks for input parameters within the file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. An example of ``AlphaImputeSpec.txt`` is shown here::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                ,LD1_combine_ped.txt
-  GenotypeFile                ,LD1_combine_geno_sel_chr4.txt
-  TrueGenotypeFile            ,None
+  PedigreeFile                        ,MyPedrigree.txt
+  GenotypeFile                        ,MyGenos.txt
+  TrueGenotypeFile                    ,None
   = BOX 2: Sex Chromosome =============================================================
-  SexChrom                    ,No
+  SexChrom                            ,No
   = BOX 3: SNPs =======================================================================
-  NumberSnp                   ,1794
-  MultipleHDPanels            ,No
-  HDAnimalsThreshold          ,50
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
   = BOX 4: Internal Editing ===========================================================
-  InternalEdit                ,No
-  EditingParameters           ,95.0,1.0,99.0,EditedSnpOut
+  InternalEdit                        ,No
+  EditingParameters                   ,95.0,2.0,99.0,EditedSnpOut
   = BOX 5: Phasing ====================================================================
-  NumberPhasingRuns           ,10
-  CoreAndTailLengths          ,600,700,800,900,1000,1100,1200,1300,1600,1800
-  CoreLengths                 ,500,600,700,800,900,1000,1100,1200,1400,1600
-  PedigreeFreePhasing         ,No
-  GenotypeError               ,0.0
-  NumberOfProcessorsAvailable ,20
+  NumberPhasingRuns                   ,4
+  CoreAndTailLengths                  ,250,500,750,1000
+  CoreLengths                         ,200,450,700,900
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,8
   = BOX 6: Imputation =================================================================
-  InternalIterations          ,1
+  InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
-  WellPhasedThreshold         ,90.0
+  WellPhasedThreshold                 ,90.0
   = BOX 7: Hidden Markov Model ========================================================
-  HMMOption                   ,Yes
-  TemplateHaplotypes          ,10
-  BurnInRounds                ,1
-  Rounds                      ,20
-  ParallelProcessors          ,1,
-  Seed                        ,-123456789
-  ThresholdForPhasedAnimals   ,50.0
-  ThresholdImputed            ,90.0
-  WindowLength                ,150
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
   = BOX 8: Running options ============================================================
-  PreprocessDataOnly          ,No
-  PhasingOnly                 ,No
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
-  PrePhasedFile               ,None
-  BypassGeneProb              ,No
-  RestartOption               ,3
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,0
 
 |ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_). 
 
@@ -350,31 +367,47 @@ AlphaImputeSpec.txt
 
 An example of ``AlphaImputeSpec.txt`` is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,3129
-  InternalEdit                          ,Yes
-  EditingParameters                     ,95.0,2.0,98.0,AllSnpOut
-  NumberPhasingRuns                     ,1
-  CoreAndTailLengths                    ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                           ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,20
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,1
-  HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
-  TrueGenotypeFile                      ,None
-
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,MyPedrigree.txt
+  GenotypeFile                        ,MyGenos.txt
+  TrueGenotypeFile                    ,None
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,No
+  EditingParameters                   ,95.0,2.0,99.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,4
+  CoreAndTailLengths                  ,250,500,750,1000
+  CoreLengths                         ,200,450,700,900
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,8
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,90.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,0
   
 Below is a description of what each line does. It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Before proceeding, it is worth pointing out that internally |ai| divides all the animals in the pedigree into two groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have been genotyped for enough SNP that they can have their haplotypes resolved by AlphaPhase1.1. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the user can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into AlphaPhase1.1 can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing (see AlphaPhase1.1 user manual for more information).
 
@@ -388,7 +421,7 @@ Gives the name of the file containing the genotypes. Details on the format are g
 
 
 SexChrom
-"""""""""
+""""""""
 Specifies whether the program should impute sex chromosomes or not. The two options are ``Yes`` or ``No``. 
 
 Impute sex chromosome requires to specify the file containing the sex chromosomes and the heterogametic status. They are provided just after the ``Yes`` string and separated by comas. For the heterogametic status the options are ``Male`` or ``Female``. Below is a sample of how the specification file should look::
@@ -424,61 +457,93 @@ This parameter admits two alternatives.
 
 *Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high-density group. The minimum for this number is 2 and the maximum is 30::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,3129
-  InternalEdit                          ,Yes
-  EditingParameters                     ,95.0,2.0,98.0,AllSnpOut
-  NumberPhasingRuns                     ,1
-  CoreAndTailLengths                    ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                           ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,20
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,2
-  HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
-  TrueGenotypeFile                      ,MyTrueGenos.txt
-
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,MyPedrigree.txt
+  GenotypeFile                        ,MyGenos.txt
+  TrueGenotypeFile                    ,MyTrueGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,Yes
+  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,10
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,99.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,2
 
 It is worth pointing out that a pair of rounds comprises one round with AlphaPhase1.1 in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that AlphaPhase1.1 makes. The concept of cores (and their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
 
 *Alternative 2* can be used to read in data sets that have been previously phased by AlphaPhase1.1::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,3129
-  InternalEdit                          ,Yes
-  EditingParameters                     ,95.0,2.0,98.0,AllSnpOut
-  NumberOfPairsOfPhasingRounds          ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
-  CoreAndTailLengths                    ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                           ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,20
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,2
-  HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
-  TrueGenotypeFile                      ,MyTrueGenos.txt
- 
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,MyPedrigree.txt
+  GenotypeFile                        ,MyGenos.txt
+  TrueGenotypeFile                    ,MyTrueGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,Yes
+  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,99.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,2
 
 This allows users to read in results of previous phasing work. Three parameters are required here. 
 
@@ -628,31 +693,47 @@ TrueGenotypeFile
 """"""""""""""""
 If you want to test the program ``TrueGenotypeFile``, gives the name of the file containing the true genotypes. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to ``None``. Testing the program can be useful when applying the program to a new population, perhaps the user should mask some SNP in a small percentage of the animals and see how it performs imputing them!::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,3129
-  InternalEdit                          ,Yes
-  EditingParameters                     ,95.0,2.0,98.0,AllSnpOut
-  NumberOfPairsOfPhasingRounds          ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
-  CoreAndTailLengths                    ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                           ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,20
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,2
-  HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
-  TrueGenotypeFile                      ,MyTrueGenos.txt
-
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,MyPedrigree.txt
+  GenotypeFile                        ,MyGenos.txt
+  TrueGenotypeFile                    ,MyTrueGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,Yes
+  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,99.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,2
 
 Advice on values for parameters
 -------------------------------
@@ -727,7 +808,7 @@ The data is from a Pig population (courtesy of PIC). It comprises a pedigree of 
 Four example scenarios are given.
 
 #. Run the program to impute genotype.
-#. Run the program to first pre-process the data and the run it by reading in previously phased data.
+#. Run the program to first pre-process the data and then run it by reading in previously phased data.
 #. Run the program to impute genotypes and test the imputation accuracy.
 #. Run the program to impute genotypes and test the imputation accuracy on a sex chromosome.
 
@@ -738,11 +819,53 @@ Example 1. How to run the program to impute genotypes
 
 We call this Example 1 and it is store in the directory Example/Example1 of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal.
 
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,Yes
+  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,10
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,99.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,1
+
 The parameters of interest are described below.
 
 ``InternalEdit`` is set to ``Yes`` so that the program attempts to edit the data internally using the parameters outlined in ``EditingParameters``. The final group of high density animals are genotyped for more than 98% of the SNP and any SNP, missing in more than 2% of the animals initially defined as being in the high-density group has been removed. The original high-density group were genotyped for more than 95% of the SNP. All of the SNP will be included in the output because the ``AllSnpOut`` qualifier has been set. (Actually this data set has already been edited externally so editing will not change it!)
 
-``NumberOfPairsOfPhasingRounds`` is set to ``10`` meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-density group of animals. The results of the Phasing rounds are stored in the directory ``Phasing``.
+``NumberPhasingRounds`` is set to ``10`` meaning that 10 pairs of phasing rounds (20 in total because of Offset/NotOffset) are performed by AlphaPhase1.1, on the high-density group of animals. The results of the Phasing rounds are stored in the directory ``Phasing``.
 
 The core and tail lengths varied between 200 and 700, and the tail lengths varied between 100 and 600. The choice of these lengths creates a nice amount of overlap between cores and means that each SNP is phased multiple times as part of the cores spanning different SNP. 
 
@@ -757,13 +880,13 @@ No true genotype is supplied hence this parameter is set to ``None``.
 Example 2. How to run the program to first pre-process the data and then run it by reading in previously phased data
 --------------------------------------------------------------------------------------------------------------------
 
-Phasing can be a very computationally expensive task. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run |ai| with the ``PreprocessDataOnly`` set to ``Yes``, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run |ai| with the ``PreprocessDataOnly`` set to ``No`` and the ``NumberOfPairsOfPhasingRounds`` set to ``PhaseDone``.
+Phasing can be a very computationally expensive task. However with appropriate tuning of the parameters for AlphaPhase1.1 considerable reductions can be achieved. Therefore until the user is familiar with their data set and the phasing parameters that are useful it is probably better to first run |ai| with the ``PreprocessDataOnly`` set to ``Yes``, which prepares the data files and directory structure needed for AlphaPhase1.1, next the user can run the AlphaPhase1.1 rounds directly while tuning the parameters for the different rounds to ensure a high yield in terms of the percentage of alleles phased coupled with short computational times. Once the phasing rounds are completed the user can re-run |ai| with the ``PreprocessDataOnly`` set to ``No`` and the ``NumberPhasingRounds`` set to ``PhaseDone``.
 
 A full worked example of this is given in the directory Examples/Example2 of the download. The folder contains ``AlphaImputeSpec.txt`` which is completely empty but will be filled appropriately as we proceed.
 
 To perform the first run of the program the contents of ``Run1AlphaImputeSpec.txt`` should be copied into ``AlphaImputeSpec.txt``. This set of parameters is exactly the same as the set of parameters used to run Example1 with one difference, the ``PreprocessDataOnly`` is set to ``Yes``. This causes the program to edit the data and set up the data sets and folder structure required to run the program. Then the program stops.
 
-The next thing that must be done is that the directory “Phasing” should be renamed to something like “PhasingByHand”. In this directory 20 subdirectories have been created (2 directories for each of the 10 pairs of Phasing rounds). In these directories a parameter file for controlling AlphaPhase1.1 called ``AlphaPhaseSpec.txt`` has been placed. This contains the parameters that control the phasing. Each of the phasing rounds should now be run by the user, who can then tweak the parameters of the ``AlphaPhaseSpec.txt`` files as appropriate to ensure a good phasing yield in a short amount of time.
+The next thing that must be done is that the directory ``Phasing`` should be renamed to something like ``PhasingByHand``. In this directory 20 subdirectories have been created (2 directories for each of the 10 pairs of Phasing rounds). In these directories a parameter file for controlling AlphaPhase1.1 called ``AlphaPhaseSpec.txt`` has been placed. This contains the parameters that control the phasing. Each of the phasing rounds should now be run by the user, who can then tweak the parameters of the ``AlphaPhaseSpec.txt`` files as appropriate to ensure a good phasing yield in a short amount of time.
 
 Once the phasing rounds have been finished |ai| can be rerun. The parameters to do this are in ``Run2AlphaImputeSpec.txt`` and these can now be copied into ``AlphaImputeSpec.txt`` in place of the previously parameters.
 
@@ -772,61 +895,93 @@ Example 3. How to run the program to impute genotypes and test the imputation ac
 
 Run the program in pre-processing mode with the parameters shown here::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,3129
-  InternalEdit                          ,Yes
-  EditingParameters                     ,95.0,2.0,98.0,AllSnpOut
-  NumberOfPairsOfPhasingRounds          ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
-  CoreAndTailLengths                    ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                           ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,20
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,Yes
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,1
-  HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
-  TrueGenotypeFile                      ,MyTrueGenos.txt
-
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,Yes
+  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,PhaseDone,"PhaseOld/",20
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,99.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,1
 
 Rename the ``Phase`` folder to ``PhaseOld`` and then rerun the program with the pre-processing turned off as shown below::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
-  SexChrom                              ,No
-  NumberSnp                             ,3129
-  InternalEdit                          ,Yes
-  EditingParameters                     ,95.0,2.0,98.0,AllSnpOut
-  NumberOfPairsOfPhasingRounds          ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
-  CoreAndTailLengths                    ,200,300,400,500,600,250,325,410,290,700
-  CoreLengths                           ,100,200,300,400,500,150,225,310,190,600
-  PedigreeFreePhasing                   ,No
-  GenotypeError                         ,0.0
-  NumberOfProcessorsAvailable           ,20
-  InternalIterations                    ,3
-  PreprocessDataOnly                    ,No
-  PhasingOnly                           ,No
-  ConservativeHaplotypeLibraryUse       ,No
-  WellPhasedThreshold                   ,99.0
-  UserDefinedAlphaPhaseAnimalsFile      ,None
-  PrePhasedFile                         ,None
-  BypassGeneProb                        ,No
-  RestartOption                         ,2
-  HMMOption                             ,No
-  HmmParameters                         ,300,19,20,4
-  TrueGenotypeFile                      ,MyTrueGenos.txt
+  = BOX 1: Input Files ================================================================
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
+  SexChrom                            ,No
+  = BOX 3: SNPs =======================================================================
+  NumberSnp                           ,1000
+  MultipleHDPanels                    ,0
+  HDAnimalsThreshold                  ,90.0
+  = BOX 4: Internal Editing ===========================================================
+  InternalEdit                        ,Yes
+  EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
+  = BOX 5: Phasing ====================================================================
+  NumberPhasingRuns                   ,PhaseDone,"PhaseOld/",20
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
+  PedigreeFreePhasing                 ,No
+  GenotypeError                       ,0.0
+  NumberOfProcessorsAvailable         ,20
+  = BOX 6: Imputation =================================================================
+  InternalIterations                  ,3
+  ConservativeHaplotypeLibraryUse     ,No
+  WellPhasedThreshold                 ,99.0
+  = BOX 7: Hidden Markov Model ========================================================
+  HMMOption                           ,No
+  TemplateHaplotypes                  ,200
+  BurnInRounds                        ,5
+  Rounds                              ,20
+  ParallelProcessors                  ,8,
+  Seed                                ,-123456789
+  ThresholdForPhasedAnimals           ,90.0
+  ThresholdImputed                    ,90.0
+  WindowLength                        ,150
+  = BOX 8: Running options ============================================================
+  PreprocessDataOnly                  ,No
+  PhasingOnly                         ,No
+  UserDefinedAlphaPhaseAnimalsFile    ,None
+  PrePhasedFile                       ,None
+  BypassGeneProb                      ,No
+  RestartOption                       ,2
 
-
-Note that ``NumberOfPhasingRuns`` has now got the full path and that the number of phasing rounds is 20 instead of the 10 (to account for the ``Offset``/``NotOffest``).
+Note that ``NumberPhasingRuns`` has now got the full path and that the number of phasing rounds is 20 instead of the 10 (to account for the ``Offset``/``NotOffest``).
 
 For this data set 10 Phasing rounds were done (effectively 20 as each of the 10 is in fact a pair of 2). The ``CoreLengths`` ranged from 100 SNP to 700 SNP in length while the ``CoreAndTailLengths`` ranged from 200 to 800 SNP in length. Shorter cores and tails would have increased the computational time considerably as would have increasing the ``GenotypeErrorPercenatage`` above the value of 0.05% used. The ``EditingParameters`` ensured that the final high-density data set was genotyped for more than 98% of the SNP and that all SNP were outputted.
 
