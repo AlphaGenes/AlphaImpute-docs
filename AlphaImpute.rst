@@ -779,7 +779,7 @@ Four example scenarios are given.
 Example 1. How to run the program to impute genotypes
 -----------------------------------------------------
 
-We call this Example 1 and it is store in the directory Example/Example1 of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal.
+We call this Example 1 and it is store in the directory Example of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal.
 
   = BOX 1: Input Files ================================================================
   PedigreeFile                        ,Pedrigree.txt
@@ -897,7 +897,7 @@ Run the program in pre-processing mode with the parameters shown here::
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
   BypassGeneProb                      ,No
-  RestartOption                       ,1
+  RestartOption                       ,2
 
 Rename the ``Phase`` folder to ``PhaseOld`` and then rerun the program with the pre-processing turned off as shown below::
 
@@ -941,7 +941,7 @@ Rename the ``Phase`` folder to ``PhaseOld`` and then rerun the program with the 
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
   BypassGeneProb                      ,No
-  RestartOption                       ,2
+  RestartOption                       ,3
 
 Note that ``NumberPhasingRuns`` has now got the full path and that the number of phasing rounds is 20 instead of the 10 (to account for the ``Offset``/``NotOffest``).
 
