@@ -8,7 +8,7 @@ AlphaImpute
 Introduction
 ============
 
-|ai| is a software package for imputing and phasing genotype data in populations with pedigree information available. The program uses segregation analysis and haplotype library imputation (**SAHLI**) to impute alleles and genotypes. A complete description of the methods is given in Hickey *et al*., (2012) [1]_. |ai| consists of a single program however it calls both **AlphaPhase1.1** (Hickey *et al*., 2011 [2]_) and **GeneProbForAlphaImpute** (Kerr and Kinghorn, 1996 [3]_). All information on the model of analysis, input files and their layout, is specified in a single parameter file.
+|ai| is a software package for imputing and phasing genotype data in populations with pedigree information available. The program uses segregation analysis and haplotype library imputation (**SAHLI**) to impute alleles and genotypes. A complete description of the methods is given in Hickey *et al*., (2012) [1]_. |ai| consists of a single program however it calls both **AlphaPhase** (Hickey *et al*., 2011 [2]_) and **GeneProbForAlphaImpute** (Kerr and Kinghorn, 1996 [3]_). All information on the model of analysis, input files and their layout, is specified in a single parameter file.
 
 Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to `John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_ or `Roberto.Antolin@roslin.ed.ac.uk <roberto.antolin@roslin.ed.ac.uk>`_.
 
@@ -46,7 +46,6 @@ The method implemented in |ai| is described in detail in Hickey *et al*. (2011).
 Using AlphaImpute
 =================
 
-.. note:: |ai| works for single chromosomes at a time only.
 
 .. note:: |ai| seeks to maximise the correlation between true and imputed markers while minimising the percentage of markers imputed incorrectly. It does not seek to maximise the percentage of markers correctly imputed as this would involve “cheating” and “guessing”, therefore it is not advisable to evaluate the performance of the program based on the percentage of alleles correctly imputed. For a discussion on this topic please consult Hickey *et al*., (2011) [4]_.
 
@@ -54,10 +53,33 @@ Using AlphaImpute
 Input files
 -----------
 
+The program generally requires three input files:
+* a pedigree file
+* a genotype file, and
+* a file with the input parameters.
+
+Pedigree file
+^^^^^^^^^^^^^
+
+The pedigree file should have three columns, individual, father, and mother. It should be separated with space or comma with for missing parents coded as 0. No header line should be included in the pedigree file. Both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this.
+
+Genotype file
+^^^^^^^^^^^^^
+
+The genotype file should contain 1 line for each individual, a first column with the individual’s identifier and as many columns as SNP in the chromosome.
+
+.. note:: |ai| works for single chromosomes at a time only.
+
+The first column with the individual's identifier supports both numeric and alphanumeric formats. The next columns containing the SNP information should be coded as ``0``, ``1``, or ``2`` for the genotype calling and any integer between ``3`` and ``9`` (e.g. ``3``) for missing genotypes. The genotype codes ``0``, ``1``, and ``2`` stand for the homozygous ``aa``, the heterozygous ``aA`` or ``Aa``, and the homozygous ``AA`` cases, respectively. The genotype file should not have a header line.
+
+
 AlphaImputeSpec.txt
 ^^^^^^^^^^^^^^^^^^^
 
-An example of ``AlphaImputeSpec.txt`` is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
+If not specified otherwise, |ai| looks for the input parameters within the spec file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. However, it is possible to choose a diffent spec file by specifying its path when calling |ai| in the command-line::
+  $ > AlphaImpute <path_to_the_spec_file>
+
+An example of the spec file is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
 
   = BOX 1: Input Files ================================================================
   PedigreeFile                        ,Pedrigree.txt
@@ -415,19 +437,6 @@ Advice on values for parameters
 
 For a data set comprised of 10,000 animals, of which 3000 animals are genotyped for 3129 SNP (on chromosome 1, thus equivalent to 50k density) and 1000 animals are genotyped for (180 SNP on chromosome 1, thus equivalent to some low density chip) a good way to proceed would be with the parameters outlined in figure 1. However a full example of how to apply the program to a real data set is given below in the examples.
 
-Data format
------------
-The program generally requires two input files, a pedigree file and a genotype file.
-
-Pedigree file
-^^^^^^^^^^^^^
-
-The pedigree file should have three columns, individual, father, and mother. It should be separated with space or comma with for missing parents coded as 0. No header line should be included in the pedigree file. Both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this.
-
-Genotype file
-^^^^^^^^^^^^^
-
-The genotype information should be contained in a single file containing 1 line for each individual. The first column of this file should contain the individual’s identifier with numeric and alphanumeric formats being acceptable. The next columns should contain the SNP information with a single column for each SNP where the genotypes are coded as ``0``, ``1``, or ``2`` and missing genotypes are coded as another integer between ``3`` and ``9`` (e.g. ``3``), with ``0`` being homozygous ``aa``, ``1`` being heterozygous ``aA`` or ``Aa``, and ``2`` being homozygous ``AA``. The genotype file should not have a header line.
 
 Output
 ------
