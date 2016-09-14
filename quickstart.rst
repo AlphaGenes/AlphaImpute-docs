@@ -26,8 +26,8 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
 |ai| looks for input parameters within the file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. An example of ``AlphaImputeSpec.txt`` is shown here::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                        ,MyPedrigree.txt
-  GenotypeFile                        ,MyGenos.txt
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
   TrueGenotypeFile                    ,None
   = BOX 2: Sex Chromosome =============================================================
   SexChrom                            ,No
@@ -39,16 +39,17 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
   InternalEdit                        ,No
   EditingParameters                   ,95.0,2.0,99.0,EditedSnpOut
   = BOX 5: Phasing ====================================================================
-  NumberPhasingRuns                   ,4
-  CoreAndTailLengths                  ,250,500,750,1000
-  CoreLengths                         ,200,450,700,900
+  NumberPhasingRuns                   ,10
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
-  NumberOfProcessorsAvailable         ,8
+  NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
-  WellPhasedThreshold                 ,90.0
+  WellPhasedThreshold                 ,99.0
   = BOX 7: Hidden Markov Model ========================================================
   HMMOption                           ,No
   TemplateHaplotypes                  ,200
@@ -99,6 +100,9 @@ The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This caus
 * ``AlphaPhase1.1``: The executable of |ap|.
 
 |ai| automatically runs |ap| for each ``PhaseX`` folder according to the spec file.
+
+|ap| can phase hundreds of thousands of animals in under a day. To make use of this capability, the option ``LargeDatasets`` has to be set to ``Yes``. In this case, two more parameters are needed (see `LargeDatasets`_ section for more information).
+
 
 Impute genotype data for all individuals
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -169,8 +173,8 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
 |ai| looks for input parameters within the file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. An example of ``AlphaImputeSpec.txt`` is shown here::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                        ,MyPedrigree.txt
-  GenotypeFile                        ,MyGenos.txt
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
   TrueGenotypeFile                    ,None
   = BOX 2: Sex Chromosome =============================================================
   SexChrom                            ,No
@@ -182,16 +186,17 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
   InternalEdit                        ,No
   EditingParameters                   ,95.0,2.0,99.0,EditedSnpOut
   = BOX 5: Phasing ====================================================================
-  NumberPhasingRuns                   ,4
-  CoreAndTailLengths                  ,250,500,750,1000
-  CoreLengths                         ,200,450,700,900
+  NumberPhasingRuns                   ,10
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
-  NumberOfProcessorsAvailable         ,8
+  NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
-  WellPhasedThreshold                 ,90.0
+  WellPhasedThreshold                 ,99.0
   = BOX 7: Hidden Markov Model ========================================================
   HMMOption                           ,No
   TemplateHaplotypes                  ,200
@@ -251,7 +256,9 @@ However, |ai| stops before processing the phasing with the message:
 
 .. warning:: ``Restart option 2 stops program before Phasing has been managed``
 
-and does not run **AlphaPhase1.1** in the different ``PhaseX`` folders. The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
+and does not run |ap| in the different ``PhaseX`` folders. The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
+
+|ap| can phase hundreds of thousands of animals in under a day. To make use of this capability, the option ``LargeDatasets`` has to be set to ``Yes``. In this case, two more parameters are needed (see `LargeDatasets`_ section for more information).
 
 Impute genotype data for all individuals
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

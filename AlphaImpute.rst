@@ -60,9 +60,9 @@ AlphaImputeSpec.txt
 An example of ``AlphaImputeSpec.txt`` is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                        ,MyPedrigree.txt
-  GenotypeFile                        ,MyGenos.txt
-  TrueGenotypeFile                    ,None
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
   = BOX 2: Sex Chromosome =============================================================
   SexChrom                            ,No
   = BOX 3: SNPs =======================================================================
@@ -73,16 +73,17 @@ An example of ``AlphaImputeSpec.txt`` is shown in Figure 1. Everything to the le
   InternalEdit                        ,No
   EditingParameters                   ,95.0,2.0,99.0,EditedSnpOut
   = BOX 5: Phasing ====================================================================
-  NumberPhasingRuns                   ,4
-  CoreAndTailLengths                  ,250,500,750,1000
-  CoreLengths                         ,200,450,700,900
+  NumberPhasingRuns                   ,10
+  CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
+  CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
-  NumberOfProcessorsAvailable         ,8
+  NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No,200,1
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
-  WellPhasedThreshold                 ,90.0
+  WellPhasedThreshold                 ,99.0
   = BOX 7: Hidden Markov Model ========================================================
   HMMOption                           ,No
   TemplateHaplotypes                  ,200
@@ -118,8 +119,7 @@ Specifies whether the program should impute sex chromosomes or not. The two opti
 
 Impute sex chromosome requires to specify the file containing the sex chromosomes and the heterogametic status. They are provided just after the ``Yes`` string and separated by comas. For the heterogametic status the options are ``Male`` or ``Female``. Below is a sample of how the specification file should look::
 
-  PedigreeFile                          ,MyPedrigree.txt
-  GenotypeFile                          ,MyGenos.txt
+  = BOX 2: Sex Chromosome =============================================================
   SexChrom                              ,Yes,MySexChromosomeFile.txt,Male
 
 
@@ -150,9 +150,9 @@ This parameter admits two alternatives.
 *Alternative 1* controls the number of pairs of phasing rounds that are performed by AlphaPhase1.1 on the high-density group. The minimum for this number is 2 and the maximum is 30::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                        ,MyPedrigree.txt
-  GenotypeFile                        ,MyGenos.txt
-  TrueGenotypeFile                    ,MyTrueGenos.txt
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
   = BOX 2: Sex Chromosome =============================================================
   SexChrom                            ,No
   = BOX 3: SNPs =======================================================================
@@ -169,6 +169,7 @@ This parameter admits two alternatives.
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
   NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No,200,1
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
@@ -196,9 +197,9 @@ It is worth pointing out that a pair of rounds comprises one round with AlphaPha
 *Alternative 2* can be used to read in data sets that have been previously phased by AlphaPhase1.1::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                        ,MyPedrigree.txt
-  GenotypeFile                        ,MyGenos.txt
-  TrueGenotypeFile                    ,MyTrueGenos.txt
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
   = BOX 2: Sex Chromosome =============================================================
   SexChrom                            ,No
   = BOX 3: SNPs =======================================================================
@@ -215,6 +216,7 @@ It is worth pointing out that a pair of rounds comprises one round with AlphaPha
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
   NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No,200,1
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
@@ -273,6 +275,25 @@ Gives the percentage of SNP that are allowed to be missing or in conflict across
 NumberOfProcessorsAvailable
 """""""""""""""""""""""""""
 Sets the number of processors used to compute the genotype probabilities and Phasing rounds. The more processors, the shorter the computational time, however ``NumberOfProcessorsAvailable`` should not be larger than the number of processors available because it might lead to inefficient performances.
+
+
+LargeDatasets
+"""""""""""""
+It has two options ``Yes`` and ``No``.
+
+``Yes`` helps the phasing step to handle large datasets with hundreds of thousands of individuals in order to speed-up phasing times. This option requires two other parameters to be set as follows::
+
+  LargeDatasets                       ,Yes,200,1
+
+The first parameter determines the number of animals to be included in each Long Range Phasing subset. The second parameter determines the maximum number of times each animal will be included in each subset. Default values are 200 and 1. For more information about this two parameters see options ``IterateSubsetSize`` and ``IterateIterations`` of the `User Manual <http://www.alphagenes.roslin.ed.ac.uk/wp-content/uploads/AlphaPhaseManual/AlphaPhase.html#using-alphaphase>`_ of |ap|.
+
+``No`` is intended for regular datasets up to thousands of individuals. In this case, no extra parameter is needed and |ai| will skip all other parameters after the ``No`` option. Thus spec file as follows is both valid::
+
+  LargeDatasets                       ,No
+
+or::
+
+  LargeDatasets                       ,No,200,1
 
 
 InternalIterations
@@ -385,9 +406,9 @@ TrueGenotypeFile
 If you want to test the program ``TrueGenotypeFile``, gives the name of the file containing the true genotypes. For example this file could contain the true genotypes of a set of animals that have a proportion of their genotypes masked. If no such file is available you can set the parameter to ``None``. Testing the program can be useful when applying the program to a new population, perhaps the user should mask some SNP in a small percentage of the animals and see how it performs imputing them!::
 
   = BOX 1: Input Files ================================================================
-  PedigreeFile                        ,MyPedrigree.txt
-  GenotypeFile                        ,MyGenos.txt
-  TrueGenotypeFile                    ,MyTrueGenos.txt
+  PedigreeFile                        ,Pedrigree.txt
+  GenotypeFile                        ,Genos.txt
+  TrueGenotypeFile                    ,TrueGenos.txt
 
 Advice on values for parameters
 -------------------------------
@@ -493,6 +514,7 @@ We call this Example 1 and it is store in the directory Example of the download.
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
   NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No,200,1
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
@@ -569,6 +591,7 @@ Run the program in pre-processing mode with the parameters shown here::
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
   NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No,200,1
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
@@ -613,6 +636,7 @@ Rename the ``Phase`` folder to ``PhaseOld`` and then rerun the program with the 
   PedigreeFreePhasing                 ,No
   GenotypeError                       ,0.0
   NumberOfProcessorsAvailable         ,20
+  LargeDatasets                       ,No,200,1
   = BOX 6: Imputation =================================================================
   InternalIterations                  ,3
   ConservativeHaplotypeLibraryUse     ,No
@@ -677,4 +701,5 @@ Background reading
 .. #. Hickey, J.M., Kinghorn, B.P., Tier, B., and van der Werf, J.H.J. Determining phase of genotype data by combined recursive long range phasing and long range haplotype imputation. (To be submitted)
 
 
-.. |ai| replace:: **AlphaImpute1.6**
+.. |ai| replace:: **AlphaImpute**
+.. |ap| replace:: **AlphaPhase**
