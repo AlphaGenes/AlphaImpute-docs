@@ -46,10 +46,6 @@ The method implemented in |ai| is described in detail in Hickey *et al*. (2011).
 Using AlphaImpute
 =================
 
-
-.. note:: |ai| seeks to maximise the correlation between true and imputed markers while minimising the percentage of markers imputed incorrectly. It does not seek to maximise the percentage of markers correctly imputed as this would involve “cheating” and “guessing”, therefore it is not advisable to evaluate the performance of the program based on the percentage of alleles correctly imputed. For a discussion on this topic please consult Hickey *et al*., (2011) [4]_.
-
-
 Input files
 -----------
 
@@ -61,7 +57,7 @@ The program generally requires three input files:
 Pedigree file
 ^^^^^^^^^^^^^
 
-The pedigree file should have three columns, individual, father, and mother. It should be separated with space or comma with for missing parents coded as 0. No header line should be included in the pedigree file. Both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this.
+The pedigree file should have three columns, individual, father, and mother. It should be separated with space or comma with for missing parents coded as 0. No header line should be included in the pedigree file. Both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this. The pedigree file should not have a header line.
 
 Genotype file
 ^^^^^^^^^^^^^
@@ -453,6 +449,8 @@ Genotype data
 ``ImputeGenotypeProbabilities.txt`` is the primary genotype output file. It contains, for each SNP and each animal in the pedigree, a real number, the genotype probability, which is the sum of the two allele probabilities (i.e. the genotype) at that locus. Therefore genotypes are coded as real numbers between 0 and 2. The first column is the Animal Id, with the subsequent columns being for each SNP.
 
 ``ImputeGenotypes.txt`` is the secondary genotype output file. It contains a genotype for each SNP and each animal in the pedigree where it was possible to match it to a haplotype or was already genotyped. SNP that could not be matched or were not genotyped are denoted as being missing by a 9 (in the previous file these missing values were replaced with genotype probabilities). The first column is the Animal Id, with the subsequent columns being for each SNP.
+
+.. note:: |ai| seeks to maximise the correlation between true and imputed markers while minimising the percentage of markers imputed incorrectly. It does not seek to maximise the percentage of markers correctly imputed as this would involve “cheating” and “guessing”, therefore it is not advisable to evaluate the performance of the program based on the percentage of alleles correctly imputed. For a discussion on this topic please consult Hickey *et al*., (2011) [4]_.
 
 Phased data
 """""""""""
