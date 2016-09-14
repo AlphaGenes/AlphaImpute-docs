@@ -12,7 +12,7 @@ Contents:
    :numbered:
    :maxdepth: 3
 
-
+   QuickStart <./quickstart>
    AlphaImpute <./AlphaImpute>
 
 Indices and tables
