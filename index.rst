@@ -12,6 +12,7 @@ Contents:
    :numbered:
    :maxdepth: 3
 
+   Introduction <./introduction>
    QuickStart <./quickstart>
    AlphaImpute <./AlphaImpute>
 
