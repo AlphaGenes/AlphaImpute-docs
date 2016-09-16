@@ -36,6 +36,7 @@ AlphaImputeSpec.txt
 ^^^^^^^^^^^^^^^^^^^
 
 If not specified otherwise, |ai| looks for the input parameters within the spec file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. However, it is possible to choose a diffent spec file by specifying its path when calling |ai| in the command-line::
+
   $ > AlphaImpute <path_to_the_spec_file>
 
 An example of the spec file is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
@@ -87,11 +88,11 @@ Below is a description of what each line does. It is important to note that ``Al
 
 PedigreeFile
 """"""""""""
-Gives the name of the file containing the pedigree information. Details on the format are given in the `Data format`_ section.
+Gives the name of the file containing the pedigree information. Details on the format are given in the `Pedigree File`_ section.
 
 GenotypeFile
 """"""""""""
-Gives the name of the file containing the genotypes. Details on the format are given in the `Data format`_ section.
+Gives the name of the file containing the genotypes. Details on the format are given in the `Genotype File`_ section.
 
 
 SexChrom
@@ -359,7 +360,6 @@ Tells the program to avoid the computation of the Genotype probabilities. ``Bypa
 HMMOptions
 """"""""""
 Controls the imputation algorithm during the imputation step (``RestartOption`` set to ``3``). ``HMMOptions`` has three possible values: ``No``, ``Yes`` and ``Only``.
- .. and ``Prephase``.
 
 ``No`` makes |ai| to compute the heuristic imputation method explained in Hickey *et al*., (2012) [1]_. This is the standard imputation.
 
@@ -467,7 +467,7 @@ Four example scenarios are given.
 Example 1. How to run the program to impute genotypes
 -----------------------------------------------------
 
-We call this Example 1 and it is store in the directory Example of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal.
+We call this Example 1 and it is store in the directory Example of the download. This example shows how you would run the program to do imputation in the pedigree described above. The folder contains ``AlphaImputeSpec.txt`` which has suitable parameters set to achieve the goal::
 
   = BOX 1: Input Files ================================================================
   PedigreeFile                        ,Pedrigree.txt
@@ -644,7 +644,7 @@ Example 4. How to run the program to impute genotypes and test the imputation ac
 
 Contact `John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_
 
-An extensive example file is downloadable from the `AlphaGenes <http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphaimpute/>`_ website.
+.. An extensive example file is downloadable from the `AlphaGenes <http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphaimpute/>`_ website.
 
 The example comprises the PIC data set described in Hickey *et al*. 2012 [1]_. It consists of a pedigree of 6473 animals, of which 3209 are genotyped for almost all of the 3129 SNP (50k density) and 300 animals (at the end of the pedigree) are genotyped for a subset of XXX of the SNP (Xk density).
 
