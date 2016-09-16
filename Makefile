@@ -111,9 +111,16 @@ latex:
 	      "(use \`make latexpdf' here to do that automatically)."
 
 latexpdf:
+	sed '1,6s/5/3/g' AlphaImpute.rst > tmp.rst
+	mv tmp.rst AlphaImpute.rst
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
+	sed '/\\phantomsection\\label{index::doc}/d' $(BUILDDIR)/latex/AlphaImpute.tex > tmp.txt
+	sed '/Contents:/d' tmp.txt > $(BUILDDIR)/latex/AlphaImpute.tex
+	rm tmp.txt
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
+	sed '1,6s/3/5/g' AlphaImpute.rst > tmp.rst
+	mv tmp.rst AlphaImpute.rst
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
 
 latexpdfja:
