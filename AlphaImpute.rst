@@ -294,6 +294,7 @@ NumberOfProcessorsAvailable
 """""""""""""""""""""""""""
 Sets the number of processors used to compute the genotype probabilities and Phasing rounds. The more processors, the shorter the computational time, however ``NumberOfProcessorsAvailable`` should not be larger than the number of processors available because it might lead to inefficient performances.
 
+.. _LargeDatasets:
 
 LargeDatasets
 """""""""""""
@@ -340,6 +341,8 @@ Gives the user an option to read in a list of individuals that are phased using 
 PrePhasedFile
 """""""""""""
 Gives the option to read in pre-phased data (e.g. phased by a previous round of |ai| or by another program such as a half-sib haplotyping program). Specify ``None`` to the right of the comma if no file is to be read in, or specify the name of the file to the right of the comma if a file is to be read in. The file to be read in should contain two lines for each individual, the first line being its phased paternal gamete (alleles coded as 0 or 1 or another integer (e.g. 3) for missing alleles) and the second line being the phased maternal gamete. The first column should be a the ID’s of the individuals. The file takes the same format as ``ImputePhase.txt`` in the Results section of |ai|. Care must be taken here to ensure that only reliable phased individuals are included when using this option.
+
+.. _RestartOption:
 
 RestartOption
 """""""""""""
@@ -404,6 +407,8 @@ Controls the imputation algorithm during the imputation step (``RestartOption`` 
 ``Yes`` causes |ai| to compute imputation in two steps. In the first step, the program uses the standard imputation method to guarantee very accurate genotype imputation and haplotype phasing. Haplotypes obtained at the phasing step will be used to feed the haplotype template of the HMM method. During the generation of the template, haplotypes are chosen at random and possible missing heterozygous loci are phased arbitrarily. This stepwise approach is the most accurate but also the most computationally expensive in terms of time.
 
 .. Options ``PrePhase`` and ``Yes`` require the haplotypes to be previously phased, e.g. running the program with ``RestartOption`` set to ``2`` (see `RestartOption`_ option for more details).
+
+.. _HMMParameters:
 
 HMMParameters
 """""""""""""

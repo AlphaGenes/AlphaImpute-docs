@@ -68,7 +68,7 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
   BypassGeneProb                      ,No
   RestartOption                       ,0
 
-|ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_).
+|ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section :ref:`RestartOption`).
 
 Compute Genotype Probabilities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -92,7 +92,7 @@ After creating the folders, |ai| computes the genotype probabilities. To speed u
 Phase animals gentoyped at HD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This causes |ai| to phase the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that have been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running |ap| in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
+The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This causes |ai| to phase the haplotypes of those individuals genotyped at high-density. Phasing is computed across all markers according to the phasing strategies that have been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, |ai| computes two phasing rounds by running |ap| in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [1]_).
 
 |ai| runs the phasing rounds in different parallel processes. It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable`` :math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing:
 
@@ -101,13 +101,13 @@ The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This caus
 
 |ai| automatically runs |ap| for each ``PhaseX`` folder according to the spec file.
 
-|ap| can phase hundreds of thousands of animals in under a day. To make use of this capability, the option ``LargeDatasets`` has to be set to ``Yes``. In this case, two more parameters are needed (see `LargeDatasets`_ section for more information).
+|ap| can phase hundreds of thousands of animals in under a day. To make use of this capability, the option ``LargeDatasets`` has to be set to ``Yes``. In this case, two more parameters are needed (see :ref:`LargeDatasets` section for more information).
 
 
 Impute genotype data for all individuals
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This makes |ai| to impute genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase HD animals`_).
+The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This makes |ai| to impute genotypes for all the individuals in the genotype file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase animals gentoyped at HD`_).
 
 In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two different solutions: To run GeneProbs or to apply a hidden Markov model.
 
@@ -124,7 +124,7 @@ A more sophisticated approach is to impute the missing genotypes with a hidden M
 * *number of processors available*
 * *seed*
 
-The parameters shown in the example spec file work well for most cases, but the user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
+The parameters shown in the example spec file work well for most cases, but the user can set other values (see :ref:`HMMParameters` section for more information about how to set optimal parameters).
 
 Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
 
@@ -215,7 +215,7 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
   BypassGeneProb                      ,No
   RestartOption                       ,0
 
-|ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section `RestartOption`_).
+|ai| has to be run in 4 times in order to: 1) compute genotype probabilities; 2) phase animals genotyped at high-density; 3) impute and phase genotype data of all individuals in the population; and 4) summarise results and write the outputs. The four different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section :ref:`RestartOption`).
 
 Compute Genotype Probabilities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -245,7 +245,7 @@ Phase animals gentoyped at HD for clusters
 
 The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This causes |ai| to phase the haplotypes of those animals genotyped at high-density.
 
-As before, |ai| split the chromosome into different cores in order to phase the haplotypes of individuals genotyped at high-density in different parallel processes. Phasing is computed across all markers according to the phasing strategies that have been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, two phasing rounds are computed by running |ap| in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [2]_).
+As before, |ai| split the chromosome into different cores in order to phase the haplotypes of individuals genotyped at high-density in different parallel processes. Phasing is computed across all markers according to the phasing strategies that have been set by parameters ``CoreAndTailLengths`` and ``CoreLengths``. For each core in the spec file, two phasing rounds are computed by running |ap| in ``Offset`` and ``NotOffset`` mode (Hickey *et al*. (2011) [1]_).
 
 It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable``:math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing:
 
@@ -258,12 +258,12 @@ However, |ai| stops before processing the phasing with the message:
 
 and does not run |ap| in the different ``PhaseX`` folders. The user is supposed to do so according to his/her cluster characteristics. The easiest way to run all the GeneProb processes is to create a script file that automatically send them to the system queue.
 
-|ap| can phase hundreds of thousands of animals in under a day. To make use of this capability, the option ``LargeDatasets`` has to be set to ``Yes``. In this case, two more parameters are needed (see `LargeDatasets`_ section for more information).
+|ap| can phase hundreds of thousands of animals in under a day. To make use of this capability, the option ``LargeDatasets`` has to be set to ``Yes``. In this case, two more parameters are needed (see :ref:`LargeDatasets` section for more information).
 
 Impute genotype data for all individuals
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This causes |ai| to impute genotypes for all the individuals in the pedigree file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase animals gentoyped at HD for clusters`_).
+The third time |ai| is run, ``RestartOption`` has to be set to ``3``. This causes |ai| to impute genotypes for all the individuals in the genotype file. Imputation is based on the phased haplotypes of the individuals genotyped at high-density (`Phase animals gentoyped at HD for clusters`_).
 
 In some situations, imputation thresholds are not met and markers cannot be imputed. To overcome this, |ai| offers two different solutions: to run GeneProbs or to apply a hidden Markov model.
 
@@ -286,7 +286,7 @@ A more sophisticated approach is to impute the missing genotypes with a hidden M
 * *number of processors available*
 * *seed*
 
-The parameters shown in the spec file above work well for most cases, but the user can set other values (see `HMMParameters`_ section for more information about how to set optimal parameters).
+The parameters shown in the spec file above work well for most cases, but the user can set other values (see :ref:`HMMParameters` section for more information about how to set optimal parameters).
 
 Once the hidden Markov model has finished, |ai| outputs the most likely genotypes, genotype dosages and genotype probabilities into different files:
 
@@ -314,6 +314,9 @@ If the segregation analysis approach (i.e. **GeneProbForAlphaImpute**) was used 
 
 * ``ImputePhase.txt``
 * ``ImputePhaseProbabilities.txt``
+
+.. [1] Hickey, J. M., Kinghorn, B. P., Tier, B., Wilson, J. F., Dunstan, N. and van der Werf, J. HJ. (2011) `A combined long-range phasing and long haplotype imputation method to impute phase for SNP genotypes <http://www.gsejournal.org/content/43/1/12>`_. Genetics Selection Evolution 43:12
+
 
 .. |ai| replace:: **AlphaImpute**
 .. |ap| replace:: **AlphaPhase**
