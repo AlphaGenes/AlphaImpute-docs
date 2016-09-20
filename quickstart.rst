@@ -97,7 +97,7 @@ The second time |ai| is run, ``RestartOption`` has to be set to ``2``. This caus
 |ai| runs the phasing rounds in different parallel processes. It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable`` :math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing:
 
 * ``AlphaPhaseSpec.txt``: The spec file of parameters.
-* ``AlphaPhase1.1``: The executable of |ap|.
+* ``AlphaPhase``: The executable of |ap|.
 
 |ai| automatically runs |ap| for each ``PhaseX`` folder according to the spec file.
 
@@ -250,7 +250,7 @@ As before, |ai| split the chromosome into different cores in order to phase the 
 It is worth to notice that the number of processors has to be equal to ``NumberOfProcessorsAvailable``:math:` = 2 \times` ``NumberPhasingRuns``. For each processor, a folder ``Phasing/PhaseX`` is created containing:
 
 * ``AlphaPhaseSpec.txt``: The spec file of parameters.
-* ``AlphaPhase1.1``: The executable of |ap|.
+* ``AlphaPhase``: The executable of |ap|.
 
 However, |ai| stops before processing the phasing with the message:
 
