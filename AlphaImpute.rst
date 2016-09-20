@@ -430,12 +430,43 @@ Phased data
 Miscellaneous
 """""""""""""
 
-``Miscellaneous`` contains files that summarise the editing of the data. ``EditingSnpSummary.txt`` contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-density set, and the third being an indicator of whether the SNP was included in the analysis or not (``1`` = included / ``0`` = excluded). ``Timer.txt`` contains the time takes to complete the task.
+``Miscellaneous`` contains files that summarise the editing of the data: ``EditingSnpSummary.txt``, ``InternalDataRecoding.txt``, ``PedigreeMistakes.txt``, ``SnpCallRateByAnimal.txt`` and ``Timer.txt``.
+
+``EditingSnpSummary.txt`` summarises the included and excluded markers after the SNP editing. The file a row for each marker and three (3) columns:
+
+* Sequential number of the SNP
+* Count of individuals that are missing each SNP in the high-density set
+* Indicator of whether the SNP was included (``1``) in the analysis or not (``0``).
+
+``InternalDataRecoding.txt`` contains a sequencial recodification of the pedigree information. The file contains a row for each individual in the ``PedigreeFile``. The file consisted in four (4) columns:
+
+* Recoded ID of the individual
+* Recoded ID of the sire
+* Recoded ID of the dam
+* Read ID of the individual
+
+It might contain extra individuals representing the pedigree information of the founder individuals, i.e., individuals without parent information in the ``PedigreeFile``. In this case, the extra individuals also become founders and they are given a dummy name (``dumXXXXXX``) as real ID.
+
+``PedigreeMistakes.txt`` summarises information about the medelian inconsistencies in the ``GenotypeFile``. The file contains a row for each individual whose link to one of its parents in the ``PedigreeFile`` has been removed due to mendelian inconsistencies. An individual can appear twice if the both links for its sire and its dam have been removed. A link is removed if more than 5% of the total markers that are homozygous for both the proband and the parent are opposing homozygous. Information about the mendelian inconsistencies are outputed in nine (9) columns:
+
+* ID of the individual
+* ID of the parent
+* Total number of markers with mendelian inconsistencies
+* Total number of markers genotyped for both the proband and the parent
+* Total number of homozygous markers of the parent
+* Total number of markers that are homozygous for both the proband and the parent
+* Proportion between the mendelian inconsistencies and the total number the common markers
+* Proportion between the mendelian inconsistencies and the total number of homozygous markers of the parent
+* Proportion between the mendelian inconsistencies and the total number of markers that are homozygous for both the proband and the parent
+
+``SnpCallRateByAnimal.txt`` gives information about the SNP call rate by individual. The file contains a row for each individual in the ``GenotypeFile`` with the proportion between the genotyped markers and the total number of SNP (``NumberSnp``).
+
+``Timer.txt`` contains the time tha takes |ai| to complete the imputation.
 
 TestAlphaImpute
 """""""""""""""
 
-``TestAlphaImpute`` is only invoked if a ``TrueGenotypeFile`` is supplied. The resulting folder contains four files.
+``TestAlphaImpute`` contains three files which summarise the imputation accuracy animal and snp wise. The folder ``TestAlphaImpute`` is only invoked if the ``TrueGenotypeFile`` is supplied.
 
 ``IndividualAnimalAccuracy.txt`` contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had ``1`` being both parents genotyped, ``2`` being sire and maternal grandsire genotyped, ``3`` being dam and paternal grandsire genotyped, ``4`` being sire genotyped, ``5`` being dam genotyped, and ``6`` being any other scenario. An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP. The next columns are for each of the SNP, with ``1`` if the SNP is correctly imputed, ``2`` the SNP is incorrectly imputed, ``3`` if the SNP is not imputed, and ``4`` if the SNP was already genotyped.
 
