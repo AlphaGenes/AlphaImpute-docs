@@ -176,6 +176,12 @@ This parameter admits two alternatives.
 
 It is worth pointing out that a pair of rounds comprises one round with |ap| in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that |ap| makes. The concept of cores (and their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
 
+Offset/NotOffset mode
++++++++++++++++++++++
+
+|ap| can be run in an *Offset* mode or a *NotOffset* mode. The *NotOffset* mode means that the cores start at the first SNP. The *Offset* mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in *NotOffset* phases several cores, then running the program in *Offset* mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the *NotOffset* mode and the *Offset* mode.
+
+
 *Alternative 2* can be used to read in data sets that have been previously phased by |ap|::
 
   = BOX 1: Input Files ================================================================
@@ -473,11 +479,6 @@ TestAlphaImpute
 ``IndividualSummaryAccuracy.txt`` summarises the information in ``IndividualAnimalAccuracy.txt``. Columns 1 and 2 are the same as the previous file, column 3 is the percentage of SNP to be imputed that were imputed correctly for this animal, column 4 is the percentage imputed incorrectly, column 5 is the percentage not imputed, column 6 is the percentage of paternal alleles that were imputed or phased, and column 7 is the percentage of maternal alleles that were imputed or phased.
 
 ``IndividualSummaryYield.txt`` summarises the yield in terms of the percentage of paternal/maternal alleles that have been imputed or phased for all animals in the pedigree. Column 1 is the ID, column 2 is an indicator as to whether it was genotyped for more than 50% of the SNP or not (``1`` = was genotyped, ``0`` = was not genotyped), column 3 is the percentage of paternal alleles imputed or phased, column 4 is the percentage of maternal alleles imputed or phased.
-
-Offset/NotOffset mode
-=====================
-
-|ap| can be run in an *Offset* mode or a *NotOffset* mode. The *NotOffset* mode means that the cores start at the first SNP. The *Offset* mode is designed to create overlaps between cores therefore the start of the first core is shifted 50% of its length (i.e. if the core length is 100, then the first core starts at SNP 51). First running the program in *NotOffset* phases several cores, then running the program in *Offset* mode moves the start of the cores to halfway along the first core, thereby creating 50% overlaps between cores for the *NotOffset* mode and the *Offset* mode.
 
 Examples
 ========
