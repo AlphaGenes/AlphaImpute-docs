@@ -30,11 +30,11 @@ There is no need to sort the pedigree in any way as the program automatically pe
 Genotype file
 ^^^^^^^^^^^^^
 
-The genotype file should contain 1 line for each individual, a first column with the individual’s identifier and as many columns as SNP in the chromosome.
+The genotype file should contain one line for each individual, a first column with the individual’s identifier and as many columns as SNP in the chromosome.
 
 .. note:: |ai| works for single chromosomes at a time only.
 
-The first column with the individual's identifier supports both numeric and alphanumeric formats. The next columns containing the SNP information should be coded as ``0``, ``1``, or ``2`` for the genotype calling and any integer between ``3`` and ``9`` (e.g. ``3``) for missing genotypes. The genotype codes ``0``, ``1``, and ``2`` stand for the homozygous ``aa``, the heterozygous ``aA`` or ``Aa``, and the homozygous ``AA`` cases, respectively. The genotype file should not have a header line.
+Both numeric and alphanumeric formats are acceptable for the identifiers. The columns containing the SNP information should be coded as ``0``, ``1``, or ``2`` for the genotype calling and any integer between ``3`` and ``9`` (e.g. ``3``) for missing genotypes. The genotype codes ``0``, ``1``, and ``2`` stand for the homozygous ``aa``, the heterozygous ``aA`` or ``Aa``, and the homozygous ``AA`` cases, respectively. Columns should be separated by spaces or commas. The genotype file should not include a header line.
 
 
 AlphaImputeSpec.txt
