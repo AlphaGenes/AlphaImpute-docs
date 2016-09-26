@@ -40,7 +40,7 @@ Both numeric and alphanumeric formats are acceptable for the identifiers. The co
 AlphaImputeSpec.txt
 ^^^^^^^^^^^^^^^^^^^
 
-If not specified otherwise, |ai| looks for the input parameters within the spec file ``AlphaImputeSpec.txt`` in the same folder the |ai| binary is located. However, it is possible to choose a diffent spec file by specifying its path when calling |ai| in the command-line::
+If not specified, |ai| looks for the input parameters within the spec file ``AlphaImputeSpec.txt``, which should be located in the same folder as the |ai| executable file. However, it is possible to choose a diffent spec file by providing its path when running |ai| with the command-line::
 
   $ > AlphaImpute <path_to_the_spec_file>
 
