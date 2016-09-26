@@ -13,6 +13,7 @@ Input files
 -----------
 
 The program generally requires three input files:
+
 * a pedigree file
 * a genotype file, and
 * a file with the input parameters.
@@ -20,7 +21,11 @@ The program generally requires three input files:
 Pedigree file
 ^^^^^^^^^^^^^
 
-The pedigree file should have three columns, individual, father, and mother. It should be separated with space or comma with for missing parents coded as 0. No header line should be included in the pedigree file. Both numeric and alphanumeric formats are acceptable. The pedigree does not have to be sorted in any way as the program automatically does this. The pedigree file should not have a header line.
+The pedigree should contain one line for each individuals and three columns corresponding to the individual's identifier, their sire's identifier, and their dam's identifier.
+
+Both numeric and alphanumeric formats are acceptable for the identifiers. Missing parents should be coded as ``0``. Columns should be separated by spaces or commas. The pedigree file should not include a header line.
+
+There is no need to sort the pedigree in any way as the program automatically performs a internal reordering and recording of the pedigree which is printed out in ``Miscellaneous/InternalDataRecoding.txt`` (see `Miscellaneous`_ section for more information).
 
 Genotype file
 ^^^^^^^^^^^^^
