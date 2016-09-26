@@ -89,7 +89,7 @@ An example of the spec file is shown in Figure 1. Everything to the left of the 
   BypassGeneProb                      ,No
   RestartOption                       ,0
 
-Below is a description of what each line does. It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Before proceeding, it is worth pointing out that internally |ai| divides all the animals in the pedigree into two groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have been genotyped for enough SNP that they can have their haplotypes resolved by |ap|. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the user can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into |ap| can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing (see `AlphaPhase <http://www.alphagenes.roslin.ed.ac.uk/wp-content/uploads/AlphaPhaseManual/index.html>`_ user manual for more information).
+It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Below is a description of what each line does.
 
 PedigreeFile
 """"""""""""
@@ -120,6 +120,9 @@ Specifies whether the program should edit the data internally or not. The two op
 
 EditingParameters
 """""""""""""""""
+
+.. note:: It is worth pointing out that internally |ai| divides all the animals in the pedigree into two groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have been genotyped for enough SNP that they can have their haplotypes resolved by |ap|. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the user can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into |ap| can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing (see `AlphaPhase <http://www.alphagenes.roslin.ed.ac.uk/wp-content/uploads/AlphaPhaseManual/index.html>`_ user manual for more information).
+
 Controls the internal editing that is invoked the ``InternalEdit`` option described above. The three numerical parameters control the internal editing while the case sensitive qualifier controls the final output of the results with regard to the editing. The internal editing involves three steps run in sequence (Step 1, Step 2, and Step 3).
 
 The first numerical parameter controls Step 1, which divides the animals in the data into two initial groups, the high-density group, and the low-density group. Animals in the data set that are genotyped for more than XX.X% (in figure 1 this value is 95.0%) of the SNP enter the high-density group, with the remainder entering the low-density group.
