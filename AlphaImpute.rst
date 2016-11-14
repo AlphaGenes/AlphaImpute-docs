@@ -5,6 +5,28 @@ AlphaImpute
 .. contents:: Table of Contents
    :depth: 5
 
+How AlphaImpute works?
+======================
+
+|ai| combines:
+
+  * basic rules of Mendelian inheritance,
+  * segregation analysis,
+  * long-range phasing, and
+  * haplotype library imputation in order to phase and impute genotype data of all individuals in populations that have pedigree information.
+
+The program iterates across these four sets of actions multiple times to accumulate information and determine the haplotype that each individual carries at each position along the genome.
+
+The basic rules of Mendelian inheritance and the segregation analysis are used in conjunction with all pedigree and genotype information to derive phase for as many alleles as possible under the assumption that each locus is inherited independently of its neighbours at this step. The segregation analysis algorithm is implemented in the **GeneProbForAlphaImpute** software (Kerr and Kinghorn, 1996 [3]_).
+
+Long-range phasing and haplotype library imputation, which are both implemented in the |ap| software (Hickey *et al*., 2011 [2]_), are used to derive the haplotypes that are carried by the individuals that are genotyped at high-density. Both long-range phasing and haplotype library imputation work by dividing the genome into genome regions, referred to as cores, and resolving the haplotypes within the cores for the individuals concerned. Cores of different lengths are used in several runs to phase each locus as part of overlapping cores and to facilitate the identification of phasing errors. These phasing steps generate a library of haplotypes for each core that are used later.
+
+Missing alleles are then imputed by matching haplotypes obtained during the long-range phasing to alleles that are imputed and phased by the basic rules of Mendelian inheritance and by the segregation analysis. All haplotypes stored in the haplotype libraries are considered candidates of the true haplotype of the proband (i.e., the individual being phased) for each core of each phasing round. Alleles that are imputed and phased by the basic rules of Mendelian inheritance and by the segregation analysis are compared to corresponding alleles in each of the haplotypes in the library, and haplotypes that are consistent with the alleles of a proband are retained as candidate haplotypes. This is repeated for each core. For a given marker position, individual alleles are imputed where all remaining haplotypes across all of the cores that span this marker are in agreement. To impute from parental haplotypes this process is also repeated with a restriction that the haplotypes retained in the haplotype library comprise only those haplotypes that are carried by the parents. Libraries are updated with any new haplotype found.
+
+The matching process is iterated a defined number of times. At the end of the final iteration the segregation analysis is repeated and used to fill in any alleles that remain unimputed.
+
+How to set up |ai| to achieve the imputation is explained in the next section.
+
 
 Using AlphaImpute
 =================
