@@ -173,7 +173,6 @@ This parameter admits two alternatives.
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,No
   PhasingOnly                         ,No
@@ -226,7 +225,6 @@ Offset/NotOffset mode
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,No
   PhasingOnly                         ,No
@@ -608,7 +606,6 @@ To perform the first run of the program in pre-processing mode, the contents of 
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,Yes
   PhasingOnly                         ,No
@@ -666,7 +663,6 @@ We assume that the folder with the phased data is ``PhaseOld``, so |ai| should b
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,No
   PhasingOnly                         ,No
