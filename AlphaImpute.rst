@@ -43,7 +43,7 @@ The program generally requires three input files:
 Pedigree file
 ^^^^^^^^^^^^^
 
-The pedigree should contain one line for each individuals and three columns corresponding to the individual's identifier, their sire's identifier, and their dam's identifier.
+The pedigree should contain one line for each individual and three columns corresponding to the individual's identifier, the sire's identifier, and the dam's identifier.
 
 Both numeric and alphanumeric formats are acceptable for the identifiers. Missing parents should be coded as ``0``. Columns should be separated by spaces or commas. The pedigree file should not include a header line.
 
@@ -54,7 +54,7 @@ Genotype file
 
 The genotype file should contain one line for each individual, a first column with the individual’s identifier and as many columns as SNP in the chromosome.
 
-.. note:: |ai| works for single chromosomes at a time only.
+.. warning:: |ai| works for single chromosomes at a time only.
 
 Both numeric and alphanumeric formats are acceptable for the identifiers. The columns containing the SNP information should be coded as ``0``, ``1``, or ``2`` for the genotype calling and any integer between ``3`` and ``9`` (e.g. ``3``) for missing genotypes. The genotype codes ``0``, ``1``, and ``2`` stand for the homozygous ``aa``, the heterozygous ``aA`` or ``Aa``, and the homozygous ``AA`` cases, respectively. Columns should be separated by spaces or commas. The genotype file should not include a header line.
 
@@ -115,16 +115,16 @@ It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Below is
 
 PedigreeFile
 """"""""""""
-Gives the name of the file containing the pedigree information. Details on the format are given in the `Pedigree File`_ section.
+Specifies the name of the file containing the pedigree information. Details on the format are given in the `Pedigree File`_ section.
 
 GenotypeFile
 """"""""""""
-Gives the name of the file containing the genotypes. Details on the format are given in the `Genotype File`_ section.
+Specifies the name of the file containing the genotypes. Details on the format are given in the `Genotype File`_ section.
 
 
 SexChrom
 """"""""
-Specifies whether the program should impute sex chromosomes or not. The two options are ``Yes`` or ``No``.
+Specifies whether the program should impute sex chromosomes. The two possible options are ``Yes`` or ``No``.
 
 Impute sex chromosome requires to specify the file containing the sex chromosomes and the heterogametic status. They are provided just after the ``Yes`` string and separated by comas. For the heterogametic status the options are ``Male`` or ``Female``. Below is a sample of how the specification file should look::
 
@@ -134,7 +134,7 @@ Impute sex chromosome requires to specify the file containing the sex chromosome
 
 NumberOfSnp
 """""""""""
-Gives the number of SNP in the genotype file.
+Specifies the number of SNP in the genotype file.
 
 InternalEdit
 """"""""""""
