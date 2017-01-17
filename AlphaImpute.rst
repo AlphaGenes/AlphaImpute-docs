@@ -102,7 +102,6 @@ An example of the spec file is shown in Figure 1. Everything to the left of the 
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,No
   PhasingOnly                         ,No
@@ -415,13 +414,20 @@ Where heuristic methods fail if rules are not met, HMM algorithms are very flexi
 
 |ai| implements the Markov model described in Li *et al*., 2009 [4]_. This model is defined by the number of states, :math:`H^2`, the crossovers parameters, :math:`\theta_i, i = {1,\ldots,M}`, and the error parameters, :math:`\varepsilon_j, j = {1,\ldots,M}`; where :math:`H` is the number of haplotypes in the haplotype template, and :math:`M` is the number of markers. The crossovers define the transition probabilities from one state to the next, giving an estimation of the recombination rates across haplotypes. The errors define the emission probabilities, giving an estimation of the gene conversion events and recurrent mutations. In order to determine the specific model that best fits the data, crossovers and error parameters have to be estimated. For this purpose, crossovers and errors are updated based on the recombination rates and allele frequencies in consecutive runs of the HMM model. The initial values of the model parameters are set to :math:`\theta_i=0.01; \, \varepsilon_j=0.00000001`, but other parameters such as number of haplotypes in the template or number of runs have to be set by the user (see HMMParameters option).
 
-The first numerical parameter of ``HMMParameters`` is the number of gametes used to create the haplotype template. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger templates are used. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved by increasing the number of parallel processes, which is controlled by the last parameter in this section.
+``TemplateHaplotypes`` is the number of gametes used to create the haplotype template. Imputation accuracy is highly influenced by this parameter, and better results are obtained when larger templates are used. However, the computational time grows quadratically with the number of haplotypes. This can be partially solved by increasing the number of parallel processes, which is controlled by the last parameter in this section.
 
-The second numerical parameter sets the number of rounds dismissed before the parameters of the HMM model have stabilised. ``10`` is a good value for this parameter.
+``BurnInRounds`` sets the number of rounds dismissed before the parameters of the HMM model have stabilised. ``10`` is a good value for this parameter.
 
-The third numerical parameter is the total number of rounds that the HMM will be computed. A greater number of rounds lead to better results. However, the user is discouraged from using more than 50 rounds, as imputation accuracy tends to be only slightly better than when a lesser number of rounds are used.
+``Rounds`` is the total number of rounds that the HMM will be computed. A greater number of rounds lead to better results. However, the user is discouraged from using more than 50 rounds, as imputation accuracy tends to be only slightly better than when a lesser number of rounds are used.
 
-The last numerical parameter controls the number of parallel processes used to complete the genotype imputation. Valid values are integer greater than ``0``. Each processor is responsible for computing the HMM model for a single individual. Setting this parameter to ``1`` will compute the HMM imputation in serial.
+``ParallelProcessors`` controls the number of parallel processes used to complete the genotype imputation. Valid values are integer greater than ``0``. Each processor is responsible for computing the HMM model for a single individual. Setting this parameter to ``1`` will compute the HMM imputation in serial.
+
+To define the hidden states of the hidden Markov model, |ai| defines a set of template haplotypes. These haplotypes can be taken from the individuals than have been phased and imputed previous to the HMM. Besides, individuals can be imputed with either the diploid or the haploid HMM implemented in AlphaImpute. ``ThresholdForPhasedAnimals`` and ``ThresholdImputed`` control these two things.
+
+
+``ThresholdForPhasedAnimals`` sets a threshold for the number of animals that have to be phased in order to take the template haplotypes from the phased/imputed individuals. If this threshold is not met, template haplotypes are taken from the HD individuals in the genotype file. An individual is considered to be phased if 99% or more of its markers have been phased. 
+
+``ThresholdImputed`` sets a threshold for the number of markers to be imputed previous to the HMM in order to use the haploid HMM with that individual. If this threshold is not met the diploid HMM is used.
 
 TrueGenotypeFile
 """"""""""""""""

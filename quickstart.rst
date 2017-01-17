@@ -59,7 +59,6 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,No
   PhasingOnly                         ,No
@@ -206,7 +205,6 @@ To run |ai|, just type ``AlphaImpute`` on the console and press *ENTER*. After w
   Seed                                ,-123456789
   ThresholdForPhasedAnimals           ,90.0
   ThresholdImputed                    ,90.0
-  WindowLength                        ,150
   = BOX 8: Running options ============================================================
   PreprocessDataOnly                  ,No
   PhasingOnly                         ,No
