@@ -107,7 +107,7 @@ An example of the spec file is shown in Figure 1. Everything to the left of the 
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
+  UseFerdosi                          ,Yes
   RestartOption                       ,0
 
 It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Below is a description of what each line does.
@@ -201,7 +201,6 @@ This parameter admits two alternatives.
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
   RestartOption                       ,2
 
 It is worth pointing out that a pair of rounds comprises one round with |ap| in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that |ap| makes. The concept of cores (and their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
@@ -253,7 +252,6 @@ Offset/NotOffset mode
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
   RestartOption                       ,2
 
 This allows users to read in results of previous phasing work. Three parameters are required here.
@@ -383,13 +381,10 @@ WellPhasedThreshold
 Controls the final imputation quality of the individuals. Those individuals with an imputation accuracy above ``WellPhasedThreshold`` will be outputted in the ``WellPhasedIndividuals.txt`` file.
 
 
-BypassGenProb
+UseFerdosi
 """""""""""""
-Tells the program to avoid the computation of the Genotype probabilities. ``BypassGenProb`` has two options ``Yes`` or ``No``.
 
-``Yes`` sets the program to skip the computation of genotype probabilities rounds during the pre-processing data step, and stops the program before the final computation of genotype dosages during the final step of writing the results.
-
-``No`` sets the program to run normally.
+Uses the ferdosi algorithm before individuals are passed to alphaphase. This can drastically improve yield. This option has two possible values: ``No`` and ``Yes``.
 
 
 HMMOptions
