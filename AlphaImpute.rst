@@ -81,7 +81,7 @@ An example of the spec file is shown in Figure 1. Everything to the left of the 
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
+  UseFerdosi                          ,Yes
   RestartOption                       ,0
 
 Below is a description of what each line does. It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Before proceeding, it is worth pointing out that internally |ai| divides all the animals in the pedigree into two groups, one called a high-density group and the other the low-density group. The high-density group is the group of animals that have been genotyped for enough SNP that they can have their haplotypes resolved by |ap|. The low-density group are all remaining animals in the pedigree and comprise animals that are not genotyped at all, are genotyped at low density, or are genotyped at high density but have a proportion (greater than a threshold the user can set) of their SNP missing (e.g. not called by the genotype calling algorithm). This partitioning is done because placing animals with too many SNP missing into |ap| can result in dramatic increases in computational time and dramatic reduction in the accuracy of phasing (see `AlphaPhase <http://www.alphagenes.roslin.ed.ac.uk/wp-content/uploads/AlphaPhaseManual/index.html>`_ user manual for more information).
@@ -171,7 +171,6 @@ This parameter admits two alternatives.
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
   RestartOption                       ,2
 
 It is worth pointing out that a pair of rounds comprises one round with |ap| in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that |ap| makes. The concept of cores (and their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
@@ -218,7 +217,6 @@ It is worth pointing out that a pair of rounds comprises one round with |ap| in 
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
   RestartOption                       ,2
 
 This allows users to read in results of previous phasing work. Three parameters are required here.
@@ -348,13 +346,10 @@ WellPhasedThreshold
 Controls the final imputation quality of the individuals. Those individuals with an imputation accuracy above ``WellPhasedThreshold`` will be outputted in the ``WellPhasedIndividuals.txt`` file.
 
 
-BypassGenProb
+UseFerdosi
 """""""""""""
-Tells the program to avoid the computation of the Genotype probabilities. ``BypassGenProb`` has two options ``Yes`` or ``No``.
 
-``Yes`` sets the program to skip the computation of genotype probabilities rounds during the pre-processing data step, and stops the program before the final computation of genotype dosages during the final step of writing the results.
-
-``No`` sets the program to run normally.
+Uses the ferdosi algorithm before individuals are passed to alphaphase. This can drastically improve yield. This option has two possible values: ``No`` and ``Yes``.
 
 
 HMMOptions
