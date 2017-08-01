@@ -17,7 +17,7 @@ How AlphaImpute works?
 
 The program iterates across these four sets of actions multiple times to accumulate information and determine the haplotype that each individual carries at each position along the genome.
 
-The basic rules of Mendelian inheritance and the segregation analysis are used in conjunction with all pedigree and genotype information to derive phase for as many alleles as possible under the assumption that each locus is inherited independently of its neighbours at this step. The segregation analysis algorithm is implemented in the **GeneProbForAlphaImpute** software (Kerr and Kinghorn, 1996 [3]_).
+The basic rules of Mendelian inheritance and the segregation analysis are used in conjunction with all pedigree and genotype information to derive phase for as many alleles as possible under the assumption that each locus is inherited independently of its neighbours at this step. The segregation analysis algorithm is a heuristic version of the geneprob algorithm (Kerr and Kinghorn, 1996 [3]_).
 
 Long-range phasing and haplotype library imputation, which are both implemented in the |ap| software (Hickey *et al*., 2011 [2]_), are used to derive the haplotypes that are carried by the individuals that are genotyped at high-density. Both long-range phasing and haplotype library imputation work by dividing the genome into genome regions, referred to as cores, and resolving the haplotypes within the cores for the individuals concerned. Cores of different lengths are used in several runs to phase each locus as part of overlapping cores and to facilitate the identification of phasing errors. These phasing steps generate a library of haplotypes for each core that are used later.
 
@@ -66,6 +66,9 @@ If not specified, |ai| looks for the input parameters within the spec file ``Alp
 
   $ > AlphaImpute <path_to_the_spec_file>
 
+
+In version 1.7 and newer, the spec file is case insensitive and ordering is not important. This means that old versions of the spc file should still be supported, and if the program reaches a line it does not expect, it will output a warning, making debugging easier.
+
 An example of the spec file is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
 
   = BOX 1: Input Files ================================================================
@@ -109,8 +112,11 @@ An example of the spec file is shown in Figure 1. Everything to the left of the 
   PrePhasedFile                       ,None
   UseFerdosi                          ,Yes
   RestartOption                       ,0
+  modelrecomb                         ,Yes
+  outputonlygenotypedanimals          ,No
+  Cluster                             ,No
 
-It is important to note that ``AlphaImputeSpec.txt`` is case sensitive. Below is a description of what each line does.
+Below is a description of each option available in the specification file:
 
 PedigreeFile
 """"""""""""
@@ -120,7 +126,9 @@ GenotypeFile
 """"""""""""
 Specifies the name of the file containing the genotypes. Details on the format are given in the `Genotype File`_ section.
 
-
+TrueGenotypeFile
+""""""""""""
+Specifies the name of the file containing true genotypes of an animal. This option can be used to evaluate the imputation accuracy of alphaimpute. The format should be identical to that of the normal Genotype file. Details on the format are given in the `Genotype File`_ section.
 SexChrom
 """"""""
 Specifies whether the program should impute sex chromosomes. The two possible options are ``Yes`` or ``No``.
@@ -154,7 +162,7 @@ The second numerical parameter controls Step 2, which removes some SNP from the 
 
 The third numerical parameter controls Step 3, which finalises the animals in the high-density group. It is similar to that of the first numerical parameter in that it divides the data into two groups, the finalised high-density group and low-density group. The animals in the data set that are genotyped for more than XX.X% (in figure 1 this value is 98.0) of the SNP that remain after Step 2 enter the finalised high-density set. The remaining animals enter the finalised low density set. The final high-density group is passed to |ap| to be phased.
 
-The case sensitive qualifier controls the SNP for which results are outputted and it has two options ``AllSnpOut`` or ``EditedSnpOut`` (note that these are case sensitive). ``AllSnpOut`` produces output for all the SNP that are inputted. ``EditedSnpOut`` produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file ``EditingSnpSummary.txt`` which is described below.
+The qualifier controls the SNP for which results are outputted and it has two options ``AllSnpOut`` or ``EditedSnpOut`` (these are no longer case sensitive). ``AllSnpOut`` produces output for all the SNP that are inputted. ``EditedSnpOut`` produces output only for the SNP that survive the internal editing. The SNP that survive the internal editing are outlined in the output file ``EditingSnpSummary.txt`` which is described below.
 
 NumberOfPairsOfPhasingRounds
 """"""""""""""""""""""""""""
@@ -201,8 +209,8 @@ This parameter admits two alternatives.
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  RestartOption                       ,2
-
+  RestartOption                       ,1
+  modelrecomb                         ,yes
 It is worth pointing out that a pair of rounds comprises one round with |ap| in ``Offset`` mode and the other in ``NotOffset`` mode. Different phasing rounds are required so that each SNP are phased multiple times as a part of cores that span different SNP. Additionally the different core spans and ``Offset``/``NotOffset`` modes create overlaps between cores. This helps to partially remove the small percentages of phasing errors that |ap| makes. The concept of cores (and their tails) is outlined in Hickey *et al*. (2011) [2]_. ``Offset/NotOffset`` mode is described below.
 
 Offset/NotOffset mode
@@ -227,7 +235,7 @@ Offset/NotOffset mode
   InternalEdit                        ,Yes
   EditingParameters                   ,95.0,2.0,98.0,EditedSnpOut
   = BOX 5: Phasing ====================================================================
-  NumberPhasingRuns                   ,PhaseDone,"/Users/john/Proj/Test/PhaseOld/",20
+  NumberPhasingRuns                   ,PhaseDone,/Users/john/Proj/Test/PhaseOld,20
   CoreAndTailLengths                  ,200,300,400,500,600,250,325,410,290,700
   CoreLengths                         ,100,200,300,400,500,150,225,310,190,600
   PedigreeFreePhasing                 ,No
@@ -253,12 +261,16 @@ Offset/NotOffset mode
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
   RestartOption                       ,2
-
+outputonlygenotypedanimals            ,yes
 This allows users to read in results of previous phasing work. Three parameters are required here.
+
+.. note::  As of version 1.9, AlphaPhase output has changed, thus phasing runs will need redone when changing version
 
 The first is the case sensitive qualifier ``PhaseDone``. This specifies that the phasing rounds have been done previously.
 
-The second is the complete path to where these phasing rounds are stored. This path must be surrounded by quotations (e.g. ``“/here/is/the/full/path/”``).
+The second is the complete path to where these phasing rounds are stored. This path is no longer surrounded by quotations (e.g. ``/here/is/the/full/path/``).
+
+.. note::  As of version 1.9, paths should no longer have quotations, as the spec file is parsed on commas
 
 The third is the number of phasing jobs that are to be read from the folder. The folders containing each of the phasing rounds must be labelled Phase1, Phase2, ..., PhaseN, where N is the number of phasing rounds. It is important to realise that *Alternative 1* (described above) for ``NumberOfPhasingRounds`` sets a number that is half the actual number of phasing rounds carried out (because of it specifes the number of pairs of rounds rather than individual rounds). Therefore it is good to check how many phasing rounds are actually in the folder you are reading in.
 
@@ -344,7 +356,7 @@ Gives the option to read in pre-phased data (e.g. phased by a previous round of 
 RestartOption
 """""""""""""
 
-.. note:: This option behaves differently depending on the |ai| version. Two different version of |ai| have been distributed, the *standard* version and the *cluster* version. If not specified otherwise, the *standard* version is explained in this section.
+.. note:: As of version 1.9, there is no "cluster version" of the program. The restart options still exist to give support for different memory requirements in cluster systems. An MPI version is also available which runs Phasing (restart option 1) using MPI.
 
 The program can be run in three different and consecutive steps: 1) calculate genotype probabilities; 2) haplotype phasing; and 3) impute genotypes. ``RestartOption`` controls which step is being processed at each time.
 
@@ -356,11 +368,8 @@ The program can be run in three different and consecutive steps: 1) calculate ge
 
 .. note:: In the *cluster* version, the user is responsible for creating a script which computes the haplotype phasing accordingly to the number of processors specified in ``NumberOfPhasingRuns`` and to the cluster specifications. |ai| stops before the script has been executed.
 
-``RestartOption`` set to ``3`` runs the program to impute the missing genotypes. The program has two different built-in imputation algorithms. One is a heuristic method based on a segregation analysis and haplotype library imputation (**SAHLI**). The second is based on a hidden Markov model (HMM) (see `HMMOptions`_ and `HMMParameters`_ for more information about how to set optimal parameters).
 
 ``RestartOption`` ``0`` runs the whole stepwise process, i.e. it computes genotype probabilities, performs haplotype phasing and imputes genotypes consecutively.
-
-.. note:: ``RestartOption`` = ``0`` is disabled in the *cluster* version. However, the user can create a script to simulate this option by running |ai| with ``RestartOption`` set to ``1``, ``2`` and ``3`` consecutively.
 
 There are two reasons as to why a user might want to run the program in consecutive steps. Firstly the pre-processing steps can be used to observe how different parameters settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing. Running the program using a different step may help to speed up the entire process.
 
@@ -385,6 +394,21 @@ UseFerdosi
 """""""""""""
 
 Uses the ferdosi algorithm before individuals are passed to alphaphase. This can drastically improve yield. This option has two possible values: ``No`` and ``Yes``.
+
+ModelRecomb
+"""""""""""""
+Uses an algorithm to remove uncertainity about alleles. Will likely increase accuracy but decrease yield. This option has two possible values: ``No`` and ``Yes``. The default is ``Yes``.
+
+
+Cluster
+"""""""""""""
+Tells the program to use the MPI version of phasing. Requires the MPI binary of AlphaImpute: ``No`` and ``Yes``. The default is ``No``.
+
+
+outputonlygenotypedanimals
+""""""""""""""""""""""""""
+
+Will output only input genotyped animals in the ``ImputeGenotypes.txt`` and ``ImputePhase.txt`` files. This option has two possible values: ``No`` and ``Yes``.
 
 
 HMMOptions
@@ -503,7 +527,6 @@ It might contain extra individuals representing the pedigree information of the 
 TestAlphaImpute
 """""""""""""""
 
-``TestAlphaImpute`` contains three files which summarise the imputation accuracy animal and snp wise. The folder ``TestAlphaImpute`` is only invoked if the ``TrueGenotypeFile`` is supplied.
 
 ``IndividualAnimalAccuracy.txt`` contains a row for each animal in the test file. The first column is the animals ID, the second a classifier as to what genotyping status its ancestors had ``1`` being both parents genotyped, ``2`` being sire and maternal grandsire genotyped, ``3`` being dam and paternal grandsire genotyped, ``4`` being sire genotyped, ``5`` being dam genotyped, and ``6`` being any other scenario. An ancestor is considered genotyped if it was genotyped for more than 50% of the SNP. The next columns are for each of the SNP, with ``1`` if the SNP is correctly imputed, ``2`` the SNP is incorrectly imputed, ``3`` if the SNP is not imputed, and ``4`` if the SNP was already genotyped.
 
@@ -569,7 +592,6 @@ This example shows how you would run the program to do imputation in the pedigre
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
   RestartOption                       ,0
 
 The parameters of interest are described below.
@@ -636,7 +658,6 @@ To perform the first run of the program in pre-processing mode, the contents of 
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,No
   RestartOption                       ,0
 
 
@@ -693,8 +714,7 @@ We assume that the folder with the phased data is ``PhaseOld``, so |ai| should b
   PhasingOnly                         ,No
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
-  BypassGeneProb                      ,Yes
-  RestartOption                       ,3
+  RestartOption                       ,1
 
 Note that ``NumberPhasingRuns`` has now got the full path and that the number of phasing rounds is ``8`` instead of the ``4`` (to account for the ``Offset``/``NotOffest``).
 
