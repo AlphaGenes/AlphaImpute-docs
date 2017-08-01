@@ -67,7 +67,7 @@ If not specified, |ai| looks for the input parameters within the spec file ``Alp
   $ > AlphaImpute <path_to_the_spec_file>
 
 
-In version 1.7 and newer, the spec file is case insensitive and ordering is not important. This means that old versions of the spc file should still be supported, and if the program reaches a line it does not expect, it will output a warning, making debugging easier.
+In version 1.7 and newer, the spec file is case insensitive and ordering is not considered. This means that old versions of the spec file should still be supported, and if the program reaches a line it does not expect, it will output a warning, making determining runtime problems easier.
 
 An example of the spec file is shown in Figure 1. Everything to the left of the comma should not be changed. The program is controlled by changing the input to the right of the comma::
 
@@ -358,18 +358,14 @@ RestartOption
 
 .. note:: As of version 1.9, there is no "cluster version" of the program. The restart options still exist to give support for different memory requirements in cluster systems. An MPI version is also available which runs Phasing (restart option 1) using MPI.
 
-The program can be run in three different and consecutive steps: 1) calculate genotype probabilities; 2) haplotype phasing; and 3) impute genotypes. ``RestartOption`` controls which step is being processed at each time.
+The program can be run in two different and consecutive steps: 1) haplotype phasing; and 2) impute genotypes. ``RestartOption`` controls which step is being processed at each time.
 
-``RestartOption`` set to ``1`` calculates the genotype probabilities in different parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. The program stops after all the processes have finished.
-
-.. note:: In the *cluster* version, the user is responsible for creating a script which manages the computation of the genotype probabilities rounds accordingly to the number of processors set in ``NumberOfProcessorsAvailable`` and to the cluster specifications. The program stops immediately before the script has been executed.
-
-``RestartOption`` set to ``2`` runs the Phasing rounds in parallel processes. The number of parallel processes is given by ``NumberOfProcessorsAvailable``. The program stops after all Phasing rounds have finished. |ap| is used for computing the Phasing rounds by default, but Phasing rounds can also be run by any external program.
+``RestartOption`` set to ``1``  runs the Phasing rounds in seperate threads. The number of parallel threads created is given by ``ParallelProcessors``. The program stops after all Phasing rounds have finished. |ap| is used for computing the Phasing rounds by default, but Phasing rounds can also be run by any external program.
 
 .. note:: In the *cluster* version, the user is responsible for creating a script which computes the haplotype phasing accordingly to the number of processors specified in ``NumberOfPhasingRuns`` and to the cluster specifications. |ai| stops before the script has been executed.
 
 
-``RestartOption`` ``0`` runs the whole stepwise process, i.e. it computes genotype probabilities, performs haplotype phasing and imputes genotypes consecutively.
+``RestartOption`` ``0`` runs the whole stepwise process, i.e. it performs haplotype phasing and imputes genotypes consecutively.
 
 There are two reasons as to why a user might want to run the program in consecutive steps. Firstly the pre-processing steps can be used to observe how different parameters settings affect the partitioning of the data into the high-density group/low-density group and the removal of SNP from the analysis. Secondly the major bottleneck in the program is the computational time required to do the phasing. Running the program using a different step may help to speed up the entire process.
 
