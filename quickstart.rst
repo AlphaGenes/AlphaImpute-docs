@@ -63,6 +63,10 @@ To run |ai|, just type ``./AlphaImpute`` (linux) or ``AlphaImpute.exe`` (windows
   UserDefinedAlphaPhaseAnimalsFile    ,None
   PrePhasedFile                       ,None
   BypassGeneProb                      ,No
+  useferdosi                          ,No
+  Cluster                             ,No
+  Modelrecomb                         ,Yes
+  outputonlygenotypedanimals          ,No
   RestartOption                       ,0
 
 |ai| can be split into two distinct steps: 1)  phase animals genotyped at high-density; 2) impute and phase genotype data of all individuals in the population and summarise results and write the outputs. The two different steps in which |ai| is run are controlled by the option ``RestartOption`` in the ``AlphaImputeSpec.txt`` file (see section :ref:`RestartOption`).
