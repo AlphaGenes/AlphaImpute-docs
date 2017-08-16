@@ -301,7 +301,7 @@ Gives the percentage of SNP that are allowed to be missing or in conflict across
 
 NumberOfProcessorsAvailable
 """""""""""""""""""""""""""
-Sets the number of processors used to compute the genotype probabilities and Phasing rounds. The more processors, the shorter the computational time, however ``NumberOfProcessorsAvailable`` should not be larger than the number of processors available because it might lead to inefficient performances.
+Sets the number of processors used to compute the genotype probabilities and Phasing rounds. The more processors, the shorter the computational time, however ``NumberOfProcessorsAvailable`` should not be larger than the number of processors available because it might lead to inefficient performance, due to increased context switches between threads.
 
 .. _LargeDatasets:
 
