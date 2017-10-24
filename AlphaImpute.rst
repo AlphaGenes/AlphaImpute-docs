@@ -95,6 +95,28 @@ GenotypeFile
 Gives the name of the file containing the genotypes. Details on the format are given in the `Genotype File`_ section.
 
 
+PlinkInputFile
+""""""""""""
+If this is specified, then no ``PedigreeFile`` or ``GenotypeFile`` should not be specified. ``NumberSnp`` also does not need to be specified as this will be inferred from the plink input file.  The first parameter to this should be either ``binary`` or ``text``, which corresponds to the type of plink files you are using. 
+The binary files are `.bed`, `.bim` and `.fam`. 
+The text files are `.ped` and `.map`.
+
+
+The second parameter should be the filename before the extension.
+
+
+
+e.g.
+  = BOX 1: Files =============================================================
+plinkinputfile,          binary,plink_test
+
+
+* Note: All files need to have the same file name before the extension, so in this case, the following files should be present: `plink_test.bed, plink_test.fam, plink_test.bim` * 
+
+
+This option allows alphaimpute to work on multiple chromosomes, and will have a corresponding output folder for each one. Currently, each alphaimpute chromosome is run serially, this will be parallelized in future versions.
+
+
 SexChrom
 """"""""
 Specifies whether the program should impute sex chromosomes or not. The two options are ``Yes`` or ``No``.
@@ -432,6 +454,7 @@ Miscellaneous
 
 ``Miscellaneous`` contains files that summarise the editing of the data. ``EditingSnpSummary.txt`` contains three columns, the first being the sequential number of the SNP, the second being the count of animals that are missing each SNP in the high-density set, and the third being an indicator of whether the SNP was included in the analysis or not (``1`` = included / ``0`` = excluded). ``Timer.txt`` contains the time takes to complete the task.
 
+
 TestAlphaImpute
 """""""""""""""
 
@@ -647,6 +670,7 @@ Contact `John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_
 .. An extensive example file is downloadable from the `AlphaGenes <http://www.alphagenes.roslin.ed.ac.uk/software-packages/alphaimpute/>`_ website.
 
 The example comprises the PIC data set described in Hickey *et al*. 2012 [1]_. It consists of a pedigree of 6473 animals, of which 3209 are genotyped for almost all of the 3129 SNP (50k density) and 300 animals (at the end of the pedigree) are genotyped for a subset of XXX of the SNP (Xk density).
+
 
 .. Background reading
 .. ==================
