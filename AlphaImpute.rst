@@ -96,25 +96,26 @@ Gives the name of the file containing the genotypes. Details on the format are g
 
 
 PlinkInputFile
-""""""""""""
+"""""""""""""""
 If this is specified, then no ``PedigreeFile`` or ``GenotypeFile`` should not be specified. ``NumberSnp`` also does not need to be specified as this will be inferred from the plink input file.  The first parameter to this should be either ``binary`` or ``text``, which corresponds to the type of plink files you are using. 
 The binary files are `.bed`, `.bim` and `.fam`. 
 The text files are `.ped` and `.map`.
 
 
-The second parameter should be the filename before the extension.
+The second parameter should be the filename before the extension::
+
+
+  = BOX 2: Sex Chromosome =============================================================
+  plinkinputfile,binary,plink_test
 
 
 
-e.g.
-  = BOX 1: Files =============================================================
-plinkinputfile,          binary,plink_test
+Note: All files need to have the same file name before the extension, so in this case, the following files should be present::
+
+  plink_test.bed, plink_test.fam, plink_test.bim
 
 
-* Note: All files need to have the same file name before the extension, so in this case, the following files should be present: `plink_test.bed, plink_test.fam, plink_test.bim` * 
-
-
-This option allows alphaimpute to work on multiple chromosomes, and will have a corresponding output folder for each one. Currently, each alphaimpute chromosome is run serially, this will be parallelized in future versions.
+This option allows alphaimpute to work on multiple chromosomes, and will have a corresponding output folder for each one. Currently, each alphaimpute chromosome is run serially, if you would like to run this in parallel, you should use the MPI version, with restart option 0. 
 
 
 SexChrom
