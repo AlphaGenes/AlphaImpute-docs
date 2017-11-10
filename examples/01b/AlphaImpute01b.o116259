@@ -1,0 +1,149 @@
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                               Commit:   v1.9.7                     
+                               Compiled: Nov 08 2017, 15:34:03
+ 
+ 
+ 
+ 
+error, Plinkinputfile allocated incorrectly
+ 
+ NOTE: Number of Genotyped animals:         1100
+             0  errors in the pedigree due to Mendelian inconsistencies
+             0  snps changed across individuals
+  
+  
+          1000  indiviudals passed to AlphaPhase
+          1500  snp remain after editing
+  
+  Data editing completed
+  
+  Running AlphaPhase
+  Finished Running AlphaPhase
+ Phasing Completed
+  
+  Imputation of base animals completed
+  
+ Performing imputation loop           1
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 162549.100
+  
+  Haplotype library imputation completed at: 162549.734
+  
+  Internal imputation from parents haplotype completed at: 
+ 162550.419                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 162552.092                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 162552.427                                                                     
+                                                                        
+  
+ Performing imputation loop           2
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 162552.945
+  
+  Haplotype library imputation completed at: 162553.522
+  
+  Internal imputation from parents haplotype completed at: 
+ 162554.184                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 162555.716                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 162556.041                                                                     
+                                                                        
+  
+ Performing imputation loop           3
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 162556.530
+  
+  Haplotype library imputation completed at: 162557.098
+  
+  Internal imputation from parents haplotype completed at: 
+ 162557.772                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 162559.368                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 162559.717                                                                     
+                                                                        
+  
+ Performing imputation loop           4
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 162600.217
+  
+  Haplotype library imputation completed at: 162600.759
+  
+  Internal imputation from parents haplotype completed at: 
+ 162601.464                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 162602.995                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 162603.346                                                                     
+                                                                        
+  
+ Performing imputation loop           5
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 162603.835
+  
+  Haplotype library imputation completed at: 162604.358
+  
+  Internal imputation from parents haplotype completed at: 
+ 162605.021                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 162606.582                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 162606.940                                                                     
+                                                                        
+  
+  Imputation by detection of recombination events completed
+ 
+ *******************************************************************************
+ *******************
+ Yield  0.9984721    
+ Accuracy per animal:  0.9973816    
+ 
+ 
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                                   No Liability
+ 
+                 Analysis Finished                         
+                                                                                               Time Elapsed  Hours  0  Minutes  1  Seconds 38.50

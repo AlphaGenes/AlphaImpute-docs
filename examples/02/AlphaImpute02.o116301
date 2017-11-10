@@ -1,0 +1,355 @@
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                               Commit:   v1.9.7                     
+                               Compiled: Nov 08 2017, 15:34:03
+ 
+ 
+ 
+ 
+error, Plinkinputfile allocated incorrectly
+ 
+rm: cannot remove ‘Phasing’: No such file or directory
+ NOTE: Number of Genotyped animals:         1089
+             0  errors in the pedigree due to Mendelian inconsistencies
+             0  snps changed across individuals
+  
+  
+          1000  indiviudals passed to AlphaPhase
+          1500  snp remain after editing
+  
+  Data editing completed
+  
+  Running AlphaPhase
+  Finished Running AlphaPhase
+ Phasing Completed
+  
+  Imputation of base animals completed
+  
+ Performing imputation loop           1
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163718.419
+  
+  Haplotype library imputation completed at: 163719.123
+  
+  Internal imputation from parents haplotype completed at: 
+ 163719.853                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163721.698                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163722.067                                                                     
+                                                                        
+  
+ Performing imputation loop           2
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163722.626
+  
+  Haplotype library imputation completed at: 163723.265
+  
+  Internal imputation from parents haplotype completed at: 
+ 163723.988                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163725.836                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163726.204                                                                     
+                                                                        
+  
+ Performing imputation loop           3
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163726.781
+  
+  Haplotype library imputation completed at: 163727.392
+  
+  Internal imputation from parents haplotype completed at: 
+ 163728.103                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163729.942                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163730.305                                                                     
+                                                                        
+  
+ Performing imputation loop           4
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163730.840
+  
+  Haplotype library imputation completed at: 163731.510
+  
+  Internal imputation from parents haplotype completed at: 
+ 163732.242                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163734.055                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163734.424                                                                     
+                                                                        
+  
+ Performing imputation loop           5
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163734.951
+  
+  Haplotype library imputation completed at: 163735.608
+  
+  Internal imputation from parents haplotype completed at: 
+ 163736.346                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163738.097                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163738.464                                                                     
+                                                                        
+  
+  Imputation by detection of recombination events completed
+ 
+ *******************************************************************************
+ *******************
+ Yield  0.9965006    
+ Accuracy per animal:  0.9965245    
+ 
+ 
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                                   No Liability
+ 
+                 Analysis Finished                         
+                                                                                               Time Elapsed  Hours  0  Minutes  1  Seconds 43.92
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                               Commit:   v1.9.7                     
+                               Compiled: Nov 08 2017, 15:34:03
+ 
+ 
+ 
+ 
+error, Plinkinputfile allocated incorrectly
+ Error: numberofphasingruns is set to a different number of parameters than what
+  is specified here. \n Please set this to the same number of parameters that ar
+ e given for CoreAndTailLengths and CoreLengths
+40532
+=====================================================================
+===                                                               ===
+===         And now for something completely different!           ===
+===       Trying a slight modification of spec file, see number   ===
+===       of phasing runs.                                        ===
+===                                                               ===
+=====================================================================
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                               Commit:   v1.9.7                     
+                               Compiled: Nov 08 2017, 15:34:03
+ 
+ 
+ 
+ 
+error, Plinkinputfile allocated incorrectly
+ 
+rm: cannot remove ‘Phasing’: No such file or directory
+ NOTE: Number of Genotyped animals:         1089
+             0  errors in the pedigree due to Mendelian inconsistencies
+             0  snps changed across individuals
+  
+  
+          1000  indiviudals passed to AlphaPhase
+          1500  snp remain after editing
+  
+  Data editing completed
+  
+  Running AlphaPhase
+  Finished Running AlphaPhase
+ Phasing Completed
+  
+  Imputation of base animals completed
+  
+ Performing imputation loop           1
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163905.791
+  
+  Haplotype library imputation completed at: 163906.468
+  
+  Internal imputation from parents haplotype completed at: 
+ 163907.259                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163909.092                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163909.490                                                                     
+                                                                        
+  
+ Performing imputation loop           2
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163910.090
+  
+  Haplotype library imputation completed at: 163910.745
+  
+  Internal imputation from parents haplotype completed at: 
+ 163911.485                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163913.446                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163913.824                                                                     
+                                                                        
+  
+ Performing imputation loop           3
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163914.368
+  
+  Haplotype library imputation completed at: 163914.978
+  
+  Internal imputation from parents haplotype completed at: 
+ 163915.792                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163917.644                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163918.027                                                                     
+                                                                        
+  
+ Performing imputation loop           4
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163918.591
+  
+  Haplotype library imputation completed at: 163919.208
+  
+  Internal imputation from parents haplotype completed at: 
+ 163919.933                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163921.708                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163922.082                                                                     
+                                                                        
+  
+ Performing imputation loop           5
+  
+  Parent of origin assigmnent of high density haplotypes completed
+  
+  Imputation from high-density parents completed at: 163922.644
+  
+  Haplotype library imputation completed at: 163923.237
+  
+  Internal imputation from parents haplotype completed at: 
+ 163924.022                                                                     
+                                                                        
+  Internal imputation from own haplotype completed at: 
+ 163925.748                                                                     
+                                                                        
+  
+  Internal haplotype library imputation completed at: 
+ 163926.117                                                                     
+                                                                        
+  
+  Imputation by detection of recombination events completed
+ 
+ *******************************************************************************
+ *******************
+ Yield  0.9965006    
+ Accuracy per animal:  0.9965245    
+ 
+ 
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                                   No Liability
+ 
+                 Analysis Finished                         
+                                                                                               Time Elapsed  Hours  0  Minutes  1  Seconds 43.94
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                               Commit:   v1.9.7                     
+                               Compiled: Nov 08 2017, 15:34:03
+ 
+ 
+ 
+ 
+error, Plinkinputfile allocated incorrectly
+ NOTE: Number of Genotyped animals:         1011
+             0  errors in the pedigree due to Mendelian inconsistencies
+             0  snps changed across individuals
+  
+  
+          1000  indiviudals passed to AlphaPhase
+          1500  snp remain after editing
+  
+  Data editing completed
+ Reading in Phasing information
+forrtl: No such file or directory
+forrtl: severe (29): file not found, unit -143, file /exports/eddie/scratch/shojedw/alphaimpute-docs/examples/02/Phasing_1///Phase1/PhasingResults/information.txt
