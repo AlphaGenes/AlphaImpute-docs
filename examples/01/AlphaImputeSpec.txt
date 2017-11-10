@@ -1,0 +1,8 @@
+= BOX 1: Input Files ==========================================================
+PedigreeFile                ,Pedigree.txt
+GenotypeFile                ,Genotypes.txt
+TrueGenotypeFile            ,TrueGenotypes.txt
+= BOX 5: Phasing ================================================================
+NumberPhasingRuns           ,4
+CoreAndTailLengths          ,300,350,400,450
+CoreLengths                 ,250,300,350,400

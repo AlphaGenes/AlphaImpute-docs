@@ -1,0 +1,43 @@
+= BOX 1: Input Files ==========================================================
+PedigreeFile                ,Pedigree.txt
+GenotypeFile                ,Genotypes_new.txt
+TrueGenotypeFile            ,TrueGenotypes.txt
+SexChrom                    ,No
+PlinkInputfile              ,
+= BOX 2: SNPs ==================================================================
+NumberSnp                   ,1500
+MultipleHDPanels            ,0
+NumberSnpxChip              ,0,0
+= BOX 3: Filtering====== =======================================================
+InternalEdit                ,No
+EditingParameters           ,0.0,0.0,0.0,AllSnpOut
+= BOX 4: Phasing ===============================================================
+HDAnimalsThreshold          ,90.0
+NumberPhasingRuns           ,PhaseDone,Phasing_1/,4
+CoreAndTailLengths          ,300,350,400,450
+CoreLengths                 ,250,300,350,400
+PedigreeFreePhasing         ,No
+GenotypeError               ,0.0
+LargeDatasets               ,No
+UserDefinedAlphaPhaseAnimalsFile    ,None
+PrePhasedFile               ,None
+AlphaPhaseOutput            ,Yes
+= BOX 5: Imputation =========================================================
+InternalIterations          ,5
+ConservativeHaplotypeLibraryUse     ,No
+ModelRecomb                 ,Yes
+= BOX 6: Hidden Markov Model ================================================
+HMMOption                   ,No
+TemplateHaplotypes          ,200
+BurnInRounds                ,5
+Rounds                      ,20
+Seed                        ,-123456789
+ThresholdForMissingAlleles  ,50.0
+ThresholdImputed            ,90.0
+= BOX 7: Running options ====================================================
+ParallelProcessors          ,1
+PreprocessDataOnly          ,No
+RestartOption               ,0
+= BOX 8: Output =============================================================
+WellPhasedThreshold         ,99.0
+ResultFolderPath            ,Results
