@@ -4,6 +4,7 @@
 \usepackage{amssymb,amsmath}
 \usepackage{natbib}
 \bibliographystyle{agsm}
+\usepackage{longtable,booktabs}
 
 %%\usepackage{etoolbox}
 %%\pretocmd{\section}{\cleardoubleevenemptypage}{}{}
@@ -40,6 +41,10 @@ $endif$
 
 \renewcommand*{\contentsname}{Table of Contents}
 \setuptoc{toc}{leveldown}
+
+\newcommand{\settingref}[1]{%
+ (p.\ \pageref{setting-#1})
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % $if(listings)$
@@ -190,6 +195,7 @@ $body$
 % $endfor$
 
 \clearpage
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
 
 \chapter*{}
