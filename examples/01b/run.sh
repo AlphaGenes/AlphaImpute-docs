@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -cwd
 #$ -j y
-#$ -N AlphaImpute01
+#$ -N AlphaImpute01b
 
 ../../AlphaImpute

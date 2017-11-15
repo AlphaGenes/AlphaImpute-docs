@@ -40,3 +40,4 @@ RestartOption               ,0
 = BOX 8: Output =============================================================
 WellPhasedThreshold         ,99.0
 ResultFolderPath            ,Results
+UseFerdosi                  ,No

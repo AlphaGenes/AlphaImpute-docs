@@ -1,6 +1,6 @@
 = BOX 1: Input Files ==========================================================
 PedigreeFile                ,Pedigree.txt
-GenotypeFile                ,Genotypes.txt
+GenotypeFile                ,Genotypes_new.txt
 TrueGenotypeFile            ,TrueGenotypes.txt
 SexChrom                    ,No
 PlinkInputfile              ,
@@ -13,7 +13,7 @@ InternalEdit                ,No
 EditingParameters           ,0.0,0.0,0.0,AllSnpOut
 = BOX 4: Phasing ===============================================================
 HDAnimalsThreshold          ,90.0
-NumberPhasingRuns           ,4
+NumberPhasingRuns           ,PhaseDone,Phasing_1/,8
 CoreAndTailLengths          ,300,350,400,450
 CoreLengths                 ,250,300,350,400
 PedigreeFreePhasing         ,No
@@ -21,7 +21,7 @@ GenotypeError               ,0.0
 LargeDatasets               ,No
 UserDefinedAlphaPhaseAnimalsFile    ,None
 PrePhasedFile               ,None
-AlphaPhaseOutput            ,binary
+AlphaPhaseOutput            ,Yes
 = BOX 5: Imputation =========================================================
 InternalIterations          ,5
 ConservativeHaplotypeLibraryUse     ,No
@@ -37,7 +37,7 @@ ThresholdImputed            ,90.0
 = BOX 7: Running options ====================================================
 ParallelProcessors          ,1
 PreprocessDataOnly          ,No
-RestartOption               ,0
+RestartOption               ,2
 = BOX 8: Output =============================================================
 WellPhasedThreshold         ,99.0
 ResultFolderPath            ,Results

@@ -1,6 +1,6 @@
 = BOX 1: Input Files ==========================================================
 PedigreeFile                ,Pedigree.txt
-GenotypeFile                ,Genotypes_New.txt
+GenotypeFile                ,Genotypes_new.txt
 TrueGenotypeFile            ,TrueGenotypes.txt
 SexChrom                    ,No
 PlinkInputfile              ,
@@ -13,7 +13,7 @@ InternalEdit                ,No
 EditingParameters           ,0.0,0.0,0.0,AllSnpOut
 = BOX 4: Phasing ===============================================================
 HDAnimalsThreshold          ,90.0
-NumberPhasingRuns           ,PhaseDone,Phasing_1,4
+NumberPhasingRuns           ,PhaseDone,Phasing_1/,4
 CoreAndTailLengths          ,300,350,400,450
 CoreLengths                 ,250,300,350,400
 PedigreeFreePhasing         ,No

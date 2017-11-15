@@ -1,0 +1,32 @@
+ 
+                               ***********************                         
+                               *                     *                         
+                               *     AlphaImpute     *                         
+                               *                     *                         
+                               ***********************                         
+                                                                               
+                     Software For Phasing and Imputing Genotypes               
+ 
+                               Commit:   v1.9.7                     
+                               Compiled: Nov 08 2017, 15:34:03
+ 
+ 
+ 
+ 
+ 
+ NOTE: Number of Genotyped animals:         1100
+             0  errors in the pedigree due to Mendelian inconsistencies
+             0  snps changed across individuals
+  
+  
+          1000  indiviudals passed to AlphaPhase
+          1500  snp remain after editing
+  
+  Data editing completed
+  
+  Running AlphaPhase
+  Finished Running AlphaPhase
+ Phasing Completed
+  
+  Imputation of base animals completed
+forrtl: severe (174): SIGSEGV, segmentation fault occurred
