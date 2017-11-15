@@ -5,6 +5,11 @@
 *.log
 *.toc
 *.out
+*.bbl
+*.blg
+*.idx
+*.ilg
+*.ind
 *.docx
 *.odt
 _build

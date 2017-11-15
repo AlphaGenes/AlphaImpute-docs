@@ -9,7 +9,6 @@
 %%\usepackage{etoolbox}
 %%\pretocmd{\section}{\cleardoubleevenemptypage}{}{}
 
-
 \usepackage[unicode=true]{hyperref}
 \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 \hypersetup{
@@ -45,6 +44,17 @@ $endif$
 \newcommand{\settingref}[1]{%
  (p.\ \pageref{setting-#1})
 }
+
+\usepackage{pdflscape}  %% enables \begin{landscape} / \end{landscape} for turning pages.
+
+%% Allows us to specify \Begin{...} and \End{...} (with are replaced with normal lower-case
+%% commands), without pandoc ignoring everything between begin and end.
+\newcommand{\nopandoc}[1]{#1} %% hide LaTeX code from pandoc
+\nopandoc{ 
+   \let\Begin\begin    % must be hidden for some reason! 
+   \let\End\end 
+} 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % $if(listings)$
