@@ -1,4 +1,5 @@
-﻿
+﻿\chapter*{}
+
 ## Foreword
 
 AlphaImpute\index{AlphaImpute} is a software package for imputing and phasing genotype data in diploid populations with pedigree information. 
@@ -46,3 +47,5 @@ You are welcome to check out our Gibbs sampler “AlphaBayes”, specifically de
 
 For simulating breeding programs, complete with genomic selection, SNP panels, recombination, and more, see “AlphaSim”: http://www.alphagenes.roslin.ed.ac.uk/alphasuite-softwares/alphasim/
 
+
+\tableofcontents
