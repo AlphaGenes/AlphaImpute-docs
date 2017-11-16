@@ -7,7 +7,7 @@ A full reference with examples is available in the full manual.
 
 The theoretical framework for AlphaImpute and its implemented algorithms can be found in Hickey et al. [-@hickey_phasing_2012; -@hickey_combined_2011] and Antolin et al. [-@antolin_hybrid_2017].
 
-\etocsetnexttocdepth{2}
+\etocsetnexttocdepth{1}
 \localtableofcontents
 
 ## What AlphaImpute does: Imputing genotypes
@@ -113,7 +113,7 @@ The listed directories are created by AlphaImpute to contain recoded data,
 intermediate data, and various output such as quality of phasing and imputation 
 that can be used to gain insight into the data and the imputation.
 
-### Imputed genotypes are found in the `Results` directory
+## Imputed genotypes are found in the `Results` directory
 
 The directory 'Results'\index{Files!Results} contains the main final imputed genotypes and phases.
 The main files of interest are:
@@ -148,11 +148,14 @@ ImputeGenotypeProbabilities.txt         ImputeGenotypes.txt
 1069 0.00 0.00 2.00 0.00 0.00 0.00 	    1069 0 0 2 0 0 0 
 ```
 
-Table: Summary of primary output files. No. row is function of. {#tbl:imputed_files_summary} 
-  |  |  No. rows  |  Allele / genotype dosages	Called alleles / genotypes
-		Impute*Probabilities.txt‡	Impute*.txt
-Phase	2n	0.0 – 1.0	0, 1, 9
-Genotype	N	0.0 – 2.0	0, 1, 2, 9
+Table: Summary of primary output files. No. row is function of number of individuals (n). {#tbl:imputed_files_summary} 
+  
+  .      | No. rows  |  Allele / genotype dosages	| Called alleles / genotypes
+---------|----|------------------------------|------------------------------------
+  .      |    |   `Impute*Probabilities.txt` | `Impute*.txt`
+  .      |    |------------------------------|------------------------------------         
+Phase    | 2n | 0.0 – 1.0 | 0, 1, 9
+Genotype | n  | 0.0 – 2.0 | 0, 1, 2, 9
 
 
 
