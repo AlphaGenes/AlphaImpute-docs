@@ -39,6 +39,8 @@ The HMM is based on MaCH [@li_mach:_2010], and can be used either alone or in co
 AlphaImpute is available as an executable file from the AlphaGenes website: <http://www.alphagenes.roslin.ed.ac.uk>.
 Binaries are compiled for Linux (64 bit), Mac OaSX (64 bit), and Windows (64 bit).
 
+
+
 ## System requirements
 
 The amount of RAM the program requires depends on the dataset. It tends to scale linearly with the number of animals in the supplied pedigree.

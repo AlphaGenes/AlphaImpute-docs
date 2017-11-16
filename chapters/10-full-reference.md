@@ -134,6 +134,8 @@ See <https://www.cog-genomics.org/plink/1.9/input> for more information on the P
 #### `NumberSnp ,<integer>` \index{NumberSnp|textbf}
 \label{setting-NumberSnp}
 
+Default value estimated from `GenotypeFile` \settingref{GenotypeFile}.
+
 Number of SNPs in input files. If not given, number is automatically detected.
 
 **Special case:** If several different high-density panels were used, refer to setting `MultipleHDPanels` \settingref{MultipleHdPanels}.
@@ -141,7 +143,7 @@ Number of SNPs in input files. If not given, number is automatically detected.
 #### `MultipleHdPanels ,<integer>` \index{MultipleHdPanels|textbf}\index{Multiple high-density panels|see {MultipleHdPanels and NumberSnpxChip}}
 \label{setting-MultipleHdPanels}
 
-Default value: `1`
+Default value: `0`
 
 Sets number of different high-density SNP panels used for genotyping high-density genotyped animals. Requires setting `NumberSnpxChip` \settingref{NumberSnpxChip} when larger than 1.
 
@@ -172,6 +174,8 @@ When `Yes`, enables filtering of SNPs and individuals in high-density group. Whe
 #### `EditingParameters ,<RealPct>,<RealPct>,<RealPct>,(AllSnpOut/EditedSnpOut)` \index{EditingParameters|textbf}
 \label{setting-EditingParameters}
 
+Default value: `90.0,0.0,0.0,AllSnpOut`
+
 First argument is same as `HDAnimalsThreshold` \settingref{HDAnimalsThreshold} that sets the threshold of non-missing SNPs for including an individual in the high-density group.
 
 Second argument sets threshold of missing SNPs among individuals in high-density group. SNPs missing above this threshold are excluded from further analysis.
@@ -179,14 +183,6 @@ Second argument sets threshold of missing SNPs among individuals in high-density
 Third argument sets threshold for non-missing SNPs for including an individuals, as first argument, but applied after removing missing SNPs.
 
 Fourth argument causes AlphaImpute to output either all inputted SNPs (`AllSnpOut`) or only those that remained after editing SNPs (`EditedSnpOut`).
-
-**Example:**
-
-```
-= Box 3: Filtering ============
-InternalEdit      ,Yes
-EditingParameters ,95.0,2.0,98.0,EditedSnpOut
-```
 
 
 ### Box 4: Phasing \index{Phasing, box 4}
@@ -210,9 +206,10 @@ Animals whose proportion of genotyped SNPs are above this threshold are regarded
 #### `NumberPhasingRuns ,<integer>` \index{NumberPhasingRuns\textbf}
 \label{setting-NumberPhasingRuns}
 
-Default variant.
+Default value: `4`.
 
-Causes AlphaImpute to perform phasing. Accepts integers between 2 and 40. This must correspond to the number of cores given in `CoreAndTailLengths` and `CoreLengths` \settingref{CoreLengths}.
+Standard setup for AlphaImpute to perform phasing. 
+Accepts integers between 2 and 40. This must correspond to the number of cores given in `CoreAndTailLengths` and `CoreLengths` \settingref{CoreLengths}.
 
 #### `NumberPhasingRuns ,PhaseDone,<fn>,<integer> ` \index{NumberPhasingRuns}
 
@@ -224,11 +221,14 @@ AlphaImpute re-uses phasing from a previous session and will not perform additio
 `NumberPhasingRuns` must not exceed that used during phasing. `CoreAndTailLengths` and `CoreLengths` must be the same as used during phasing.
 
 #### `CoreAndTailLengths` and `CoreLengths` \index{CoreAndTailLengths|textbf}\index{CoreLength|textbf}\index{cores|textbf}
+\label{setting-CoreLengths}
 
 ```
 CoreAndTailLengths ,<integer>,<integer>,... 
 CoreLengths        ,<integer>,<integer>,... 
 ```
+
+Default values: Estimated from number of SNPs.
 
 Specifies the sizes of cores used for phasing, haplotype library construction, and imputation. 
 Each positional argument of the two settings comprises a pair, where the latter value cannot be greater than the former. The sizes used cannot exceed the number of SNPs in the input data.
@@ -275,9 +275,11 @@ CoreAndTailLengths          ,200,300,400,500,600,250,325,410,290,1700
 CoreLengths                 ,100,200,300,400,500,150,225,310,190,1000
 ```
 
+<! --
 See Section 3: Example X for more information on reusing phasing information.
 
 > **Stefan TODO**
+-->
 
 #### `PedigreeFreePhasing ,(Yes/No)` \index{PedigreeFreePhasing|textbf}
 \label{setting-PedigreeFreePhasing}
@@ -289,7 +291,7 @@ Use pedigree information in long-range phasing. In some cases this may be quicke
 #### `GenotypeError ,<RealPct> ` \index{GenotypeError|textbf}
 \label{setting-GenotypeError}
 
-Default value: ***`??`***
+Default value: `0.0`
 
 Threshold for allowed disagreement between cores of two surrogate parents during surrogate parent identification. Use values between `0.0` and `100.0`.
 
@@ -347,6 +349,17 @@ The expected file format is as the general AlphaImpute genotype file format \set
 First line corresponds to sequence of alleles on the paternal gamete, second line corresponds to sequence of alleles on the maternal gamete. First column is animals ID, followed by a column for each SNP position.
 
 Phased alleles are encoded as integer values 0 or 1, corresponding to minor allele a or major allele A, respectively. Missing values are encoded as values between 3 and 9.
+
+#### `UseFerdosi ,(Yes/No)` \index{UseFerdosi|textbf}\index{Ferdosi}
+\label{setting-UseFerdosi}
+
+Default value: `No`
+
+Uses the algorithm of Ferdosi et al. [-@ferdosi_hsphase:_2014,-@ferdosi_detection_2014] to derive the phase of a sire that has many progeny genotyped at high-density.
+Using the positions and linkage between positions that are opposing homozygote in the offspring, the algorithm defines the positions that the sire is heterozygous and phases them.
+As a by-product of this process, the possible locations of recombination points in the offspring and the phase of the offspring are derived.
+
+Requires at least 5-10 high-density genotyped progeny per sire to be effective.
 
 
 ### Box 5: Imputation \index{Imputation, box 5}
@@ -441,9 +454,9 @@ This option is useful when phasing information is not available or when imputati
 
 When `Also` (previously `Yes`), AlphaImpute performs as standard, and performs the HMM imputation as an additional step *after* the last heuristic imputation.
 
-When `Prephase?` ***See source code; this string is compared to mixed-case *after* turning to lower-case!***
+When `Prephase` **?** ***See source code; this string is compared to mixed-case *after* turning to lower-case!***
 
-When `NGS?`
+When `NGS` **?**
 
 #### `HMMParameters ,<int>,<int>,<int>,<int>,<int>  ` \index{HMMParameters|textbf}
 \label{setting-HMMParameters}
@@ -453,28 +466,28 @@ Short-hand for setting all HMM parameters, in the order `TemplateHaplotypes`, `B
 #### `TemplateHaplotypes ,<int>  ` \index{TemplateHaplotypes|textbf}
 \label{setting-TemplateHaplotypes}
 
-Default value: `?`
+Default value: `0`
 
 Sets the number of template haplotypes that the HMM samples. 
 Larger numbers can improve imputation accuracy, but at a cost of computation. 
 Computational time is quadratic on number of template haplotypes, i.e.\ $O(n^2)$. 
 Can be combined with an increased number of processors (`ParallelProcessors`) to counter increased computational time.
 
-
+<!-- 
 > **How does this compare to the number of animals?** Can it exceed the number of animals??
-
+-->
 
 #### `BurnInRounds ,<int> ` \index{BurnInRounds|textbf}
 \label{setting-BurnInRounds}
 
-Default value: `?`
+Default value: `0`
 
 See setting `Rounds` \settingref{Rounds}
 
 #### `Rounds       ,<int> ` \index{Rounds|textbf}
 \label{setting-Rounds}
 
-Default value: `?`
+Default value: `0`
 
 Sets the total number of rounds that the HMM is computed. 
 For each round, the template haplotypes are re-sampled from eligible animals and model parameters updated, to produce new estimates of imputed phases. 
@@ -485,14 +498,14 @@ A value exceeding 50 rarely improves imputation accuracy.
 #### `Seed ,<int> ` \index{Seed|textbf}
 \label{setting-Seed}
 
-Default value: `?`
+Default value: `0`
 
 Value to seed random number generation. Must be negative.
 
 #### `PhasedAnimalsThreshold ,<RealPct> ` \index{PhasedAnimalsThreshold|textbf}
 \label{setting-PhasedAnimalsThreshold}
 
-Default value: ?
+Default value: `0.0`
 
 The threshold is compared to the overall proportion of phased alleles after long-range phasing (step 1) and heuristic imputation; if this threshold is met, both high-density and imputed animals can be sampled for the template haplotypes. 
 If the threshold is not met, only high-density genotyped animals are sampled for the template haplotypes. 
@@ -500,12 +513,14 @@ If the threshold is not met, only high-density genotyped animals are sampled for
 #### `ThresholdImputed ,<RealPct> ` \index{ThresholdImputed|textbf}
 \label{setting-ThresholdImputed}
 
-Default value: ?
+Default value: `0.0`
 
 The threshold is compared to the proportion of imputed alleles of each animal; if the threshold is met the animal is imputed with faster, haploid HMM. 
 If the threshold is not met, the animal is imputed with the diploid HMM.
 
+<!--
 >> How is this behavior affected when HMMOption is set to ‘Only’?
+-->
 
 The haploid HMM estimates each parental haplotype independently when the animal is well-phased. 
 If the animal is not well-phased, a diploid HMM is used where the parental haplotypes are estimated in tandem. 
@@ -514,13 +529,13 @@ Both models utilize the same pool of template haplotypes.
 #### `HaplotypesList ,<fn> ` \index{HaplotypesList|textbf}
 \label{setting-HaplotypesList}
 
-Default value: N/A
+Default value: `None`
 
+<!--
 ***???***
-
 > Daaaaavid??? David! Or Stefan?
 > From AlphaImputeSpecFileModule, l. 655.
-
+--->
 
 
 ### Box 7: Runtime options
@@ -531,8 +546,11 @@ Default value: N/A
 #### `ParallelProcessors ,<integer>` \index{ParallelProcessors|textbf}
 \label{setting-ParallelProcessors}
 
-Allows for parallelization during phasing and imputation. More processors reduces computational time. 
+Default value: `8`
+
+Allows for parallelization during phasing and imputation. More processors reduces computational time. Should be set when run on a grid (e.g. SGE GridEngine)
 However, `ParallelProcessors` should not be larger than the number of processors available because it might lead to inefficient performance, due to increased context switches between threads. 
+
 
 #### `PreprocessDataOnly ,(Yes/No)` \index{PreprocessDataOnly|textbf}
 \label{setting-PreprocessDataOnly}
@@ -571,7 +589,7 @@ These settings modify the extent of files written to disk.
 #### `WellPhasedThreshold ,<RealPct>` \index{WellPhasedThreshold|textbf}
 \label{setting-WellPhasedThreshold}
 
-Default value: ??
+Default value: `99.0`
 
 Individuals with an imputation quality above this threshold have their imputed phases written to `Results/WellPhasedIndividuals.txt` \index{Files!WellPhasedIndividuals.txt}. 
 The imputation quality is defined as the proportion of non-missing alleles on both phases.
