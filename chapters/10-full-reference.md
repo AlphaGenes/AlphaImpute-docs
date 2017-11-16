@@ -134,7 +134,7 @@ See <https://www.cog-genomics.org/plink/1.9/input> for more information on the P
 #### `NumberSnp ,<integer>` \index{NumberSnp|textbf}
 \label{setting-NumberSnp}
 
-Default value estimated from `GenotypeFile` \settingref{Genotypefile}.
+Default value estimated from `GenotypeFile` \settingref{GenotypeFile}.
 
 Number of SNPs in input files. If not given, number is automatically detected.
 

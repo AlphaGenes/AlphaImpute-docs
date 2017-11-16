@@ -2,13 +2,13 @@
 
 The spec file is a text file comprising two comma separated columns. Lines starting with = are ignored. 
 
-Placeholders are used in this manual to describe the accepted values of settings and are summarized in Table @tbl:arguments. 
+Placeholders are used in this manual to describe the accepted values of settings and are summarized in Table @tbl:quick_arguments. 
 These appear enclosed either in angular bracket (<, >) or parentheses. 
 Any other text must be provided as-is. 
 Arguments given with angular brackets denote type of value, e.g. integers (`<integer>`) or filenames (`<fn>`).
 Strings given in parentheses are options and must be given as-is (e.g. `(Yes/No)`).
 
-Table: Placeholder syntax used in manual. {#tbl:arguments}
+Table: Placeholder syntax used in manual. {#tbl:quick_arguments}
 
 **Placeholder	** |  **Expected value**
 -----------------|----------------------------------------------------------------
