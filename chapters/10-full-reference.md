@@ -330,11 +330,11 @@ Specifies which animals are regarded as high-density genotyped; overrides settin
 
 Default value: `No`
 
-When not `No`, haplotype libraries are written to the `Phasing` directory. This enables re-use of phasing and haplotype library construction. 
+When `No`, no files are written out.
 
-When `Yes`, ??. 
-When `Binary`, ???. 
-When `Verbose`, Even more ???.
+When `Yes`, haplotype libraries are written to the `Phasing` directory in user readable form. This enables re-use of phasing and haplotype library construction. 
+When `Binary`, haplotype libraries are written to the `Phasing` directory in bary form. This enables re-use of phasing and haplotype library construction. 
+When `Verbose`, haplotype libraries are written to the `Phasing` directory in user readable form as well as output of debugging statements. This enables re-use of phasing and haplotype library construction and allows for debugging phasing errors.
 
 #### `PrephasedFile ,<fn> ` \index{PrephasedFile|textbf}
 \label{setting-PrephasedFile}

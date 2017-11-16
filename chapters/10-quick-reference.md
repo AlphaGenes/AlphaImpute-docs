@@ -25,8 +25,8 @@ See table @tbl:quick_reference for an overview of the available settings.
 
 Table: All settings understood by AlphaImpute. Full explanation of these can be found in the full reference manual. {#tbl:quick_reference}
 
-**Setting**               | **Description**                | **Accepted values**
---------------------------|--------------------------------|-----------------------------
+**Setting**                     | **Description**                | **Accepted values**
+--------------------------------|--------------------------------|-----------------------------
 *Box 1: Input data* || 
 `PedigreeFile` | Filename of inputfile, relative or absolute. No quotation marks. | Filename, max 300 characters. 
 `GenotypeFile` |  | 
@@ -50,7 +50,7 @@ Table: All settings understood by AlphaImpute. Full explanation of these can be 
 `GenotypeError` | Threshold for allowed disagreement between cores of two surrogate parents during surrogate parent identification. | `<RealPct>`
 `LargeDatasets` | Splits phasing of large datasets into multiple subsets. | `Yes,<integer>,<integer>, (RandomOrder/Off/InputOrder)`
 . |  1st integer controls number of subsets. 2nd integer controls maximum number of subsets each individual may appear in. 3rd argument controls how individuals are distributed among subsets. | 
-`AlphaPhaseOutput` | ? | `(No/Yes/Binary/Verbose)`
+`AlphaPhaseOutput` | Output control setting for AlphaPhase settings. | `(No/Yes/Binary/Verbose)`
 `UserDefinedAlphaPhaseAnimalsFile` | Specify which animals to use in step 1. | `<fn>`
 `PrephasedFile` | Provides pre-phased data to haplotype library construction. | `<fn>`
 `UseFerdosi` | Use Ferdosi algorithm to phase individuals. | `(Yes/No)`
