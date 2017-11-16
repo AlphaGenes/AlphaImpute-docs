@@ -39,11 +39,16 @@ The HMM is based on MaCH [@li_mach:_2010], and can be used either alone or in co
 AlphaImpute is available as an executable file from the AlphaGenes website: <http://www.alphagenes.roslin.ed.ac.uk>.
 Binaries are compiled for Linux (64 bit), Mac OaSX (64 bit), and Windows (64 bit).
 
+
+<!-- 
 ## System requirements
+
+
 
 ???
 
-> **David**?
+> **David**? 
+-->
 
 ## Conditions of use
 AlphaImpute is available to the scientific community free of charge, but conditional on crediting its use in any publication with the citations listed below. Commercial users should contact John Hickey.
