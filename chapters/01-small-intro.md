@@ -63,8 +63,8 @@ Its standard mode of operation is described here.
 Alternative uses, including re-using previous phasing information, is available in the full manual.
 
 AlphaImpute requires at least 3 input files: 
-A file specifying settings (`spec file`), a genotype file, and a pedigree file^[Pedigree free phasing and imputation is possible with AlphaImpute; see setting `PedigreePhasing` and the Hidden Markov model.]. 
-For the genotype and pedigree files, AlphaImpute accepts either simple text formats or the PLINK 1.9 formatted files [@purcell_plink,@chang_second-generation_2015].
+A file specifying settings ('spec file'), a genotype file, and a pedigree file^[Pedigree free phasing and imputation is possible with AlphaImpute; see setting `PedigreePhasing` and the Hidden Markov model.]. 
+For the genotype and pedigree files, AlphaImpute accepts either simple text formats or the PLINK 1.9 formatted files [@purcell_plink:_2007,@chang_second-generation_2015].
 
 The spec file is text based and discussed in the following section.
 
@@ -75,11 +75,15 @@ The *pedigree file* \index{Pedigree} must consist of 3 columns, space or comma s
 The *genotype file* \index{Genotypes} is formatted with one row per individual, and is space or comma separated. Multiple spaces or tabs are ignored. 
 The first column of the genotype file contains the ID for the genotyped individuals, followed by columns for each SNP. 
 SNPs are encoded `0`, `1`, or `2` for homozygote, heterozygote, and homozygote, respectively. Missing genotypes are coded with any value between 3 and 9. 
+For PLINK 1.9 formatted files, we refer to the full manual.
+
 Neither pedigree or genotype file may contain headers. The pedigree file may record additional individuals that are not genotyped. 
 
 ### Settings in the spec file
 
 The settings for AlphaImpute are specified in `AlphaImputeSpec.txt`^[The AlphaImpute executable accepts a single command line argument, the filename of the spec file. Without a command line argument, AlphaImpute expects the spec file to be named `AlphaImputeSpec.txt` and located in the current directory.].
+An example of the spec file is given in the section ['Spec file example'](#spec-file-example).
+Most options have default values and do not require specifying^[AlphaImpute will create the file `AlphaImputeSpecFileUsed.txt` with the values it has used.].
 Only a few lines are required to specify the input files, number of SNPs, settings for phasing, parallelization, and threshold for distinguishing high-density vs. low-density individuals, although good default values for these exists.
 Examples of the file is available in the zip file with the executable.
 
@@ -104,6 +108,52 @@ Consult the specifics of your operating system for how to call executables from 
 AlphaImpute will delete the following directories before attempting to create them! 
 It is your own responsibility to ensure these folders are backed up safely:
 `GeneProb`, `InputFiles`, `IterateGeneProb`, `Miscellaneous`, `Phasing`, `Results`
+
+The listed directories are created by AlphaImpute to contain recoded data, 
+intermediate data, and various output such as quality of phasing and imputation 
+that can be used to gain insight into the data and the imputation.
+
+### Imputed genotypes are found in the `Results` directory
+
+The directory 'Results'\index{Files!Results} contains the main final imputed genotypes and phases.
+The main files of interest are:
+
+* `ImputeGenotypes.txt`\index{Files!ImputeGenotypes.txt}
+* `ImputeGenotypeProbabilities.txt`\index{Files!ImputeGenotypeProbabilities.txt}
+* `ImputePhase.txt`\index{Files!ImputePhase.txt}
+* `ImputePhaseProbabilities.txt`\index{Files!ImputePhaseProbabilities.txt}
+
+Filenames without `Probabilities` are 'called' genotypes and alleles.
+When an allele or genotype for an animal is imputed in unison across all cores,
+it is called, otherwise output as missing with integer `9`.
+
+Filenames with `Probabilities`^[The name 'probabilities' has been retained for legacy.] are *genotype dosages*\index{genotype dosages} and *allele dosages*.
+These contain the average of the imputed genotype or allele across all cores.
+
+The difference between the files are shown in the example below, and a summary given in Table @tbl:imputed_files_summary.
+
+**Example:** Phase vs. genotypes, and dosages vs. called.
+```
+ImputePhaseProbabilities.txt            ImputePhase.txt
+1067 0.00 0.00 1.00 0.00 0.00 0.00      1067 0 0 1 0 0 0 
+1067 0.00 0.00 1.00 0.50 0.50 0.50      1067 0 0 1 9 9 9 
+1068 0.00 0.00 1.00 0.00 0.00 0.00      1068 0 0 1 0 0 0 
+1068 0.00 0.00 1.00 0.00 0.00 0.00      1068 0 0 1 0 0 0 
+1069 0.00 0.00 1.00 0.00 0.00 0.00      1069 0 0 1 0 0 0 
+1069 0.00 0.00 1.00 0.00 0.00 0.00	    1069 0 0 1 0 0 0 
+
+ImputeGenotypeProbabilities.txt         ImputeGenotypes.txt
+1067 0.00 0.00 2.00 0.50 0.50 0.50      1067 0 0 2 9 9 9 
+1068 0.00 0.00 2.00 0.00 0.00 0.00      1068 0 0 2 0 0 0 
+1069 0.00 0.00 2.00 0.00 0.00 0.00 	    1069 0 0 2 0 0 0 
+```
+
+Table: Summary of primary output files. No. row is function of. {#tbl:imputed_files_summary} 
+  |  |  No. rows  |  Allele / genotype dosages	Called alleles / genotypes
+		Impute*Probabilities.txt‡	Impute*.txt
+Phase	2n	0.0 – 1.0	0, 1, 9
+Genotype	N	0.0 – 2.0	0, 1, 2, 9
+
 
 
 ## Spec file example
