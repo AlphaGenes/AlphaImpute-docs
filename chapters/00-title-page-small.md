@@ -6,5 +6,8 @@ author:
   - Roberto Antolin
   - David Wilson
   - John M. Hickey
-
+documentclass: scrartcl
 ---
+
+\etocsetnexttocdepth{1}
+\tableofcontents

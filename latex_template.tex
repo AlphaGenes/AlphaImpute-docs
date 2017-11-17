@@ -1,4 +1,4 @@
-\documentclass[a4paper,twoside,parskip=half]{scrbook}
+\documentclass[a4paper,parskip=half,$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 \DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\textbf}  %% For title and bibliography
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -201,10 +201,11 @@ $body$
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
 
+$if(index)$
 \chapter*{}
 \addcontentsline{toc}{chapter}{\indexname}
 \printindex
-
+$endif$
 
 
 \end{document}

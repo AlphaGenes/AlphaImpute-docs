@@ -6,6 +6,8 @@ author:
   - Roberto Antolin
   - David Wilson
   - John M. Hickey
-
-
+documentclass: scrbook
+classoption:
+  - twosided
+index: yes
 ---
