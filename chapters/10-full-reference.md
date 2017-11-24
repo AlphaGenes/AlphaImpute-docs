@@ -417,63 +417,57 @@ During this correction, recombination events are modelled, and alleles that are 
 
 ### Box 6: Hidden Markov model \index{Hidden Markov model, box 6}\index{HMM, see {Hidden Markov model}}
 
-**Settings:** 
-`HMMOption`, `HMMParameters`, `TemplateHaplotypes`, `BurnInRounds`, `Rounds`, `Seed`, `PhasedAnimalsThreshold`, `WellImputedThreshold`, `HaplotypesList`
+**Settings:**
+`HMMOption`, `TemplateHaplotypes`, `BurnInRounds`, `Rounds`, `Seed`, `PhasedAnimalsThreshold`, `WellImputedThreshold`
 
-An alternative to the default heuristic imputation method is the probabilistic method based on a hidden Markov model [@li_mach:_2010,@antolin_hybrid_2017]. 
-It has an advantage over the heuristic method when pedigree information is inconsistent or unreliable, but is however more computational expensive. 
+An alternative to the default heuristic imputation method is the probabilistic method based on a hidden Markov model [@li_mach:_2010,@antolin_hybrid_2017].
+It has an advantage over the heuristic method when pedigree information is inconsistent or unreliable, but is however more computational expensive.
 The heuristic method and HMM method can be used either exclusively or in combination, see `HMMOption` \settingref{HMMOption}. Full details of the algorithm and implementation is given in Antolin et al. [-@antolin_hybrid_2017].
 
 Using HMM does not use the pedigree. If imputation is performed in conjunction with long-range phasing (step 1) and the heuristic imputation algorithm, a pedigree might be required for those computations.
 
-The HMM works by populating a pool of template haplotypes based on the observed genotypes or phases. 
-These template haplotypes correspond to those in the entire population that could lead to the observed genotypes. 
-For each animal, the most likely pair of haplotypes are found, taking into account genotype errors and recombination events. 
-The genotype errors and recombination events are model hyperparameters that are estimated within the model. 
+The HMM works by populating a pool of template haplotypes based on the observed genotypes or phases.
+These template haplotypes correspond to those in the entire population that could lead to the observed genotypes.
+For each animal, the most likely pair of haplotypes are found, taking into account genotype errors and recombination events.
+The genotype errors and recombination events are model hyperparameters that are estimated within the model.
 If an animal is phased, a haploid model is used to find each parental haplotype independently. If not, a diploid model is used to find the pair of parental haplotypes (see `WellImputedThreshold`).
 
-To reduce computational time, only a subset of all possible haplotypes is sampled for the template haplotypes (see `TemplateHaplotypes`). 
-If the entire population is well-phased (see `PhasedAnimalsThreshold`), all animals can be used to sample haplotypes, with the added benefit of using the faster haploid model. 
+To reduce computational time, only a subset of all possible haplotypes is sampled for the template haplotypes (see `TemplateHaplotypes`).
+If the entire population is well-phased (see `PhasedAnimalsThreshold`), all animals can be used to sample haplotypes, with the added benefit of using the faster haploid model.
 If not, only high-density genotyped animals are used to sample haplotypes, using only their observed genotypes.
 
-AlphaImpute utilizes a Monte-Carlo procedure that succeedingly samples haplotypes, estimates the hyperparameters, and finds the most likely pairs of haplotypes. 
-The final estimate is found by summarizing over a number of rounds (`Rounds`\index{Rounds|textsl}), after discarding a number of initial ‘burn-in rounds’ (`BurnInRounds`). 
+AlphaImpute utilizes a Monte-Carlo procedure that succeedingly samples haplotypes, estimates the hyperparameters, and finds the most likely pairs of haplotypes.
+The final estimate is found by summarizing over a number of rounds (`Rounds`\index{Rounds|textsl}), after discarding a number of initial ‘burn-in rounds’ (`BurnInRounds`).
 
-When using HMM for imputation, AlphaImpute also outputs `ImputePhaseHMM.txt` \index{Files!ImputePhaseHMM.txt} and `ImputeGenotypesHMM.txt` \index{Files!ImputeGenotypesHMM.txt} with the HMM imputed phases and genotypes, 
+When using HMM for imputation, AlphaImpute also outputs `ImputePhaseHMM.txt` \index{Files!ImputePhaseHMM.txt} and `ImputeGenotypesHMM.txt` \index{Files!ImputeGenotypesHMM.txt} with the HMM imputed phases and genotypes,
 and *updates* `ImputePhaseProbabilities.txt` \index{Files!ImputePhaseProbabilities.txt} and `ImputeGenotypeProbabilities.txt` \index{Files!ImputeGenotypeProbabilities.txt} with HMM derived allele dosages and genotypes dosages.
 
 
 
-#### `HMMOption ,(No/Only/Also/Prephase/NGS) ` \index{HMMOption|textbf}
+#### `HMMOption ,(No/Only/Yes/NGS) ` \index{HMMOption|textbf}
 \label{setting-HMMOption}
 
 Default value: `No`
 
-When `Only`, AlphaImpute does not perform long-range phasing and haplotype library construction (step 1), and only performs imputation with the HMM. 
+When `Only`, AlphaImpute does not perform long-range phasing and haplotype library construction (step 1), and only performs imputation with the HMM.
 This option is useful when phasing information is not available or when imputation is required in unrelated populations [@marchini_genotype_2010].
 
-When `Also` (previously `Yes`), AlphaImpute performs as standard, and performs the HMM imputation as an additional step *after* the last heuristic imputation.
+When `Yes`, AlphaImpute performs as standard, and performs the HMM imputation as an additional step *after* the last heuristic imputation.
 
-When `Prephase` **?** ***See source code; this string is compared to mixed-case *after* turning to lower-case!***
-
-When `NGS` **?**
-
-#### `HMMParameters ,<int>,<int>,<int>,<int>,<int>  ` \index{HMMParameters|textbf}
-\label{setting-HMMParameters}
-
-Short-hand for setting all HMM parameters, in the order `TemplateHaplotypes`, `BurnInRounds`, `Rounds`, `ParallelProcessors`, `Seed`. See respective settings for explanation of these. 
+When `NGS`, AlphaImpute does not perform long-range phasing and haplotype library construction (step 1), and only performs imputation with the HMM as in `Only` option.
+This option takes as impute sequence data in the form of the number of reads for both the reference and alternative alleles.
 
 #### `TemplateHaplotypes ,<int>  ` \index{TemplateHaplotypes|textbf}
 \label{setting-TemplateHaplotypes}
 
 Default value: `0`
 
-Sets the number of template haplotypes that the HMM samples. 
-Larger numbers can improve imputation accuracy, but at a cost of computation. 
-Computational time is quadratic on number of template haplotypes, i.e.\ $O(n^2)$. 
+Sets the number of template haplotypes that the HMM samples.
+Larger numbers can improve imputation accuracy, but at a cost of computation.
+Computational time is quadratic on number of template haplotypes, i.e.\ $O(n^2)$.
 Can be combined with an increased number of processors (`ParallelProcessors`) to counter increased computational time.
 
-<!-- 
+<!--
 > **How does this compare to the number of animals?** Can it exceed the number of animals??
 -->
 
@@ -487,49 +481,51 @@ See setting `Rounds` \settingref{Rounds}
 #### `Rounds       ,<int> ` \index{Rounds|textbf}
 \label{setting-Rounds}
 
-Default value: `0`
+Default value: `1`
 
-Sets the total number of rounds that the HMM is computed. 
-For each round, the template haplotypes are re-sampled from eligible animals and model parameters updated, to produce new estimates of imputed phases. 
+Sets the total number of rounds that the HMM is computed.
+For each round, the template haplotypes are re-sampled from eligible animals and model parameters updated, to produce new estimates of imputed phases.
 The final verdict is summarized across all rounds, after discarding the estimates from the first number of rounds cf.\ `BurnInRounds` \settingref{BurnInRounds}.
+The default value, `0`, makes AlphaImpute to consider all individuals in the population to sample haplotypes.
 
 A value exceeding 50 rarely improves imputation accuracy.
 
 #### `Seed ,<int> ` \index{Seed|textbf}
 \label{setting-Seed}
 
-Default value: `0`
+Default value: `-123456789`
 
 Value to seed random number generation. Must be negative.
 
 #### `PhasedAnimalsThreshold ,<RealPct> ` \index{PhasedAnimalsThreshold|textbf}
 \label{setting-PhasedAnimalsThreshold}
 
-Default value: `0.0`
+Default value: `0.90`
 
-The threshold is compared to the overall proportion of phased alleles after long-range phasing (step 1) and heuristic imputation; if this threshold is met, both high-density and imputed animals can be sampled for the template haplotypes. 
-If the threshold is not met, only high-density genotyped animals are sampled for the template haplotypes. 
+The threshold is compared to the overall proportion of phased alleles after long-range phasing (step 1) and heuristic imputation; if this threshold is met, both high-density and imputed animals can be sampled for the template haplotypes.
+If the threshold is not met, only high-density genotyped animals are sampled for the template haplotypes.
 
 #### `ThresholdImputed ,<RealPct> ` \index{ThresholdImputed|textbf}
 \label{setting-ThresholdImputed}
 
-Default value: `0.0`
+Default value: `0.50`
 
-The threshold is compared to the proportion of imputed alleles of each animal; if the threshold is met the animal is imputed with faster, haploid HMM. 
+The threshold is compared to the proportion of imputed alleles of each animal; if the threshold is met the animal is imputed with faster, haploid HMM.
 If the threshold is not met, the animal is imputed with the diploid HMM.
 
 <!--
 >> How is this behavior affected when HMMOption is set to ‘Only’?
 -->
 
-The haploid HMM estimates each parental haplotype independently when the animal is well-phased. 
-If the animal is not well-phased, a diploid HMM is used where the parental haplotypes are estimated in tandem. 
-Both models utilize the same pool of template haplotypes. 
+The haploid HMM estimates each parental haplotype independently when the animal is well-phased.
+If the animal is not well-phased, a diploid HMM is used where the parental haplotypes are estimated in tandem.
+Both models utilize the same pool of template haplotypes.
 
-#### `HaplotypesList ,<fn> ` \index{HaplotypesList|textbf}
+<!-- #### `HaplotypesList ,<fn> ` \index{HaplotypesList|textbf}
 \label{setting-HaplotypesList}
 
 Default value: `None`
+ -->
 
 <!--
 ***???***

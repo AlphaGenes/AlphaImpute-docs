@@ -60,14 +60,12 @@ Table: All settings understood by AlphaImpute. Full explanation of these can be 
 `ModelRecomb` | Models recombination after last imputation. | `(Yes/No)`
 *Box 7: Hidden Markov model* | |
 `HMMOption` | Enable or disable use of HMM something. | `(Yes/No)`
-`HMMParameters` | Single line for setting following settings. | `<TemplateHaplotypes>,<BurnInRounds>, <Rounds>,<ParallelProcessors>, <Seed>`
 `TemplateHaplotypes` | Number of possible gametes whose recombinations led to a given SNP genotype. | `<integer>`
 `BurnInRounds` | Number of rounds to discard before sampling HMM. | `<integer>`
 `Rounds` | Total number of rounds for Monte-Carlo sampling of HMM. | `<integer>`
 `Seed` | Initial seed for random number generator. Must be negative. | `<integer>`
 `PhasedAnimalsThreshold` | Threshold for proportion of phased animals for sampling haplotypes among both impute and high-density genotyped animal. | `<RealPct>`
 `ThresholdImputed` | When the proportion of an animal’s alleles are phased above this threshold, the haploid model is used. | `<RealPct>`
-`HaplotypesList` | ***????***
 *Box 8: Run time options* | |
 `PreprocessDataOnly` | When `Yes`, AlphaImpute stops before phasing. | `(Yes/No)`
 `ParallelProcessors` | Upper limit of how many parallel processes are used for phasing and HMM. | `<integer>`
