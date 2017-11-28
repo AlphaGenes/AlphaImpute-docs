@@ -3,7 +3,6 @@ PedigreeFile                ,Pedigree.txt
 GenotypeFile                ,Genotypes.txt
 TrueGenotypeFile            ,TrueGenotypes.txt
 SexChrom                    ,No
-PlinkInputfile              ,
 = BOX 2: SNPs ==================================================================
 NumberSnp                   ,1500
 MultipleHDPanels            ,0
