@@ -15,6 +15,18 @@ working the genotype files for AlphaImpute.
 
 ## Error messages
 
+### `The system cannot find the file specified.`
+
+This error occures in Windows, when AlphaImpute attempts to remove previous output directories
+(`Phasing`, `Miscellaneous`, and `Results`). 
+It results in the following error message, right after the AlphaImpute 'logo'.
+
+```
+The system cannot find the file specified.
+The system cannot find the file specified.
+The system cannot find the file specified.
+```
+
 ### `OMP: Error #34`
 
 I am receiving the error
