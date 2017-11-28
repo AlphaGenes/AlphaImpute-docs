@@ -40,15 +40,26 @@ AlphaImpute is available as an executable file from the AlphaGenes website: <htt
 Binaries are compiled for Linux (64 bit), Mac OaSX (64 bit), and Windows (64 bit).
 
 
-<!-- 
+
 ## System requirements
 
+The amount of RAM the program requires depends on the dataset. It tends to scale linearly with the number of animals in the supplied pedigree.
+
+#### OS X
+
+The program will function on any 64-bit intel based mac, with OS 10.8 or later (older versions might work). 
 
 
-???
+#### Linux
 
-> **David**? 
--->
+The program was tested working on linux kernel 3.14 and in theory should support any system with SSE3 instructions.
+
+
+
+#### Windows
+
+The program will function on any PC with a 64-bit processor with SSE3 instructions. It requires Windows 7 or later.
+
 
 ## Conditions of use
 AlphaImpute is available to the scientific community free of charge, but conditional on crediting its use in any publication with the citations listed below. Commercial users should contact John Hickey.
