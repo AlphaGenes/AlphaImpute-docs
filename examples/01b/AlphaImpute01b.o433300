@@ -7,13 +7,12 @@
                                                                                
                      Software For Phasing and Imputing Genotypes               
  
-                               Commit:   v1.9.7                     
-                               Compiled: Nov 08 2017, 15:34:03
+                               Commit:   v1.9.8-1-gbc6a8eb                     
+                               Compiled: Nov 16 2017, 16:11:05
  
  
  
  
-error, Plinkinputfile allocated incorrectly
  
  NOTE: Number of Genotyped animals:         1100
              0  errors in the pedigree due to Mendelian inconsistencies
@@ -35,103 +34,107 @@ error, Plinkinputfile allocated incorrectly
   
   Parent of origin assigmnent of high density haplotypes completed
   
-  Imputation from high-density parents completed at: 162549.100
+  Imputation from high-density parents completed at: 133453.969
   
-  Haplotype library imputation completed at: 162549.734
+  Haplotype library imputation completed at: 133454.644
   
   Internal imputation from parents haplotype completed at: 
- 162550.419                                                                     
+ 133455.341                                                                     
                                                                         
   Internal imputation from own haplotype completed at: 
- 162552.092                                                                     
+ 133457.140                                                                     
                                                                         
   
   Internal haplotype library imputation completed at: 
- 162552.427                                                                     
+ 133457.594                                                                     
                                                                         
   
  Performing imputation loop           2
   
   Parent of origin assigmnent of high density haplotypes completed
   
-  Imputation from high-density parents completed at: 162552.945
+  Imputation from high-density parents completed at: 133458.082
   
-  Haplotype library imputation completed at: 162553.522
+  Haplotype library imputation completed at: 133458.684
   
   Internal imputation from parents haplotype completed at: 
- 162554.184                                                                     
+ 133459.383                                                                     
                                                                         
   Internal imputation from own haplotype completed at: 
- 162555.716                                                                     
+ 133501.121                                                                     
                                                                         
   
   Internal haplotype library imputation completed at: 
- 162556.041                                                                     
+ 133501.454                                                                     
                                                                         
   
  Performing imputation loop           3
   
   Parent of origin assigmnent of high density haplotypes completed
   
-  Imputation from high-density parents completed at: 162556.530
+  Imputation from high-density parents completed at: 133501.941
   
-  Haplotype library imputation completed at: 162557.098
+  Haplotype library imputation completed at: 133502.709
   
   Internal imputation from parents haplotype completed at: 
- 162557.772                                                                     
+ 133503.437                                                                     
                                                                         
   Internal imputation from own haplotype completed at: 
- 162559.368                                                                     
+ 133505.248                                                                     
                                                                         
   
   Internal haplotype library imputation completed at: 
- 162559.717                                                                     
+ 133505.584                                                                     
                                                                         
   
  Performing imputation loop           4
   
   Parent of origin assigmnent of high density haplotypes completed
   
-  Imputation from high-density parents completed at: 162600.217
+  Imputation from high-density parents completed at: 133506.067
   
-  Haplotype library imputation completed at: 162600.759
+  Haplotype library imputation completed at: 133506.625
   
   Internal imputation from parents haplotype completed at: 
- 162601.464                                                                     
+ 133507.323                                                                     
                                                                         
   Internal imputation from own haplotype completed at: 
- 162602.995                                                                     
+ 133509.076                                                                     
                                                                         
   
   Internal haplotype library imputation completed at: 
- 162603.346                                                                     
+ 133509.417                                                                     
                                                                         
   
  Performing imputation loop           5
   
   Parent of origin assigmnent of high density haplotypes completed
   
-  Imputation from high-density parents completed at: 162603.835
+  Imputation from high-density parents completed at: 133509.905
   
-  Haplotype library imputation completed at: 162604.358
+  Haplotype library imputation completed at: 133510.455
   
   Internal imputation from parents haplotype completed at: 
- 162605.021                                                                     
+ 133511.149                                                                     
                                                                         
   Internal imputation from own haplotype completed at: 
- 162606.582                                                                     
+ 133512.755                                                                     
                                                                         
   
   Internal haplotype library imputation completed at: 
- 162606.940                                                                     
+ 133513.095                                                                     
                                                                         
   
   Imputation by detection of recombination events completed
  
+ 
+ 
+ Genotype Yield  0.9984721    
+ 
  *******************************************************************************
  *******************
- Yield  0.9984721    
- Accuracy per animal:  0.9973816    
+ Correct Percentage of SNPs per animal:  0.9973815    
+ Correct Percentage of SNPs per low density animal:  0.9973815    
  
  
  
@@ -146,4 +149,4 @@ error, Plinkinputfile allocated incorrectly
                                    No Liability
  
                  Analysis Finished                         
-                                                                                               Time Elapsed  Hours  0  Minutes  1  Seconds 38.50
+                                                                                               Time Elapsed  Hours  0  Minutes  1  Seconds 31.14
