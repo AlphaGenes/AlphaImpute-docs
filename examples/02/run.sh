@@ -4,15 +4,17 @@
 #$ -N AlphaImpute02
 
 rm -rf Phasing_1
-../../AlphaImpute Spec_1.txt && mv Phasing Phasing_1 && ../../AlphaImpute Spec_2.txt
+rm -rf Results_1
+../../AlphaImpute Spec_1.txt || { echo 'An error occured running AlphaImpute!' ;  exit 1; }
 
-echo '====================================================================='
-echo '===                                                               ==='
-echo '===         And now for something completely different!           ==='
-echo '===       Trying a slight modification of spec file, see number   ==='
-echo '===       of phasing runs.                                        ==='
-echo '===                                                               ==='
-echo '====================================================================='
+mv Phasing Phasing_1 
+mv Results Results_1 
 
-rm -rf Phasing_1
-../../AlphaImpute Spec_1.txt  && mv Phasing Phasing_1 && ../../AlphaImpute Spec_2b.txt
+echo 
+echo '======================================================================'
+echo '===  Now running AlphaImpute with previous phasing information     ==='
+echo '======================================================================'
+echo 
+
+../../AlphaImpute Spec_2.txt
+
