@@ -58,7 +58,9 @@ The program was tested working on linux kernel 3.14 and in theory should support
 
 #### Windows
 
-The program will function on any PC with a 64-bit processor with SSE3 instructions. It requires Windows 7 or later.
+The program will run on Windows 7 or later, if the PC has a 64-bit processor with SSE3 instructions.
+The executable depends on a list of .dll and .pdb files, which are available in the zip-file. 
+If you move the executable to a different location, ensure that the .dll and .pdb are also found in the `PATH` environment variable.
 
 
 ## Conditions of use
