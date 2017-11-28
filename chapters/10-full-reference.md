@@ -452,7 +452,7 @@ Default value: `No`
 When `Only`, AlphaImpute does not perform long-range phasing and haplotype library construction (step 1), and only performs imputation with the HMM.
 This option is useful when phasing information is not available or when imputation is required in unrelated populations [@marchini_genotype_2010].
 
-When `Yes`, AlphaImpute performs as standard, and performs the HMM imputation as an additional step *after* the last heuristic imputation.
+When `Yes`, AlphaImpute performs standard heurestic imputation *and* performs the HMM imputation as an additional step *after* the last heuristic imputation.
 
 When `NGS`, AlphaImpute does not perform long-range phasing and haplotype library construction (step 1), and only performs imputation with the HMM as in `Only` option.
 This option takes as impute sequence data in the form of the number of reads for both the reference and alternative alleles.
