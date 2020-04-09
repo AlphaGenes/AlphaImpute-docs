@@ -4,10 +4,10 @@
 
 AlphaImpute is a software package for imputing and phasing genotype data in diploid populations with pedigree information. 
 To impute an individual's genotype, the program infers possible haplotypes of the parental gametes that were inherited by the individual. 
-This requires phase information, and when not present, the program this information. 
+This requires phase information, and when not present, the program generates this information by running AlphaPhase. 
 AlphaImpute operates on overlapping chromosome segments, here referred to as cores, to account for recombination events. 
 
-Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to John.Hickey@roslin.ed.ac.uk or Roberto.Antolin@roslin.ed.ac.uk.
+Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to John.Hickey@roslin.ed.ac.uk.
 
 
 ## Historical background
@@ -65,7 +65,7 @@ If you move the executable to a different location, ensure that the .dll and .pd
 
 ## Conditions of use
 
-AlphaImpute is part of a suite of software that our group has developed. It is fully and freely available for academic use, provided that users cite it in publications. However, due to our contractual obligations with some of the funders of the research program that has developed this suite of software, all interested commercial organisations are requested to contact John Hickey (`John.Hickey@roslin.ed.ac.uk <John.Hickey@roslin.ed.ac.uk>`_) to discuss the terms of use.
+AlphaImpute is part of a suite of software that our group has developed. It is fully and freely available for academic use, provided that users cite it in publications. However, due to our contractual obligations with some of the funders of the research program that has developed this suite of software, all interested commercial organisations are requested to contact John Hickey (<John.Hickey@roslin.ed.ac.uk>) to discuss the terms of use.
 
 <!-- Please update the citations here to follow the layout produced by pandoc / latex -->
 Citations:

@@ -1,6 +1,6 @@
 # Frequenty asked questions
 
-Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to John.Hickey@roslin.ed.ac.uk or Roberto.Antolin@roslin.ed.ac.uk.
+Please report bugs or suggestions on how the program / user interface / manual could be improved or made more user friendly to John.Hickey@roslin.ed.ac.uk.
 
 \etocsetnexttocdepth{2}
 \localtableofcontents
