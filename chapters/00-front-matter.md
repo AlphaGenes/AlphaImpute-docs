@@ -1,4 +1,4 @@
-﻿\chapter*{}
+\chapter*{}
 
 ## Foreword
 
@@ -65,7 +65,7 @@ If you move the executable to a different location, ensure that the .dll and .pd
 
 ## Conditions of use
 
-AlphaImpute is part of a suite of software that our group has developed. It is fully and freely available for academic use, provided that users cite it in publications. However, due to our contractual obligations with some of the funders of the research program that has developed this suite of software, all interested commercial organisations are requested to contact John Hickey (<John.Hickey@roslin.ed.ac.uk>) to discuss the terms of use.
+AlphaImpute is part of a suite of software that our group has developed. It is fully and freely available for all use under the MIT License.
 
 <!-- Please update the citations here to follow the layout produced by pandoc / latex -->
 Citations:
